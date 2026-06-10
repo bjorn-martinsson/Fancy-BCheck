@@ -1,5 +1,41 @@
-let setups = {};
+const SCALE = [
 
+    -10000,
+    -5000,
+    -2000,
+    -1000,
+    -500,
+    -200,
+    -100,
+    -50,
+    -20,
+    -10,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+
+     0,
+
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000,
+     2000,
+     5000,
+     10000
+];
+
+let setups = {};
 let currentResults = [];
 
 async function loadData() {
@@ -9,8 +45,6 @@ async function loadData() {
 
     setups =
         await response.json();
-
-    console.log("Loaded setups");
 
 }
 
@@ -32,21 +66,21 @@ function getWeights() {
         difficulty:
             Number(
                 document.getElementById(
-                    "difficultyWeight"
+                    "difficultyNumber"
                 ).value
             ),
 
         speed:
             Number(
                 document.getElementById(
-                    "speedWeight"
+                    "speedNumber"
                 ).value
             ),
 
         consistency:
             Number(
                 document.getElementById(
-                    "consistencyWeight"
+                    "consistencyNumber"
                 ).value
             )
 
@@ -56,23 +90,22 @@ function getWeights() {
 
 function scoreSetup(setup) {
 
-    const w =
-        getWeights();
+    const w = getWeights();
 
     return (
 
-        setup.difficulty *
-        w.difficulty
+        setup.difficulty
+        * w.difficulty
 
         +
 
-        setup.speed *
-        w.speed
+        setup.speed
+        * w.speed
 
         +
 
-        setup.consistency *
-        w.consistency
+        setup.consistency
+        * w.consistency
 
     );
 
@@ -139,44 +172,56 @@ function displayResults() {
                 "setup";
 
             div.innerHTML = `
-                <h3>
-                    Score:
-                    ${scoreSetup(setup)}
-                </h3>
+                <h3>Score: ${scoreSetup(setup)}</h3>
 
-                <p>
-                    ${setup.description}
-                </p>
+                <p>${setup.description}</p>
 
                 <ul>
-                    <li>
-                        Difficulty:
-                        ${setup.difficulty}
-                    </li>
-
-                    <li>
-                        Speed:
-                        ${setup.speed}
-                    </li>
-
-                    <li>
-                        Consistency:
-                        ${setup.consistency}
-                    </li>
+                    <li>Difficulty: ${setup.difficulty}</li>
+                    <li>Speed: ${setup.speed}</li>
+                    <li>Consistency: ${setup.consistency}</li>
                 </ul>
             `;
 
-            container.appendChild(
-                div
-            );
+            container.appendChild(div);
 
         });
 
 }
 
-/*
-    Slider + Number Synchronization
-*/
+function nearestScaleIndex(value) {
+
+    let bestIndex = 0;
+    let bestDistance = Infinity;
+
+    SCALE.forEach(
+        (scaleValue, index) => {
+
+            const distance =
+                Math.abs(
+                    scaleValue
+                    - value
+                );
+
+            if (
+                distance <
+                bestDistance
+            ) {
+
+                bestDistance =
+                    distance;
+
+                bestIndex =
+                    index;
+
+            }
+
+        }
+    );
+
+    return bestIndex;
+
+}
 
 const settings = [
 
@@ -211,16 +256,17 @@ settings.forEach(setting => {
 
     const saved =
         localStorage.getItem(
-            setting.slider
+            setting.number
         );
 
     if (saved !== null) {
 
-        slider.value =
-            saved;
+        number.value = saved;
 
-        number.value =
-            saved;
+        slider.value =
+            nearestScaleIndex(
+                Number(saved)
+            );
 
     }
 
@@ -228,12 +274,19 @@ settings.forEach(setting => {
         "input",
         () => {
 
+            const value =
+                SCALE[
+                    Number(
+                        slider.value
+                    )
+                ];
+
             number.value =
-                slider.value;
+                value;
 
             localStorage.setItem(
-                setting.slider,
-                slider.value
+                setting.number,
+                value
             );
 
             rerankResults();
@@ -245,12 +298,19 @@ settings.forEach(setting => {
         "input",
         () => {
 
+            const value =
+                Number(
+                    number.value
+                );
+
             slider.value =
-                number.value;
+                nearestScaleIndex(
+                    value
+                );
 
             localStorage.setItem(
-                setting.slider,
-                number.value
+                setting.number,
+                value
             );
 
             rerankResults();

@@ -170,3 +170,56 @@ function displayResults() {
         });
 
 }
+
+
+const sliders = [
+
+    "difficultyWeight",
+    "speedWeight",
+    "consistencyWeight"
+
+];
+
+sliders.forEach(id => {
+
+    const slider =
+        document.getElementById(id);
+
+    const valueDisplay =
+        document.getElementById(
+            id.replace(
+                "Weight",
+                "Value"
+            )
+        );
+
+    const saved =
+        localStorage.getItem(id);
+
+    if (saved !== null) {
+
+        slider.value = saved;
+
+    }
+
+    valueDisplay.textContent =
+        slider.value;
+
+    slider.addEventListener(
+        "input",
+        () => {
+
+            valueDisplay.textContent =
+                slider.value;
+
+            localStorage.setItem(
+                id,
+                slider.value
+            );
+
+            rerankResults();
+
+        }
+    );
+
+});

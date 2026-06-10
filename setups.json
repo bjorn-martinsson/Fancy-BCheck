@@ -1,0 +1,31 @@
+{
+  "100": [
+    {
+      "description": "Jump then attack",
+      "difficulty": 2,
+      "speed": 8,
+      "consistency": 9
+    },
+    {
+      "description": "Attack twice",
+      "difficulty": 5,
+      "speed": 5,
+      "consistency": 10
+    },
+    {
+      "description": "Crouch jump attack",
+      "difficulty": 8,
+      "speed": 9,
+      "consistency": 3
+    }
+  ],
+
+  "101": [
+    {
+      "description": "Special route",
+      "difficulty": 1,
+      "speed": 10,
+      "consistency": 4
+    }
+  ]
+}

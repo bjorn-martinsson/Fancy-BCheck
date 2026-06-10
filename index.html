@@ -4,21 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fance Bounce Checker</title>
+    <title>Setup Finder</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Fancy Bounce Checker</h1>
+    <h1>Setup Finder</h1>
 
     <div class="search-area">
 
         <input
             id="targetInput"
             type="number"
-            placeholder="Enter floor height">
+            placeholder="Enter integer">
 
         <button onclick="findSetups()">
             Search
@@ -42,14 +42,15 @@
 
             <input
                 type="range"
-                min="-10"
-                max="10"
+                min="-10000"
+                max="10000"
                 value="0"
                 id="difficultyWeight">
 
-            <span id="difficultyValue">
-                0
-            </span>
+            <input
+                type="number"
+                value="0"
+                id="difficultyNumber">
 
         </div>
 
@@ -61,14 +62,15 @@
 
             <input
                 type="range"
-                min="-10"
-                max="10"
+                min="-10000"
+                max="10000"
                 value="0"
                 id="speedWeight">
 
-            <span id="speedValue">
-                0
-            </span>
+            <input
+                type="number"
+                value="0"
+                id="speedNumber">
 
         </div>
 
@@ -80,14 +82,15 @@
 
             <input
                 type="range"
-                min="-10"
-                max="10"
+                min="-10000"
+                max="10000"
                 value="0"
                 id="consistencyWeight">
 
-            <span id="consistencyValue">
-                0
-            </span>
+            <input
+                type="number"
+                value="0"
+                id="consistencyNumber">
 
         </div>
 
@@ -95,9 +98,113 @@
 
     <hr>
 
-    <div id="results">
+    <div id="results"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Finder</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Setup Finder</h1>
+
+    <div class="search-area">
+
+        <input
+            id="targetInput"
+            type="number"
+            placeholder="Enter integer">
+
+        <button onclick="findSetups()">
+            Search
+        </button>
+
+        <button onclick="togglePreferences()">
+            Preferences
+        </button>
 
     </div>
+
+    <div id="preferences" class="hidden">
+
+        <h2>Ranking Preferences</h2>
+
+        <div class="slider-row">
+
+            <label>
+                Difficulty
+            </label>
+
+            <input
+                type="range"
+                min="-10000"
+                max="10000"
+                value="0"
+                id="difficultyWeight">
+
+            <input
+                type="number"
+                value="0"
+                id="difficultyNumber">
+
+        </div>
+
+        <div class="slider-row">
+
+            <label>
+                Speed
+            </label>
+
+            <input
+                type="range"
+                min="-10000"
+                max="10000"
+                value="0"
+                id="speedWeight">
+
+            <input
+                type="number"
+                value="0"
+                id="speedNumber">
+
+        </div>
+
+        <div class="slider-row">
+
+            <label>
+                Consistency
+            </label>
+
+            <input
+                type="range"
+                min="-10000"
+                max="10000"
+                value="0"
+                id="consistencyWeight">
+
+            <input
+                type="number"
+                value="0"
+                id="consistencyNumber">
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div id="results"></div>
 
     <script src="script.js"></script>
 

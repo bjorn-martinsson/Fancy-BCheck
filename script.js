@@ -11,6 +11,7 @@ async function loadData() {
         await response.json();
 
     console.log("Loaded setups");
+
 }
 
 loadData();
@@ -50,6 +51,7 @@ function getWeights() {
             )
 
     };
+
 }
 
 function scoreSetup(setup) {
@@ -86,7 +88,7 @@ function findSetups() {
         .value;
 
     currentResults =
-        setups[target] || [];
+        [...(setups[target] || [])];
 
     rerankResults();
 
@@ -122,6 +124,7 @@ function displayResults() {
             "<p>No setups found.</p>";
 
         return;
+
     }
 
     currentResults.forEach(
@@ -171,50 +174,83 @@ function displayResults() {
 
 }
 
+/*
+    Slider + Number Synchronization
+*/
 
-const sliders = [
+const settings = [
 
-    "difficultyWeight",
-    "speedWeight",
-    "consistencyWeight"
+    {
+        slider: "difficultyWeight",
+        number: "difficultyNumber"
+    },
+
+    {
+        slider: "speedWeight",
+        number: "speedNumber"
+    },
+
+    {
+        slider: "consistencyWeight",
+        number: "consistencyNumber"
+    }
 
 ];
 
-sliders.forEach(id => {
+settings.forEach(setting => {
 
     const slider =
-        document.getElementById(id);
-
-    const valueDisplay =
         document.getElementById(
-            id.replace(
-                "Weight",
-                "Value"
-            )
+            setting.slider
+        );
+
+    const number =
+        document.getElementById(
+            setting.number
         );
 
     const saved =
-        localStorage.getItem(id);
+        localStorage.getItem(
+            setting.slider
+        );
 
     if (saved !== null) {
 
-        slider.value = saved;
+        slider.value =
+            saved;
+
+        number.value =
+            saved;
 
     }
-
-    valueDisplay.textContent =
-        slider.value;
 
     slider.addEventListener(
         "input",
         () => {
 
-            valueDisplay.textContent =
+            number.value =
                 slider.value;
 
             localStorage.setItem(
-                id,
+                setting.slider,
                 slider.value
+            );
+
+            rerankResults();
+
+        }
+    );
+
+    number.addEventListener(
+        "input",
+        () => {
+
+            slider.value =
+                number.value;
+
+            localStorage.setItem(
+                setting.slider,
+                number.value
             );
 
             rerankResults();

@@ -24,16 +24,22 @@ button {
 }
 
 .slider-row {
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
 .slider-row label {
-    display: inline-block;
     width: 100px;
 }
 
-.slider-row input {
-    width: 250px;
+.slider-row input[type="range"] {
+    flex: 1;
+}
+
+.slider-row input[type="number"] {
+    width: 90px;
 }
 
 .setup {

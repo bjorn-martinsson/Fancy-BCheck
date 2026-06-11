@@ -178,7 +178,7 @@ function buildPreferences() {
                     type="range"
                     min="0"
                     max="${SCALE.length - 1}"
-                    value="15"
+                    value="${(SCALE.length - 1)/2}"
                     id="${pref.id}Slider">
 
                 <input

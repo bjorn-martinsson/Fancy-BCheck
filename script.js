@@ -71,7 +71,9 @@ let currentResults = [];
 async function loadData() {
 
     const setupResponse =
-        await fetch("setups.json");
+        await fetch(
+            "setups.json"
+        );
 
     setups =
         await setupResponse.json();
@@ -111,7 +113,8 @@ function nearestScaleIndex(value) {
 
             const distance =
                 Math.abs(
-                    scaleValue - value
+                    scaleValue
+                    - value
                 );
 
             if (
@@ -178,12 +181,12 @@ function buildPreferences() {
                     type="range"
                     min="0"
                     max="${SCALE.length - 1}"
-                    value="${(SCALE.length - 1)/2}"
+                    value="${nearestScaleIndex(pref.defaultWeight ?? 0)}"
                     id="${pref.id}Slider">
 
                 <input
                     type="number"
-                    value="0"
+                    value="${pref.defaultWeight ?? 0}"
                     id="${pref.id}Number">
 
             `;
@@ -222,6 +225,9 @@ function initializePreferenceLogic() {
                     `${pref.id}Number`
                 );
 
+            const defaultValue =
+                pref.defaultWeight ?? 0;
+
             const saved =
                 localStorage.getItem(
                     pref.id
@@ -237,6 +243,17 @@ function initializePreferenceLogic() {
                 slider.value =
                     nearestScaleIndex(
                         Number(saved)
+                    );
+
+            }
+            else {
+
+                number.value =
+                    defaultValue;
+
+                slider.value =
+                    nearestScaleIndex(
+                        defaultValue
                     );
 
             }
@@ -290,6 +307,41 @@ function initializePreferenceLogic() {
         });
 
     });
+
+}
+
+function resetPreferences() {
+
+    preferencesConfig.groups
+        .forEach(group => {
+
+        group.preferences
+            .forEach(pref => {
+
+            const value =
+                pref.defaultWeight ?? 0;
+
+            localStorage.removeItem(
+                pref.id
+            );
+
+            document.getElementById(
+                `${pref.id}Number`
+            ).value =
+                value;
+
+            document.getElementById(
+                `${pref.id}Slider`
+            ).value =
+                nearestScaleIndex(
+                    value
+                );
+
+        });
+
+    });
+
+    rerankResults();
 
 }
 
@@ -384,6 +436,17 @@ function displayResults() {
         );
 
     container.innerHTML = "";
+
+    if (
+        currentResults.length === 0
+    ) {
+
+        container.innerHTML =
+            "<p>No setups found.</p>";
+
+        return;
+
+    }
 
     currentResults
         .forEach(setup => {

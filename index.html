@@ -36,11 +36,24 @@
     <div id="preferencesPanel"
          class="hidden">
 
-        <h2>Ranking Preferences</h2>
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:20px;
+        ">
 
-        <div id="preferences">
+            <h2>
+                Ranking Preferences
+            </h2>
+
+            <button onclick="resetPreferences()">
+                Reset to Defaults
+            </button>
 
         </div>
+
+        <div id="preferences"></div>
 
     </div>
 
@@ -49,7 +62,3 @@
     <div id="results"></div>
 
     <script src="script.js"></script>
-
-</body>
-
-</html>

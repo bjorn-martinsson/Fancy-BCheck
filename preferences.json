@@ -2,37 +2,36 @@
   "groups": [
     {
       "name": "Execution",
-
       "preferences": [
         {
           "id": "difficulty",
-          "label": "Difficulty"
+          "label": "Difficulty",
+          "defaultWeight": 0
         },
-
         {
           "id": "speed",
-          "label": "Speed"
+          "label": "Speed",
+          "defaultWeight": 55
         },
-
         {
           "id": "consistency",
-          "label": "Consistency"
+          "label": "Consistency",
+          "defaultWeight": 100
         }
       ]
     },
-
     {
       "name": "Comfort",
-
       "preferences": [
         {
           "id": "precision",
-          "label": "Precision"
+          "label": "Precision",
+          "defaultWeight": -2
         },
-
         {
           "id": "recovery",
-          "label": "Recovery"
+          "label": "Recovery",
+          "defaultWeight": 23
         }
       ]
     }

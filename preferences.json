@@ -1,0 +1,40 @@
+{
+  "groups": [
+    {
+      "name": "Execution",
+
+      "preferences": [
+        {
+          "id": "difficulty",
+          "label": "Difficulty"
+        },
+
+        {
+          "id": "speed",
+          "label": "Speed"
+        },
+
+        {
+          "id": "consistency",
+          "label": "Consistency"
+        }
+      ]
+    },
+
+    {
+      "name": "Comfort",
+
+      "preferences": [
+        {
+          "id": "precision",
+          "label": "Precision"
+        },
+
+        {
+          "id": "recovery",
+          "label": "Recovery"
+        }
+      ]
+    }
+  ]
+}

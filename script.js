@@ -65,15 +65,26 @@ const SCALE = [
 ];
 
 let setups = {};
+let preferencesConfig = null;
 let currentResults = [];
 
 async function loadData() {
 
-    const response =
+    const setupResponse =
         await fetch("setups.json");
 
     setups =
-        await response.json();
+        await setupResponse.json();
+
+    const prefResponse =
+        await fetch(
+            "preferences.json"
+        );
+
+    preferencesConfig =
+        await prefResponse.json();
+
+    buildPreferences();
 
 }
 
@@ -82,61 +93,254 @@ loadData();
 function togglePreferences() {
 
     document
-        .getElementById("preferences")
+        .getElementById(
+            "preferencesPanel"
+        )
         .classList
         .toggle("hidden");
 
 }
 
+function nearestScaleIndex(value) {
+
+    let bestIndex = 0;
+    let bestDistance = Infinity;
+
+    SCALE.forEach(
+        (scaleValue, index) => {
+
+            const distance =
+                Math.abs(
+                    scaleValue - value
+                );
+
+            if (
+                distance <
+                bestDistance
+            ) {
+
+                bestDistance =
+                    distance;
+
+                bestIndex =
+                    index;
+
+            }
+
+        }
+    );
+
+    return bestIndex;
+
+}
+
+function buildPreferences() {
+
+    const container =
+        document.getElementById(
+            "preferences"
+        );
+
+    container.innerHTML = "";
+
+    preferencesConfig.groups
+        .forEach(group => {
+
+        const groupDiv =
+            document.createElement(
+                "div"
+            );
+
+        groupDiv.className =
+            "preference-group";
+
+        groupDiv.innerHTML =
+            `<h3>${group.name}</h3>`;
+
+        group.preferences
+            .forEach(pref => {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+            row.className =
+                "slider-row";
+
+            row.innerHTML = `
+
+                <label>
+                    ${pref.label}
+                </label>
+
+                <input
+                    type="range"
+                    min="0"
+                    max="${SCALE.length - 1}"
+                    value="15"
+                    id="${pref.id}Slider">
+
+                <input
+                    type="number"
+                    value="0"
+                    id="${pref.id}Number">
+
+            `;
+
+            groupDiv.appendChild(
+                row
+            );
+
+        });
+
+        container.appendChild(
+            groupDiv
+        );
+
+    });
+
+    initializePreferenceLogic();
+
+}
+
+function initializePreferenceLogic() {
+
+    preferencesConfig.groups
+        .forEach(group => {
+
+        group.preferences
+            .forEach(pref => {
+
+            const slider =
+                document.getElementById(
+                    `${pref.id}Slider`
+                );
+
+            const number =
+                document.getElementById(
+                    `${pref.id}Number`
+                );
+
+            const saved =
+                localStorage.getItem(
+                    pref.id
+                );
+
+            if (
+                saved !== null
+            ) {
+
+                number.value =
+                    saved;
+
+                slider.value =
+                    nearestScaleIndex(
+                        Number(saved)
+                    );
+
+            }
+
+            slider.addEventListener(
+                "input",
+                () => {
+
+                const value =
+                    SCALE[
+                        Number(
+                            slider.value
+                        )
+                    ];
+
+                number.value =
+                    value;
+
+                localStorage.setItem(
+                    pref.id,
+                    value
+                );
+
+                rerankResults();
+
+            });
+
+            number.addEventListener(
+                "input",
+                () => {
+
+                const value =
+                    Number(
+                        number.value
+                    );
+
+                slider.value =
+                    nearestScaleIndex(
+                        value
+                    );
+
+                localStorage.setItem(
+                    pref.id,
+                    value
+                );
+
+                rerankResults();
+
+            });
+
+        });
+
+    });
+
+}
+
 function getWeights() {
 
-    return {
+    const weights = {};
 
-        difficulty:
-            Number(
-                document.getElementById(
-                    "difficultyNumber"
-                ).value
-            ),
+    preferencesConfig.groups
+        .forEach(group => {
 
-        speed:
-            Number(
-                document.getElementById(
-                    "speedNumber"
-                ).value
-            ),
+        group.preferences
+            .forEach(pref => {
 
-        consistency:
-            Number(
-                document.getElementById(
-                    "consistencyNumber"
-                ).value
-            )
+            weights[pref.id] =
+                Number(
+                    document
+                    .getElementById(
+                        `${pref.id}Number`
+                    )
+                    .value
+                );
 
-    };
+        });
+
+    });
+
+    return weights;
 
 }
 
 function scoreSetup(setup) {
 
-    const w = getWeights();
+    const weights =
+        getWeights();
 
-    return (
+    let score = 0;
 
-        setup.difficulty
-        * w.difficulty
+    Object.keys(weights)
+        .forEach(key => {
 
-        +
+        score +=
 
-        setup.speed
-        * w.speed
+            (setup[key] || 0)
 
-        +
+            *
 
-        setup.consistency
-        * w.consistency
+            weights[key];
 
-    );
+    });
+
+    return score;
 
 }
 
@@ -150,7 +354,10 @@ function findSetups() {
         .value;
 
     currentResults =
-        [...(setups[target] || [])];
+        [...(
+            setups[target]
+            || []
+        )];
 
     rerankResults();
 
@@ -178,173 +385,34 @@ function displayResults() {
 
     container.innerHTML = "";
 
-    if (
-        currentResults.length === 0
-    ) {
+    currentResults
+        .forEach(setup => {
 
-        container.innerHTML =
-            "<p>No setups found.</p>";
+        const div =
+            document.createElement(
+                "div"
+            );
 
-        return;
+        div.className =
+            "setup";
 
-    }
+        div.innerHTML = `
 
-    currentResults.forEach(
-        setup => {
+            <h3>
+                Score:
+                ${scoreSetup(setup)}
+            </h3>
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+            <p>
+                ${setup.description}
+            </p>
 
-            div.className =
-                "setup";
+        `;
 
-            div.innerHTML = `
-                <h3>Score: ${scoreSetup(setup)}</h3>
+        container.appendChild(
+            div
+        );
 
-                <p>${setup.description}</p>
-
-                <ul>
-                    <li>Difficulty: ${setup.difficulty}</li>
-                    <li>Speed: ${setup.speed}</li>
-                    <li>Consistency: ${setup.consistency}</li>
-                </ul>
-            `;
-
-            container.appendChild(div);
-
-        });
+    });
 
 }
-
-function nearestScaleIndex(value) {
-
-    let bestIndex = 0;
-    let bestDistance = Infinity;
-
-    SCALE.forEach(
-        (scaleValue, index) => {
-
-            const distance =
-                Math.abs(
-                    scaleValue
-                    - value
-                );
-
-            if (
-                distance <
-                bestDistance
-            ) {
-
-                bestDistance =
-                    distance;
-
-                bestIndex =
-                    index;
-
-            }
-
-        }
-    );
-
-    return bestIndex;
-
-}
-
-const settings = [
-
-    {
-        slider: "difficultyWeight",
-        number: "difficultyNumber"
-    },
-
-    {
-        slider: "speedWeight",
-        number: "speedNumber"
-    },
-
-    {
-        slider: "consistencyWeight",
-        number: "consistencyNumber"
-    }
-
-];
-
-settings.forEach(setting => {
-
-    const slider =
-        document.getElementById(
-            setting.slider
-        );
-
-    const number =
-        document.getElementById(
-            setting.number
-        );
-
-    const saved =
-        localStorage.getItem(
-            setting.number
-        );
-
-    if (saved !== null) {
-
-        number.value = saved;
-
-        slider.value =
-            nearestScaleIndex(
-                Number(saved)
-            );
-
-    }
-
-    slider.addEventListener(
-        "input",
-        () => {
-
-            const value =
-                SCALE[
-                    Number(
-                        slider.value
-                    )
-                ];
-
-            number.value =
-                value;
-
-            localStorage.setItem(
-                setting.number,
-                value
-            );
-
-            rerankResults();
-
-        }
-    );
-
-    number.addEventListener(
-        "input",
-        () => {
-
-            const value =
-                Number(
-                    number.value
-                );
-
-            slider.value =
-                nearestScaleIndex(
-                    value
-                );
-
-            localStorage.setItem(
-                setting.number,
-                value
-            );
-
-            rerankResults();
-
-        }
-    );
-
-});

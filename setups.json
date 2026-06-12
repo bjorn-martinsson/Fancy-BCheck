@@ -6,6 +6,7 @@
       "launcher": "stock",
       "rocketCount": 2,
       "rocketSpeeds": [
+        223,
         380,
         760
       ],
@@ -58,6 +59,7 @@
       "launcher": "mangler",
       "rocketCount": 0,
       "rocketSpeeds": [
+          80
       ],
 
       "techniques": {

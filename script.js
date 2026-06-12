@@ -540,7 +540,7 @@ function displayResults() {
                 </button>
 
                 <h4>
-                    Speed after rocket hits
+                    Initial speed and speed after rocket hits
                 </h4>
 
                 <div>
@@ -826,7 +826,17 @@ function buildRocketSpeedSection(
     return setup.rocketSpeeds
         .map(
             (speed, index) =>
+            
+            index == 0 ?
+            `<span
+                class="speed-badge">
 
+                Initial:
+                ${speed}
+                u/s
+
+            </span>` 
+            :
             `<span
                 class="speed-badge">
 
@@ -834,7 +844,7 @@ function buildRocketSpeedSection(
                 ${speed}
                 u/s
 
-            </span>`
+            </span>` 
         )
         .join("");
 

@@ -7,7 +7,7 @@
                     "id": "STOCK",
                     "label": "Stock",
                     "defaultWeight": 0,
-                    "description": "USes the stock rocket launcher."
+                    "description": "Uses the stock rocket launcher."
                 },
                 {
                     "id": "ORIG",

@@ -565,11 +565,7 @@ function displayResults() {
                         Show binds
                     </summary>
 
-                    <pre class="alias-code">
-
-                    ${allCode}
-
-                    </pre>
+                    <pre class="alias-code">${allCode}</pre>
 
                 </details>
 

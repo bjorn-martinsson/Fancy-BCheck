@@ -459,35 +459,327 @@ function displayResults() {
         return;
 
     }
+    
+    currentResults.forEach(
+        setup => {
 
-    currentResults
-        .forEach(setup => {
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        const div =
-            document.createElement(
-                "div"
+            div.className =
+                "setup";
+
+            const launcherTag =
+                createTag(
+                    setup.launcher.toUpperCase(),
+                    launcherDescription(
+                        setup.launcher
+                    )
+                );
+
+            const rocketTag =
+                createTag(
+                    `${setup.rocketCount} Rocket${setup.rocketCount > 1 ? "s" : ""}`,
+                    "Number of rockets used."
+                );
+
+            const techniqueTags =
+                buildTechniqueTags(
+                    setup
+                );
+
+            const speedSection =
+                buildRocketSpeedSection(
+                    setup
+                );
+
+            const allCode =
+                setup.binds
+                    .map(
+                        bind =>
+                            bind.code
+                    )
+                    .join(
+                        "\n\n"
+                    );
+
+            const bindsSection =
+                buildBindsSection(
+                    setup
+                );
+
+            const codeBlock =
+                setup.binds
+                    .map(
+                        bind =>
+
+            `
+            ### ${bind.name}
+
+            ${bind.code}
+            `
+                    )
+                    .join(
+                        "\n\n"
+                    );
+
+            div.innerHTML = `
+
+                <h2>
+                    Score:
+                    ${scoreSetup(setup)}
+                </h2>
+
+                <div class="tag-row">
+
+                    ${launcherTag}
+
+                    ${rocketTag}
+
+                </div>
+
+                <div class="tag-row">
+
+                    ${techniqueTags}
+
+                </div>
+
+                <h4>
+                    Speed after rocket hits
+                </h4>
+
+                <div>
+
+                    ${speedSection}
+
+                </div>
+            
+
+                <h4>
+                    Setup (${setup.binds.length})
+                </h4>
+
+                ${bindsSection}
+
+                <details>
+
+                    <summary>
+                        Show bind
+                    </summary>
+
+                    <pre class="alias-code">
+
+                ${codeBlock}
+
+                    </pre>
+
+                </details>
+
+                <button
+                    class="copy-button">
+
+                    Copy bind
+
+                </button>
+
+            `;
+
+            container.appendChild(
+                div
             );
 
-        div.className =
-            "setup";
+        }
+    );
 
-        div.innerHTML = `
+}
 
-            <h3>
-                Score:
-                ${scoreSetup(setup)}
-            </h3>
+function launcherDescription(type) {
 
-            <p>
-                ${setup.description}
-            </p>
+    const map = {
 
-        `;
+        stock:
+            "Uses the stock Rocket Launcher.",
 
-        container.appendChild(
-            div
+        original:
+            "Uses the Original.",
+
+        mangler:
+            "Uses the Cow Mangler."
+
+    };
+
+    return map[type];
+}
+
+function buildTechniqueTags(setup) {
+
+    const tags = [];
+
+    const techniques =
+        setup.techniques;
+
+    if (
+        techniques.bounce?.possible
+    ) {
+
+        tags.push(
+            createTag(
+                techniques.bounce.automatic
+                    ? "Bounce (Auto)"
+                    : "Bounce",
+
+                "Standard bounce is possible."
+            )
         );
 
-    });
+    }
+
+    if (
+        techniques.standingBounce?.possible
+    ) {
+
+        tags.push(
+            createTag(
+                techniques
+                .standingBounce
+                .automatic
+
+                    ? "Standing Bounce (Auto)"
+                    : "Standing Bounce",
+
+                "Bounce without movement."
+            )
+        );
+
+    }
+
+    if (
+        techniques.jumpbug?.possible
+    ) {
+
+        tags.push(
+            createTag(
+                "Jumpbug",
+
+                "Jumpbug can be performed."
+            )
+        );
+
+    }
+
+    if (
+        techniques.syncedBounce?.possible
+    ) {
+
+        tags.push(
+            createTag(
+                techniques
+                .syncedBounce
+                .automatic
+
+                    ? "Synced Bounce (Auto)"
+                    : "Synced Bounce",
+
+                "Bounce can be synchronized."
+            )
+        );
+
+    }
+
+    return tags.join("");
+
+}
+
+function createTag(
+    text,
+    description
+) {
+
+    return `
+
+        <span
+            class="tag tooltip-container">
+
+            ${text}
+
+            <span
+                class="tooltip">
+
+                ${description}
+
+            </span>
+
+        </span>
+
+    `;
+}
+
+function buildRocketSpeedSection(
+    setup
+) {
+
+    return setup.rocketSpeeds
+        .map(
+            (speed, index) =>
+
+            `<span
+                class="speed-badge">
+
+                R${index + 1}:
+                ${speed}
+
+            </span>`
+        )
+        .join("");
+
+}
+
+function copyText(text) {
+
+    navigator.clipboard
+        .writeText(text);
+
+}
+
+function buildBindsSection(
+    setup
+) {
+
+    return setup.binds
+        .map(
+            bind =>
+
+            `
+
+            <div
+                class="bind-card">
+
+                <strong>
+
+                    ${bind.name}
+
+                </strong>
+
+                <span
+                    class="tooltip-container">
+
+                    ⓘ
+
+                    <span
+                        class="tooltip">
+
+                        ${bind.description}
+
+                    </span>
+
+                </span>
+
+            </div>
+
+            `
+        )
+        .join("");
 
 }

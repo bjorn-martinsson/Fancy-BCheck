@@ -96,3 +96,61 @@ button {
 .tooltip-container:hover .tooltip {
     visibility: visible;
 }
+
+.tag {
+
+    display:inline-block;
+
+    padding:4px 8px;
+
+    margin:2px;
+
+    border-radius:4px;
+
+    background:#eee;
+
+    font-size:14px;
+
+}
+
+.speed-badge {
+
+    display:inline-block;
+
+    padding:4px 8px;
+
+    margin:2px;
+
+    border-radius:4px;
+
+    background:#dff0ff;
+
+}
+
+.bind-card {
+
+    padding:8px;
+
+    border:1px solid #ddd;
+
+    margin-top:6px;
+
+}
+
+.tag-row {
+
+    margin-bottom: 10px;
+
+}
+
+.copy-button {
+
+    margin-top: 10px;
+
+}
+
+.setup h4 {
+
+    margin-bottom: 5px;
+
+}

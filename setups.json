@@ -1,28 +1,105 @@
 {
   "100": [
     {
-      "description": "Jump then attack",
-      "difficulty": 2,
-      "speed": 8,
-      "consistency": 9,
-      "precision" : 4,
-      "recovery" : 10
+      "id": 123,
+      "name": "Corner Launch",
+      "launcher": "stock",
+      "rocketCount": 2,
+      "rocketSpeeds": [
+        380,
+        760
+      ],
+
+      "techniques": {
+        "bounce": {
+          "possible": true,
+          "automatic": false
+        },
+        "standingBounce": {
+          "possible": true,
+          "automatic": true
+        },
+        "jumpbug": {
+          "possible": false
+        },
+        "syncedBounce": {
+          "possible": true,
+          "automatic": false
+        }
+      },
+
+      "binds": [
+
+        {
+          "name": "Diagonal right forward walk with +strafe",
+
+          "description":
+            "Walk to the right.",
+
+          "code":
+            "alias +walk \"+forward; +moveright +strafe; +right\";\nalias -walk \"-forward -1; -moveright -1; -strafe -1; -right -1\";"
+        },
+
+        {
+          "name": "Quickswitch CTAP JDS",
+
+          "description":
+            "Quickswitch CTAP JDS.",
+
+          "code":
+            "alias +strike \"slot1; +attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";"
+        }
+      ]
     },
+    
     {
-      "description": "Attack twice",
-      "difficulty": 5,
-      "speed": 5,
-      "consistency": 10,
-      "precision" : 1,
-      "recovery" : 3
-    },
-    {
-      "description": "Crouch jump attack",
-      "difficulty": 8,
-      "speed": 9,
-      "consistency": 3,
-      "precision" : -3,
-      "recovery" : 20
+      "id": 124,
+      "name": "Special Launch",
+      "launcher": "mangler",
+      "rocketCount": 0,
+      "rocketSpeeds": [
+      ],
+
+      "techniques": {
+        "bounce": {
+          "possible": false,
+          "automatic": false
+        },
+        "standingBounce": {
+          "possible": true,
+          "automatic": false
+        },
+        "jumpbug": {
+          "possible": true
+        },
+        "syncedBounce": {
+          "possible": true,
+          "automatic": false
+        }
+      },
+
+      "binds": [
+
+        {
+          "name": "Forward crouched walk",
+
+          "description":
+            "Walk forward while crouched.",
+
+          "code":
+            "alias +walk \"+forward\";\nalias -walk \"-forward -1\";"
+        },
+
+        {
+          "name": "CTAP jumpoff",
+
+          "description":
+            "CTAP.",
+
+          "code":
+            "alias +strike \"+jump; -jump -1; +duck; -duck -1\";\nalias -strike \"\";"
+        }
+      ]
     }
   ],
 

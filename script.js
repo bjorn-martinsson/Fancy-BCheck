@@ -513,16 +513,10 @@ function displayResults() {
             const codeBlock =
                 setup.binds
                     .map(
-                        bind =>
-
-            `
-            ### ${bind.name}
-
-            ${bind.code}
-            `
+                        bind => `${bind.code}`
                     )
                     .join(
-                        "\n\n"
+                        "\n"
                     );
 
             div.innerHTML = `
@@ -558,7 +552,7 @@ function displayResults() {
             
 
                 <h4>
-                    Setup (${setup.binds.length})
+                    Setup
                 </h4>
 
                 ${bindsSection}
@@ -566,7 +560,7 @@ function displayResults() {
                 <details>
 
                     <summary>
-                        Show bind
+                        Show binds
                     </summary>
 
                     <pre class="alias-code">
@@ -580,7 +574,7 @@ function displayResults() {
                 <button
                     class="copy-button">
 
-                    Copy bind
+                    Copy binds
 
                 </button>
 
@@ -630,7 +624,7 @@ function buildTechniqueTags(setup) {
                     ? "Bounce (Auto)"
                     : "Bounce",
 
-                "Standard bounce is possible."
+                "Crouched bounce is possible."
             )
         );
 
@@ -649,7 +643,7 @@ function buildTechniqueTags(setup) {
                     ? "Standing Bounce (Auto)"
                     : "Standing Bounce",
 
-                "Bounce without movement."
+                "Standing bounce is possible."
             )
         );
 
@@ -663,7 +657,7 @@ function buildTechniqueTags(setup) {
             createTag(
                 "Jumpbug",
 
-                "Jumpbug can be performed."
+                "Jumpbug is possible."
             )
         );
 
@@ -682,7 +676,7 @@ function buildTechniqueTags(setup) {
                     ? "Synced Bounce (Auto)"
                     : "Synced Bounce",
 
-                "Bounce can be synchronized."
+                "Bounce can be synched."
             )
         );
 
@@ -729,6 +723,7 @@ function buildRocketSpeedSection(
 
                 R${index + 1}:
                 ${speed}
+                u/s
 
             </span>`
         )

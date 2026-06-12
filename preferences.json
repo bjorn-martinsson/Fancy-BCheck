@@ -258,7 +258,13 @@
                     "id": "2TICK",
                     "label": "Shoot 2 ticks early",
                     "defaultWeight": -20,
-                    "description": "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.No bind required"
+                    "description": "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last."
+                },
+                {
+                    "id": "NOACTIONBIND",
+                    "label": "No bind required",
+                    "defaultWeight": 1,
+                    "description": "Setups that only involve jumping or firing a rocket."
                 }
             ]
         }

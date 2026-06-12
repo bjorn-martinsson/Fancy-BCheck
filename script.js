@@ -471,20 +471,6 @@ function displayResults() {
             div.className =
                 "setup";
 
-            const launcherTag =
-                createTag(
-                    setup.launcher.toLowerCase(),
-                    launcherDescription(
-                        setup.launcher
-                    )
-                );
-
-            const rocketTag =
-                createTag(
-                    `${setup.rocketCount} rocket${setup.rocketCount > 1 ? "s" : ""}`,
-                    "Number of rockets used."
-                );
-
             const techniqueTags =
                 buildTechniqueTags(
                     setup
@@ -525,16 +511,6 @@ function displayResults() {
                     Score:
                     ${scoreSetup(setup)}
                 </h2>
-
-                <div class="tag-row">
-
-                    ${setup.name}
-
-                    ${launcherTag}
-
-                    ${rocketTag}
-
-                </div>
 
                 <div class="tag-row">
 
@@ -629,6 +605,22 @@ function buildTechniqueTags(setup) {
     const techniques =
         setup.techniques;
 
+    const launcherTag =
+        createTag(
+            capitalizeFirstLetter(setup.launcher),
+            launcherDescription(
+                setup.launcher
+            )
+        );
+    tags.push(launcherTag);
+
+    const rocketTag =
+        createTag(
+            `${setup.rocketCount} rocket${setup.rocketCount > 1 ? "s" : ""}`,
+            "Number of rockets used."
+        );
+    tags.push(rocketTag);
+    
     if (
         techniques.bounce?.possible
     ) {
@@ -751,6 +743,11 @@ function copyText(text) {
     navigator.clipboard
         .writeText(text);
 
+}
+
+function capitalizeFirstLetter(str) {
+    if (!str) return str; // Handles empty strings safely
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function buildBindsSection(

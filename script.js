@@ -513,7 +513,7 @@ function displayResults() {
             const codeBlock =
                 setup.binds
                     .map(
-                        bind => `${bind.code}`
+                        bind => "${bind.code}"
                     )
                     .join(
                         "\n"
@@ -613,7 +613,7 @@ function launcherDescription(type) {
     const map = {
 
         stock:
-            "Uses the stock Rocket Launcher.",
+            "Uses the stock rocket launcher.",
 
         original:
             "Uses the Original.",

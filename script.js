@@ -473,7 +473,7 @@ function displayResults() {
 
             const launcherTag =
                 createTag(
-                    setup.launcher.toUpperCase(),
+                    setup.launcher.toLowerCase(),
                     launcherDescription(
                         setup.launcher
                     )
@@ -502,7 +502,7 @@ function displayResults() {
                             bind.code
                     )
                     .join(
-                        "\n\n"
+                        "\n"
                     );
 
             const bindsSection =
@@ -567,7 +567,7 @@ function displayResults() {
 
                     <pre class="alias-code">
 
-                ${codeBlock}
+                    ${codeBlock}
 
                     </pre>
 

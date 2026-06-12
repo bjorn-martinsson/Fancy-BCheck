@@ -621,6 +621,29 @@ function launcherClass(
     }
 
 }
+function buildLauncherTag(
+    launcher
+) {
+
+    return createTag(
+
+        capitalizeFirstLetter(launcher),
+
+        {
+            description:
+                launcherDescription(
+                    launcher
+                ),
+
+            type:
+                launcherTagType(
+                    launcher
+                )
+        }
+
+    );
+
+}
 
 function buildTechniqueTags(setup) {
 
@@ -630,27 +653,21 @@ function buildTechniqueTags(setup) {
         setup.techniques;
 
     const launcherTag =
-        `
-        <span
-        class="tag ${launcherClass(setup.launcher)}
-        tooltip-container">
-
-        ${capitalizeFirstLetter(setup.launcher)}
-
-        <span class="tooltip">
-
-        ${launcherDescription(setup.launcher)}
-
-        </span>
-
-        </span>
-        `;
+    buildLauncherTag(
+        setup.launcher
+    );
     tags.push(launcherTag);
 
     const rocketTag =
         createTag(
             `${setup.rocketCount} rocket${setup.rocketCount > 1 ? "s" : ""}`,
-            "Number of rockets used."
+            {
+                description:
+                    "Number of rockets used.",
+
+                type:
+                    "rocket"
+            }
         );
     tags.push(rocketTag);
     
@@ -664,7 +681,17 @@ function buildTechniqueTags(setup) {
                     ? "Bounce (Auto)"
                     : "Bounce",
 
-                "Crouched bounce is possible."
+                
+                {
+                    description:
+                        "Crouched bounce is possible.",
+
+                    type:
+                        techniques.bounce.automatic
+                            ? "techniqueAuto"
+                            : "technique"
+                }
+
             )
         );
 
@@ -683,7 +710,19 @@ function buildTechniqueTags(setup) {
                     ? "Standing Bounce (Auto)"
                     : "Standing Bounce",
 
-                "Standing bounce is possible."
+                {
+                    description:
+                        "Standing bounce is possible.",
+
+                    type:
+                        techniques
+                        .standingBounce
+                        .automatic
+
+                            ? "techniqueAuto"
+                            : "technique",
+                }
+
             )
         );
 
@@ -696,8 +735,13 @@ function buildTechniqueTags(setup) {
         tags.push(
             createTag(
                 "Jumpbug",
+                {
+                    description:
+                        "Jumpbug is possible.",
 
-                "Jumpbug is possible."
+                    type:
+                        "technique"
+                }
             )
         );
 
@@ -716,7 +760,14 @@ function buildTechniqueTags(setup) {
                     ? "Synced Bounce (Auto)"
                     : "Synced Bounce",
 
-                "Bounce can be synched."
+                "Bounce can be synched.",
+
+                techniques
+                .syncedBounce
+                .automatic
+
+                    ? "techniqueAuto"
+                    : "technique",
             )
         );
 
@@ -728,25 +779,22 @@ function buildTechniqueTags(setup) {
 
 function createTag(
     text,
-    description
+    options = {}
 ) {
 
     return `
-
         <span
-            class="tag tooltip-container">
+            class="tag ${options.type || ""} tooltip-container">
 
             ${text}
 
-            <span
-                class="tooltip">
+            <span class="tooltip">
 
-                ${description}
+                ${options.description || ""}
 
             </span>
 
         </span>
-
     `;
 }
 

@@ -600,6 +600,28 @@ function launcherDescription(type) {
     return map[type];
 }
 
+function launcherClass(
+    launcher
+) {
+
+    switch (launcher) {
+
+        case "stock":
+            return "launcher-stock";
+
+        case "original":
+            return "launcher-original";
+
+        case "mangler":
+            return "launcher-mangler";
+
+        default:
+            return "";
+
+    }
+
+}
+
 function buildTechniqueTags(setup) {
 
     const tags = [];
@@ -608,12 +630,21 @@ function buildTechniqueTags(setup) {
         setup.techniques;
 
     const launcherTag =
-        createTag(
-            capitalizeFirstLetter(setup.launcher),
-            launcherDescription(
-                setup.launcher
-            )
-        );
+        `
+        <span
+        class="tag ${launcherClass(setup.launcher)}
+        tooltip-container">
+
+        ${capitalizeFirstLetter(setup.launcher)}
+
+        <span class="tooltip">
+
+        ${launcherDescription(setup.launcher)}
+
+        </span>
+
+        </span>
+        `;
     tags.push(launcherTag);
 
     const rocketTag =

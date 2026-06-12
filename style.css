@@ -13,10 +13,6 @@ body {
     display: none;
 }
 
-button {
-    margin-left: 5px;
-}
-
 #preferencesPanel {
     border: 1px solid #ccc;
     padding: 20px;
@@ -54,11 +50,19 @@ button {
 }
 
 .setup {
-    border: 1px solid #ddd;
-    border-radius: 6px;
 
-    padding: 12px;
-    margin-bottom: 12px;
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.1);
+
 }
 
 .tooltip-container {
@@ -72,25 +76,18 @@ button {
 
     position: absolute;
 
-    left: 100%;
-    top: 50%;
+    width: 280px;
 
-    transform: translateY(-50%);
+    background: #111827;
 
-    margin-left: 10px;
-
-    width: 300px;
-
-    background: #222;
     color: white;
 
-    padding: 8px;
+    border-radius: 8px;
 
-    border-radius: 6px;
+    padding: 10px;
 
     z-index: 1000;
 
-    font-size: 14px;
 }
 
 .tooltip-container:hover .tooltip {
@@ -99,47 +96,59 @@ button {
 
 .tag {
 
-    display:inline-block;
+    display: inline-flex;
 
-    padding:4px 8px;
+    align-items: center;
 
-    margin:2px;
+    padding: 6px 12px;
 
-    border-radius:4px;
+    border-radius: 999px;
 
-    background:#eee;
+    font-size: 14px;
 
-    font-size:14px;
-
-}
-
-.speed-badge {
-
-    display:inline-block;
-
-    padding:4px 8px;
-
-    margin:2px;
-
-    border-radius:4px;
-
-    background:#dff0ff;
+    font-weight: 600;
 
 }
 
 .bind-card {
 
-    padding:8px;
+    display: flex;
 
-    border:1px solid #ddd;
+    align-items: center;
 
-    margin-top:6px;
+    justify-content: space-between;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    background: #f9fafb;
+
+    margin-bottom: 8px;
 
 }
 
 .tag-row {
 
-    margin-bottom: 10px;
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 12px;
+
+}
+
+button {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 8px 12px;
+
+    cursor: pointer;
 
 }
 
@@ -147,10 +156,66 @@ button {
 
     margin-top: 10px;
 
+    background: #2563eb;
+
+    color: white;
+
 }
 
 .setup h4 {
 
     margin-bottom: 5px;
+
+}
+
+.launcher-stock {
+
+    background: #dbeafe;
+
+}
+
+.launcher-original {
+
+    background: #dcfce7;
+
+}
+
+.launcher-mangler {
+
+    background: #fef3c7;
+
+}
+
+.technique-tag {
+
+    background: #f3f4f6;
+
+}
+
+.technique-auto {
+
+    background: #ede9fe;
+
+}
+
+.rocket-tag {
+
+    background: #e0f2fe;
+
+}
+
+.speed-badge {
+
+    display: inline-block;
+
+    background: #eff6ff;
+
+    border-radius: 999px;
+
+    padding: 6px 10px;
+
+    margin-right: 8px;
+
+    margin-bottom: 8px;
 
 }

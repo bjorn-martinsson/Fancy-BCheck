@@ -582,6 +582,23 @@ function displayResults() {
 
             `;
 
+
+            div
+            .querySelector(
+                ".copy-button"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    copyText(
+                        allCode
+                    );
+
+                }
+            );
+
+
             container.appendChild(
                 div
             );

@@ -840,7 +840,7 @@ function buildRocketSpeedSection(
             `<span
                 class="speed-badge">
 
-                R<sub>${index + 1}</sub>:
+                R<sub>${index}</sub>:
                 ${speed}
                 u/s
 

@@ -77,7 +77,7 @@ body {
     /* 1. Fix the blocking issue (Positions it above the icon) */
     bottom: 125%;          /* Pushes it up past the top of the icon */
     left: 50%;             /* Moves its left edge to the center of the icon */
-    transform: translateX(-50%); /* Shifts it back left by half its own width to center it perfectly */
+    transform: translateX(-20%); /* Shifts it back left by half its own width to center it perfectly */
 
     /* 2. Fix the width issue */
     width: max-content;    /* Shrinks perfectly around short text */

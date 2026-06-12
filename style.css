@@ -5,6 +5,15 @@ body {
     padding: 20px;
 }
 
+.container {
+    max-width: 800px;   /* 1. Prevents the site from getting too wide */
+    width: 100%;        /* 2. Makes it responsive on mobile phones */
+    margin: 0 auto;     /* 3. Centers the container on the screen */
+    
+    padding: 20px;      /* 4. Adds breathing room so text doesn't touch phone edges */
+    box-sizing: border-box; /* Keeps padding from breaking the width calculations */
+}
+
 .search-area {
     margin-bottom: 20px;
 }

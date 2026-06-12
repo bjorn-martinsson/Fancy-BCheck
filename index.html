@@ -13,52 +13,54 @@
 </head>
 
 <body>
+    <div class="container">
+        <h1>SUthrey's fancy bounce checker</h1>
 
-    <h1>SUthrey's fancy bounce checker</h1>
+        <div class="search-area">
 
-    <div class="search-area">
+            <input
+                id="targetInput"
+                type="number"
+                placeholder="Enter floor height">
 
-        <input
-            id="targetInput"
-            type="number"
-            placeholder="Enter floor height">
+            <button onclick="findSetups()">
+                Search
+            </button>
 
-        <button onclick="findSetups()">
-            Search
-        </button>
-
-        <button onclick="togglePreferences()">
-            Preferences
-        </button>
-
-    </div>
-
-    <div id="preferencesPanel"
-         class="hidden">
-
-        <div style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:20px;
-        ">
-
-            <h2>
-                Ranking Preferences
-            </h2>
-
-            <button onclick="resetPreferences()">
-                Reset to Defaults
+            <button onclick="togglePreferences()">
+                Preferences
             </button>
 
         </div>
 
-        <div id="preferences"></div>
+        <div id="preferencesPanel"
+             class="hidden">
 
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-bottom:20px;
+            ">
+
+                <h2>
+                    Ranking Preferences
+                </h2>
+
+                <button onclick="resetPreferences()">
+                    Reset to Defaults
+                </button>
+
+            </div>
+
+            <div id="preferences"></div>
+
+        </div>
+
+        <hr>
+
+        <div id="results"></div>
+
+        <script src="script.js"></script>
     </div>
-
-    <hr>
-
-    <div id="results"></div>
-
-    <script src="script.js"></script>
+</body>

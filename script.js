@@ -506,11 +506,13 @@ function displayResults() {
                     );
 
             div.innerHTML = `
-
+                
+                <!--
                 <h2>
                     Score:
                     ${scoreSetup(setup)}
                 </h2>
+                -->
 
                 <div class="tag-row">
 

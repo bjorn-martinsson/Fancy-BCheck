@@ -567,7 +567,7 @@ function displayResults() {
 
                     <pre class="alias-code">
 
-                    ${codeBlock}
+                    ${allCode}
 
                     </pre>
 

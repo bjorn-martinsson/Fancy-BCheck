@@ -688,7 +688,7 @@ function buildTechniqueTags(setup) {
                     "Number of rockets used.",
 
                 type:
-                    "rocket"
+                    "rocket-tag"
             }
         );
     tags.push(rocketTag);
@@ -710,8 +710,8 @@ function buildTechniqueTags(setup) {
 
                     type:
                         techniques.bounce.automatic
-                            ? "techniqueAuto"
-                            : "technique"
+                            ? "technique-auto"
+                            : "technique-tag"
                 }
 
             )
@@ -741,8 +741,8 @@ function buildTechniqueTags(setup) {
                         .standingBounce
                         .automatic
 
-                            ? "techniqueAuto"
-                            : "technique",
+                            ? "technique-auto"
+                            : "technique-tag",
                 }
 
             )
@@ -762,7 +762,7 @@ function buildTechniqueTags(setup) {
                         "Jumpbug is possible.",
 
                     type:
-                        "technique"
+                        "technique-tag"
                 }
             )
         );
@@ -782,14 +782,18 @@ function buildTechniqueTags(setup) {
                     ? "Synced Bounce (Auto)"
                     : "Synced Bounce",
 
-                "Bounce can be synched.",
+                {
+                    description:
+                        "Bounce can be synched.",
 
-                techniques
-                .syncedBounce
-                .automatic
+                    type:
+                        techniques
+                        .syncedBounce
+                        .automatic
 
-                    ? "techniqueAuto"
-                    : "technique",
+                            ? "technique-auto"
+                            : "technique-tag"
+                }
             )
         );
 

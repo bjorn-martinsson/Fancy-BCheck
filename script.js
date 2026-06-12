@@ -518,22 +518,7 @@ function displayResults() {
 
                     ${techniqueTags}
 
-                </div>
-
-                <h4>
-                    Speed after rocket hits
-                </h4>
-
-                <div>
-
-                    ${speedSection}
-
-                </div>
-            
-
-                <h4>
-                    Setup
-                </h4>
+                </div> 
 
                 ${bindsSection}
 
@@ -553,6 +538,16 @@ function displayResults() {
                     Copy binds
 
                 </button>
+
+                <h4>
+                    Speed after rocket hits
+                </h4>
+
+                <div>
+
+                    ${speedSection}
+
+                </div>
 
             `;
 
@@ -869,13 +864,7 @@ function buildBindsSection(
 
             <div
                 class="bind-card">
-
-                <strong>
-
-                    ${bind.name}
-
-                </strong>
-
+                
                 <span
                     class="tooltip-container">
 
@@ -889,6 +878,13 @@ function buildBindsSection(
                     </span>
 
                 </span>
+
+                <strong>
+
+                    ${bind.name}
+
+                </strong>
+
 
             </div>
 

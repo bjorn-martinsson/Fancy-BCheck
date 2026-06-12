@@ -222,43 +222,43 @@
                     "id": "0ROCKET",
                     "label": "Rocketless setup",
                     "defaultWeight": 0,
-                    "description": "Setups that involve no rockets in the initial action. Note that setups may still require rockets to hit for example a bounce.1 Rocket setup"
+                    "description": "Setups that involve no rockets in the initial action. Note that setups may still require rockets to hit for example a bounce."
                 },
                 {
-                    "id": "Setups that use at most 1 rocket. (Excluding any rocket used to hit a bounce).",
-                    "label": 2,
-                    "defaultWeight": "1ROCKET",
-                    "description": "Jump shoot"
+                    "id": "1ROCKET",
+                    "label": "1 Rocket setup",
+                    "defaultWeight": 2,
+                    "description": "Setups that use at most 1 rocket. (Excluding any rocket used to hit a bounce)."
                 },
                 {
-                    "id": "Setups that start with a \"Jump shot\", shooting and jumping at the same time.",
-                    "label": 0,
-                    "defaultWeight": "JS",
-                    "description": "Jump duck shoot"
+                    "id": "JS",
+                    "label": "Jump shoot",
+                    "defaultWeight": 0,
+                    "description": "Setups that start with a \"Jump shot\", shooting and jumping at the same time."
                 },
                 {
-                    "id": "Setups that start with a \"Jump duck shot\", shooting and crouched jumping at the same time.",
-                    "label": 0,
-                    "defaultWeight": "JDS",
-                    "description": "Ctap jump duck shoot"
+                    "id": "JDS",
+                    "label": "Jump duck shoot",
+                    "defaultWeight": 0,
+                    "description": "Setups that start with a \"Jump duck shot\", shooting and crouched jumping at the same time."
                 },
                 {
-                    "id": "Setups that start with a \"CTAP jump duck shot\", shooting and ctap jumping at the same time. This is preferable to maximize height.",
-                    "label": 0,
-                    "defaultWeight": "CTAP JDS",
-                    "description": "Shoot 1 tick early"
+                    "id": "CTAP JDS",
+                    "label": "Ctap jump duck shoot",
+                    "defaultWeight": 0,
+                    "description": "Setups that start with a \"CTAP jump duck shot\", shooting and ctap jumping at the same time. This is preferable to maximize height."
                 },
                 {
-                    "id": "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed.",
-                    "label": -20,
-                    "defaultWeight": "1TICK",
-                    "description": "Shoot 2 ticks early"
+                    "id": "1TICK",
+                    "label": "Shoot 1 tick early",
+                    "defaultWeight": -20,
+                    "description": "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed."
                 },
                 {
-                    "id": "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.No bind required",
-                    "label": -20,
-                    "defaultWeight": "2TICK",
-                    "description": 1
+                    "id": "2TICK",
+                    "label": "Shoot 2 ticks early",
+                    "defaultWeight": -20,
+                    "description": "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.No bind required"
                 }
             ]
         }

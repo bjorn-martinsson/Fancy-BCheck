@@ -513,7 +513,7 @@ function displayResults() {
             const codeBlock =
                 setup.binds
                     .map(
-                        bind => "${bind.code}"
+                        bind => `${bind.code}`
                     )
                     .join(
                         "\n"

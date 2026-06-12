@@ -118,6 +118,8 @@ body {
 
     justify-content: space-between;
 
+    gap: 8px;
+
     padding: 10px;
 
     border-radius: 8px;

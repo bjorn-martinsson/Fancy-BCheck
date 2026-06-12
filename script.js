@@ -174,7 +174,19 @@ function buildPreferences() {
             row.innerHTML = `
 
                 <label>
+
                     ${pref.label}
+                    
+                    <span class="tooltip-container">
+
+                        ⓘ
+
+                        <span class="tooltip">
+                            ${pref.description || ""}
+                        </span>
+
+                    </span>
+
                 </label>
 
                 <input

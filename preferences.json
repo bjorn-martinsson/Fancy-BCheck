@@ -1,39 +1,266 @@
 {
-  "groups": [
-    {
-      "name": "Execution",
-      "preferences": [
+    "groups": [
         {
-          "id": "difficulty",
-          "label": "Difficulty",
-          "defaultWeight": 0
+            "name": "Launcher",
+            "preferences": [
+                {
+                    "id": "STOCK",
+                    "label": "Stock",
+                    "defaultWeight": 0,
+                    "description": "USes the stock rocket launcher."
+                },
+                {
+                    "id": "ORIG",
+                    "label": "Original",
+                    "defaultWeight": 0,
+                    "description": "Uses the original rocket launcher."
+                },
+                {
+                    "id": "MANG",
+                    "label": "Mangler",
+                    "defaultWeight": 0,
+                    "description": "Uses the cow mangler rocket launcher."
+                }
+            ]
         },
         {
-          "id": "speed",
-          "label": "Speed",
-          "defaultWeight": 55
+            "name": "Type of bounce",
+            "preferences": [
+                {
+                    "id": "BOUNCE",
+                    "label": "Bounce",
+                    "defaultWeight": 0,
+                    "description": "Crouched bounce setup, meaning you can use a rocket to \"bounce\" the moment you land. Requires teleheight < 2.0 units."
+                },
+                {
+                    "id": "BHOP",
+                    "label": "Bhop",
+                    "defaultWeight": 0,
+                    "description": "Bhop (bounce hop) setup, meaning you can jump the moment you land. It is also possible to do standing bounce with same setup. Requires teleheight < 2.0 units."
+                },
+                {
+                    "id": "JB",
+                    "label": "Jumpbug",
+                    "defaultWeight": 0,
+                    "description": "Jumpbug setup, meaning you can jump the moment you land if you release crouch and jump at the same exact time. Requires teleheight < TODO."
+                }
+            ]
         },
         {
-          "id": "consistency",
-          "label": "Consistency",
-          "defaultWeight": 100
+            "name": "Complexity",
+            "preferences": [
+                {
+                    "id": "SIMPLE",
+                    "label": "Simple",
+                    "defaultWeight": 10,
+                    "description": "Setups that are simple. Requiring few/no binds, few inputs, and few rockets."
+                },
+                {
+                    "id": "CONIST",
+                    "label": "Consistency",
+                    "defaultWeight": 2,
+                    "description": "Setups avoiding diagonal movement, which can be inconsistent without a bind. Also prefer bounce setups where the timing window for hitting the bounce is large."
+                },
+                {
+                    "id": "NOBIND",
+                    "label": "No bind required",
+                    "defaultWeight": 10,
+                    "description": "Setups that use no binds."
+                }
+            ]
+        },
+        {
+            "name": "Automatic bounce",
+            "preferences": [
+                {
+                    "id": "ABOUNCE",
+                    "label": "Auto bounce",
+                    "defaultWeight": 10,
+                    "description": "Can be bounced by only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic)."
+                },
+                {
+                    "id": "ASBOUNCE",
+                    "label": "Auto synced bounce",
+                    "defaultWeight": 10,
+                    "description": "It is possible to prefire a rocket for a synced bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic)."
+                },
+                {
+                    "id": "ASTANDBOUNCE",
+                    "label": "Auto standing bounce",
+                    "defaultWeight": 10,
+                    "description": "Can be standing bounced by only holding m1. Perfect setup if you want to go straight into a pogo. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic)."
+                },
+                {
+                    "id": "ASSTANDBOUNCE",
+                    "label": "Auto synced standing bounce",
+                    "defaultWeight": 6,
+                    "description": "It is possible to prefire a rocket for a synced standing bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic)."
+                }
+            ]
+        },
+        {
+            "name": "Trajectory",
+            "preferences": [
+                {
+                    "id": "HEIGHT",
+                    "label": "Height",
+                    "defaultWeight": 1,
+                    "description": "The heighest point your feet reach during the setup."
+                },
+                {
+                    "id": "DIST",
+                    "label": "Distance",
+                    "defaultWeight": 1,
+                    "description": "The horizontal distance traversed from leaving the initial platform to hitting the bounce/bhop/powerbounce."
+                },
+                {
+                    "id": "SPEED",
+                    "label": "Speed",
+                    "defaultWeight": 1,
+                    "description": "The horizontal speed when leaving the initial platoform. This is often maximized by multi-rocket setups that hit a speedshot."
+                },
+                {
+                    "id": "COMPACT",
+                    "label": "Compact",
+                    "defaultWeight": 1,
+                    "description": "The horizontal distance traversed on the initial platform. This can be used to avoid setups that require large amount of space."
+                },
+                {
+                    "id": "QUICK",
+                    "label": "Quick",
+                    "defaultWeight": 1,
+                    "description": "The time taken from the start of the setup to hitting the bounce/bhop/jumpbug."
+                }
+            ]
+        },
+        {
+            "name": "Advanced bounce",
+            "preferences": [
+                {
+                    "id": "PB",
+                    "label": "Power bounce",
+                    "defaultWeight": 2,
+                    "description": "Setups where you can both bhop and have time to shoot a rocket in order to do a \"power bounce\"."
+                },
+                {
+                    "id": "JBPB",
+                    "label": "Jumpbug power bounce",
+                    "defaultWeight": 0,
+                    "description": "Setups where you can both jumpbug and have time to shoot a rocket in order to do a \"jumpbug power bounce\"."
+                },
+                {
+                    "id": "SB",
+                    "label": "Synced bounce",
+                    "defaultWeight": 2,
+                    "description": "Setups where you have time to prefire a rocket in order to perform a synced bounce."
+                },
+                {
+                    "id": "SPB",
+                    "label": "Synced powerbounce",
+                    "defaultWeight": 2,
+                    "description": "Setups where you have time to prefire a rocket in order to perform a synced power bounce,"
+                },
+                {
+                    "id": "SJBPB",
+                    "label": "Synced jumpbug powerbounce",
+                    "defaultWeight": 0,
+                    "description": "Setups where you have time to prefire a rocket in order to perform a synced jumpbug power bounce."
+                }
+            ]
+        },
+        {
+            "name": "Movement",
+            "preferences": [
+                {
+                    "id": "CROUCHED",
+                    "label": "Crouched start",
+                    "defaultWeight": 0,
+                    "description": "Setups starting with being crouched. May not be preferable because of low horizontal speed."
+                },
+                {
+                    "id": "NOMOVING",
+                    "label": "Non-moving starts",
+                    "defaultWeight": 2,
+                    "description": "Setups where you do not press any movement keys. May be preferable because of consistency."
+                },
+                {
+                    "id": "DIAGONAL",
+                    "label": "Diagonal movement",
+                    "defaultWeight": -2,
+                    "description": "Setups with diagonal movement, which, unless a bind is used, may be inconsistent."
+                },
+                {
+                    "id": "MOVEUP",
+                    "label": "+moveup",
+                    "defaultWeight": 0,
+                    "description": "Setups involving the +moveup command. This allows the player to accelerate/walk slower."
+                },
+                {
+                    "id": "STRAFE",
+                    "label": "+strafe",
+                    "defaultWeight": 0,
+                    "description": "Setups involving +strafe together with +left or +right. This allows the player to walk in directions/speeds that are otherwise impossible."
+                },
+                {
+                    "id": "NOMOVEMENTBIND",
+                    "label": "No bind required",
+                    "defaultWeight": 2,
+                    "description": "Setups that can be performed using just WASD. Note that a bind might still be preferable for consistency in the case of diagonal movement."
+                }
+            ]
+        },
+        {
+            "name": "Action",
+            "preferences": [
+                {
+                    "id": "SHOTGUN",
+                    "label": "Quickswap",
+                    "defaultWeight": 0,
+                    "description": "Setups that start by quickswapping to delay the first rocket. The player needs to be holding a different weapon than their rocket launcher for this to work."
+                },
+                {
+                    "id": "0ROCKET",
+                    "label": "Rocketless setup",
+                    "defaultWeight": 0,
+                    "description": "Setups that involve no rockets in the initial action. Note that setups may still require rockets to hit for example a bounce.1 Rocket setup"
+                },
+                {
+                    "id": "Setups that use at most 1 rocket. (Excluding any rocket used to hit a bounce).",
+                    "label": 2,
+                    "defaultWeight": "1ROCKET",
+                    "description": "Jump shoot"
+                },
+                {
+                    "id": "Setups that start with a \"Jump shot\", shooting and jumping at the same time.",
+                    "label": 0,
+                    "defaultWeight": "JS",
+                    "description": "Jump duck shoot"
+                },
+                {
+                    "id": "Setups that start with a \"Jump duck shot\", shooting and crouched jumping at the same time.",
+                    "label": 0,
+                    "defaultWeight": "JDS",
+                    "description": "Ctap jump duck shoot"
+                },
+                {
+                    "id": "Setups that start with a \"CTAP jump duck shot\", shooting and ctap jumping at the same time. This is preferable to maximize height.",
+                    "label": 0,
+                    "defaultWeight": "CTAP JDS",
+                    "description": "Shoot 1 tick early"
+                },
+                {
+                    "id": "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed.",
+                    "label": -20,
+                    "defaultWeight": "1TICK",
+                    "description": "Shoot 2 ticks early"
+                },
+                {
+                    "id": "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.No bind required",
+                    "label": -20,
+                    "defaultWeight": "2TICK",
+                    "description": 1
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "Comfort",
-      "preferences": [
-        {
-          "id": "precision",
-          "label": "Precision",
-          "defaultWeight": -2
-        },
-        {
-          "id": "recovery",
-          "label": "Recovery",
-          "defaultWeight": 23
-        }
-      ]
-    }
-  ]
+    ]
 }

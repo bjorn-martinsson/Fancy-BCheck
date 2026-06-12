@@ -481,7 +481,7 @@ function displayResults() {
 
             const rocketTag =
                 createTag(
-                    `${setup.rocketCount} Rocket${setup.rocketCount > 1 ? "s" : ""}`,
+                    `${setup.rocketCount} rocket${setup.rocketCount > 1 ? "s" : ""}`,
                     "Number of rockets used."
                 );
 
@@ -527,6 +527,8 @@ function displayResults() {
                 </h2>
 
                 <div class="tag-row">
+
+                    ${setup.name}
 
                     ${launcherTag}
 

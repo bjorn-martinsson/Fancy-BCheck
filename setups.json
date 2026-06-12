@@ -35,7 +35,7 @@
           "name": "Diagonal right forward walk with +strafe",
 
           "description":
-            "Walk to the right.",
+            "Walks at 22.5 deg using +strafe combined with +right.",
 
           "code":
             "alias +walk \"+forward; +moveright +strafe; +right\";\nalias -walk \"-forward -1; -moveright -1; -strafe -1; -right -1\";"
@@ -45,7 +45,7 @@
           "name": "Quickswitch CTAP JDS",
 
           "description":
-            "Quickswitch CTAP JDS.",
+            "A CTAP jump duck shoot starting with a quickswitch to delay shooting the first rocket.",
 
           "code":
             "alias +strike \"slot1; +attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";"
@@ -96,7 +96,7 @@
           "name": "CTAP jumpoff",
 
           "description":
-            "CTAP.",
+            "CTAP while crouching?.",
 
           "code":
             "alias +strike \"+jump; -jump -1; +duck; -duck -1\";\nalias -strike \"\";"

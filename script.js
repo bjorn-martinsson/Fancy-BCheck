@@ -889,12 +889,7 @@ function buildBindsSection(
 
                 </span>
 
-                <strong>
-
-                    ${bind.name}
-
-                </strong>
-
+                ${bind.name}
 
             </div>
 

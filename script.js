@@ -509,7 +509,8 @@ function displayResults() {
                 
                 <!--
                 <h2>
-                    Score:
+                    Setup ID:${setup.id}
+                    with preference score
                     ${scoreSetup(setup)}
                 </h2>
                 -->

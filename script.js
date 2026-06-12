@@ -621,6 +621,28 @@ function launcherClass(
     }
 
 }
+
+function launcherTagType(
+    launcher
+) {
+
+    switch (launcher) {
+
+        case "stock":
+            return "launcher-stock";
+
+        case "original":
+            return "launcher-original";
+
+        case "mangler":
+            return "launcher-mangler";
+
+        default:
+            return "";
+    }
+
+}
+
 function buildLauncherTag(
     launcher
 ) {

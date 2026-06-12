@@ -71,27 +71,33 @@ body {
 }
 
 .tooltip {
-
     visibility: hidden;
-
     position: absolute;
+    
+    /* 1. Fix the blocking issue (Positions it above the icon) */
+    bottom: 125%;          /* Pushes it up past the top of the icon */
+    left: 50%;             /* Moves its left edge to the center of the icon */
+    transform: translateX(-50%); /* Shifts it back left by half its own width to center it perfectly */
 
-    width: 280px;
-
+    /* 2. Fix the width issue */
+    width: max-content;    /* Shrinks perfectly around short text */
+    max-width: 280px;      /* Prevents it from getting wider than 280px for long text */
+    
+    /* 3. Keep it neat and readable */
     background: #111827;
-
     color: white;
-
     border-radius: 8px;
-
-    padding: 10px;
-
+    padding: 8px 12px;
     z-index: 1000;
-
+    
+    /* Optional: Smooth fade-in effect */
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .tooltip-container:hover .tooltip {
     visibility: visible;
+    opacity: 1;
 }
 
 .tag {

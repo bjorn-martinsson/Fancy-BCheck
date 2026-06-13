@@ -416,6 +416,17 @@ function findSetups() {
             "targetInput"
         )
         .value;
+    
+    // 1. Get the input and convert it to an integer
+    const inputVal = parseInt(document.getElementById("targetInput").value, 10);
+
+    // 2. Perform the efficient modulo reduction
+    const finalNumber = inputVal > 7000 
+        ? 7000 - ((7000 - inputVal) % 105) // Player is falling at terminal velocity
+        : inputVal;
+
+    // 3. Convert it back to a string
+    const target = finalNumber.toString();
 
     currentResults =
         [...(
@@ -507,13 +518,11 @@ function displayResults() {
 
             div.innerHTML = `
                 
-                <!--
                 <h2>
                     Setup ID:${setup.id}
                     with preference score
                     ${scoreSetup(setup)}
                 </h2>
-                -->
 
                 <div class="tag-row">
 

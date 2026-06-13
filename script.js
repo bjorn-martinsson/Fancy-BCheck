@@ -511,11 +511,10 @@ function displayResults() {
 
             div.innerHTML = `
                 
-                <h2>
-                    Setup ID:${setup.id}
-                    with preference score
-                    ${scoreSetup(setup)}
-                </h2>
+                <h4>
+                    Setup #${setup.id}
+                    <small>score: ${scoreSetup(setup)}</small>
+                </h4>
 
                 <div class="tag-row">
 

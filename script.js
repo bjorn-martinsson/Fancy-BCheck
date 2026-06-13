@@ -513,8 +513,8 @@ function displayResults() {
                 
                 <h4>
                     Setup #${setup.id}
-                    
-                    <small>score: ${scoreSetup(setup)}</small>
+                    <br>
+                    <small>with preference score ${scoreSetup(setup)}</small>
                 </h4>
 
                 <div class="tag-row">

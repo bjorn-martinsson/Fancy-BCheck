@@ -421,8 +421,8 @@ function findSetups() {
     const inputVal = parseInt(document.getElementById("targetInput").value, 10);
 
     // 2. Perform the efficient modulo reduction
-    const finalNumber = inputVal > 7000 
-        ? 7000 - ((7000 - inputVal) % 105) // Player is falling at terminal velocity
+    const finalNumber = inputVal > 8000 
+        ? 7000 - ((8000 - inputVal) % 105) // Player is falling at terminal velocity
         : inputVal;
 
     // 3. Convert it back to a string

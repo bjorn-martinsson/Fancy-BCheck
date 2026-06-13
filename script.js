@@ -513,6 +513,7 @@ function displayResults() {
                 
                 <h4>
                     Setup #${setup.id}
+                    
                     <small>score: ${scoreSetup(setup)}</small>
                 </h4>
 
@@ -527,7 +528,7 @@ function displayResults() {
                 <details>
 
                     <summary>
-                        Show binds
+                        Show bind
                     </summary>
 
                     <pre class="alias-code">${allCode}</pre>
@@ -537,7 +538,7 @@ function displayResults() {
                 <button
                     class="copy-button">
 
-                    Copy binds
+                    Copy bind
 
                 </button>
 

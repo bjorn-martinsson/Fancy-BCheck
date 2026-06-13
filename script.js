@@ -410,13 +410,6 @@ function scoreSetup(setup) {
 
 function findSetups() {
 
-    const target =
-        document
-        .getElementById(
-            "targetInput"
-        )
-        .value;
-    
     // 1. Get the input and convert it to an integer
     const inputVal = parseInt(document.getElementById("targetInput").value, 10);
 

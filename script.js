@@ -1280,7 +1280,7 @@ function decodeSetup(view, offset) {
             case 18:
                 moving_bind.name = "Walk forward + rightx2.";
                 moving_bind.description = "Start walking diagonally at 22.5 deg with +forward +moveright +strafe +right while uncrouched.";
-                moving_bind.code = "alias +walk \"+forward; +moveright +strafe; +right\";\nalias -walk \"-forward -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+forward; +moveright; +strafe; +right\";\nalias -walk \"-forward -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 19:
                 moving_bind.name = "Walk back + leftx2.";
@@ -1290,7 +1290,7 @@ function decodeSetup(view, offset) {
             case 20:
                 moving_bind.name = "Walk back + rightx2.";
                 moving_bind.description = "Start walking diagonally at 22.5 deg with +back +moveright +strafe +right while uncrouched.";
-                moving_bind.code = "alias +walk \"+back; +moveright +strafe; +right\";\nalias -walk \"-back -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+back; +moveright; +strafe; +right\";\nalias -walk \"-back -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 21:
                 moving_bind.name = "Walk forward + leftx2 with +moveup.";
@@ -1300,7 +1300,7 @@ function decodeSetup(view, offset) {
             case 22:
                 moving_bind.name = "Walk forward + rightx2 with +moveup.";
                 moving_bind.description = "Start walking diagonally at 22.5 deg with +forward +moveright +strafe +right while uncrouched and with +moveup (to walk slower).";
-                moving_bind.code = "alias +walk \"+moveup; +forward; +moveright +strafe; +right\";\nalias -walk \"-moveup -1; -forward -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+moveup; +forward; +moveright; +strafe; +right\";\nalias -walk \"-moveup -1; -forward -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 23:
                 moving_bind.name = "Walk back + leftx2 with +moveup.";
@@ -1310,7 +1310,7 @@ function decodeSetup(view, offset) {
             case 24:
                 moving_bind.name = "Walk back + rightx2 with +moveup.";
                 moving_bind.description = "Start walking diagonally at 22.5 deg with +back +moveright +strafe +right while uncrouched and with +moveup (to walk slower).";
-                moving_bind.code = "alias +walk \"+moveup; +back; +moveright +strafe; +right\";\nalias -walk \"-moveup -1; -back -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+moveup; +back; +moveright; +strafe; +right\";\nalias -walk \"-moveup -1; -back -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 25:
                 moving_bind.name = "Walk leftx2 with +moveup.";
@@ -1319,7 +1319,7 @@ function decodeSetup(view, offset) {
                 break;
             case 26:
                 moving_bind.name = "Walk rightx2 with +moveup.";
-                moving_bind.description = "Start walking to the right with +moveright +strafe +right while uncrouched and with +moveup (to walk slower).";
+                moving_bind.description = "Start walking to the right with +moveright; +strafe +right while uncrouched and with +moveup (to walk slower).";
                 moving_bind.code = "alias +walk \"+moveup; +moveright; +strafe; +right\";\nalias -walk \"-moveup -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
     }
@@ -1420,7 +1420,7 @@ function decodeSetup(view, offset) {
             case 18:
                 moving_bind.name = "Crouch-walk forward + rightx2.";
                 moving_bind.description = "Start crouch-walking diagonally at 22.5 with +forward +moveright +strafe +right.";
-                moving_bind.code = "alias +walk \"+forward; +moveright +strafe; +right\";\nalias -walk \"-forward -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+forward; +moveright; +strafe; +right\";\nalias -walk \"-forward -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 19:
                 moving_bind.name = "Crouch-walk back + leftx2.";
@@ -1430,7 +1430,7 @@ function decodeSetup(view, offset) {
             case 20:
                 moving_bind.name = "Crouch-walk back + rightx2.";
                 moving_bind.description = "Start crouch-walking diagonally at 22.5 with +back +moveright +strafe +right.";
-                moving_bind.code = "alias +walk \"+back; +moveright +strafe; +right\";\nalias -walk \"-back -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+back; +moveright; +strafe; +right\";\nalias -walk \"-back -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 21:
                 moving_bind.name = "Crouch-walk forward + leftx2 with +moveup.";
@@ -1440,7 +1440,7 @@ function decodeSetup(view, offset) {
             case 22:
                 moving_bind.name = "Crouch-walk forward + rightx2 with +moveup.";
                 moving_bind.description = "Start crouch-walking diagonally at 22.5 deg with +forward +moveright +strafe +right with +moveup (to move slower).";
-                moving_bind.code = "alias +walk \"+moveup; +forward; +moveright +strafe; +right\";\nalias -walk \"-moveup -1; -forward -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+moveup; +forward; +moveright; +strafe; +right\";\nalias -walk \"-moveup -1; -forward -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 23:
                 moving_bind.name = "Crouch-walk back + leftx2 with +moveup.";
@@ -1450,7 +1450,7 @@ function decodeSetup(view, offset) {
             case 24:
                 moving_bind.name = "Crouch-walk back + rightx2 with +moveup.";
                 moving_bind.description = "Start crouch-walking diagonally at 22.5 deg with +back +moveright +strafe +right with +moveup (to move slower).";
-                moving_bind.code = "alias +walk \"+moveup; +back; +moveright +strafe; +right\";\nalias -walk \"-moveup -1; -back -1; -moveright -1; -strafe -1; -right -1\";";
+                moving_bind.code = "alias +walk \"+moveup; +back; +moveright; +strafe; +right\";\nalias -walk \"-moveup -1; -back -1; -moveright -1; -strafe -1; -right -1\";";
                 break;
             case 25:
                 moving_bind.name = "Crouch-walk leftx2 with +moveup.";

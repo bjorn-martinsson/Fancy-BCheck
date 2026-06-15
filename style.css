@@ -203,6 +203,12 @@ button {
 
 }
 
+.launcher-any {
+
+    background: #fef3c7;
+
+}
+
 .technique-tag {
 
     background: #f3f4f6;
@@ -210,6 +216,12 @@ button {
 }
 
 .technique-auto {
+
+    background: #ede9fe;
+
+}
+
+.technique-fullyAuto {
 
     background: #ede9fe;
 

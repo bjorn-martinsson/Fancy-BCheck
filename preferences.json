@@ -137,6 +137,12 @@
             "name": "Advanced bounce",
             "preferences": [
                 {
+                    "id": "STANDBBOUNCE",
+                    "label": "Standing bounce",
+                    "defaultWeight": 2,
+                    "description": "Setups where you have time to fire a rocket in order to do a standing bounce."
+                },
+                {
                     "id": "PB",
                     "label": "Power bounce",
                     "defaultWeight": 2,
@@ -149,7 +155,7 @@
                     "description": "Setups where you can both jumpbug and have time to shoot a rocket in order to do a \"jumpbug power bounce\"."
                 },
                 {
-                    "id": "SB",
+                    "id": "SBOUNCE",
                     "label": "Synced bounce",
                     "defaultWeight": 2,
                     "description": "Setups where you have time to prefire a rocket in order to perform a synced bounce."

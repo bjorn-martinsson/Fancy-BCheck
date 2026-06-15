@@ -1521,13 +1521,13 @@ function decodeSetup(view, offset) {
         case 4:
             if (setup.num_rockets == 0) {
                 action_bind.name = "Ctap jump.";
-                action_bind.description = "A ctap jump (makes you go slightly lower than a normal jump).";
+                action_bind.description = "A Ctap jump (makes you go slightly lower than a normal jump).";
             } else if (setup.num_rockets == 1) {
                 action_bind.name = "Ctap JDS.";
-                action_bind.description = "Ctap JDS (Ctap Jump duck shot). Shoot 1 rocket + ctap at same time (while looking straight down).";
+                action_bind.description = "Ctap JDS (Ctap Jump duck shot). Shoot 1 rocket + Ctap at same time (while looking straight down).";
             } else {
                 action_bind.name = "Ctap JDS, then continue holding m1.";
-                action_bind.description = "Ctap JDS (Ctap Jump duck shot). Shoot 1 rocket + ctap at the same time (while looking straight down), then continue holding m1.";
+                action_bind.description = "Ctap JDS (Ctap Jump duck shot). Shoot 1 rocket + Ctap at the same time (while looking straight down), then continue holding m1.";
             }
             action_bind.code = "alias +strike \"+attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";";
             break;

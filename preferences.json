@@ -99,6 +99,35 @@
             ]
         },
         {
+            "name": "Fully automatic bounce",
+            "preferences": [
+                {
+                    "id": "FABOUNCE",
+                    "label": "Fully auto bounce",
+                    "defaultWeight": 10,
+                    "description": "Can be bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground."
+                },
+                {
+                    "id": "FASBOUNCE",
+                    "label": "Fully auto synced bounce",
+                    "defaultWeight": 10,
+                    "description": "It is possible to prefire a rocket straight down for a synced bounce only holding m1. The rocket explpodes the tick the player hits the ground."
+                },
+                {
+                    "id": "FASTANDBOUNCE",
+                    "label": "Fully auto standing bounce",
+                    "defaultWeight": 10,
+                    "description": "Can be standing bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground. Perfect setup if you want to go straight into a pogo."
+                },
+                {
+                    "id": "FASSTANDBOUNCE",
+                    "label": "Auto synced standing bounce",
+                    "defaultWeight": 6,
+                    "description": "It is possible to prefire a rocket for a synced standing bounce only holding m1 looking straight down. The rocket explodes the tick the player hits the ground."
+                }
+            ]
+        },
+        {
             "name": "Trajectory",
             "preferences": [
                 {
@@ -171,6 +200,12 @@
                     "label": "Synced jumpbug powerbounce",
                     "defaultWeight": 0,
                     "description": "Setups where you have time to prefire a rocket in order to perform a synced jumpbug power bounce."
+                },
+                {
+                    "id": "SSTANDBOUNCE",
+                    "label": "Synced standing bounce",
+                    "defaultWeight": 0,
+                    "description": "Setups where you have time to prefire a rocket in order to perform a synced standing bounce."
                 }
             ]
         },

@@ -690,6 +690,58 @@ function buildTechniqueTags(setup) {
         );
     tags.push(rocketTag);
 
+    if (
+        techniques.bounce?.possible
+    ) {
+
+        if (techniques.bounce.automatic) {
+            if (techniques.bounce.fullyAutomatic) {
+                tags.push(
+                    createTag(
+                        "Bounce (Fully auto)",
+                        {
+                            description:
+                                "Holding m1 (while looking straight down) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce.",
+
+                            type:
+                                "technique-fullyAuto"
+                        }
+                    )
+                );
+
+            } else {
+                tags.push(
+                    createTag(
+                        "Bounce (Auto)",
+                        {
+                            description:
+                                "Holding m1 results in a rocket that can be used to hit a crouched bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_bounce} ticks too early.",
+
+                            type:
+                                "technique-auto"
+                        }
+                    )
+                );
+
+            }
+        } else {
+            tags.push(
+                createTag(
+                    "Bounce",
+                    {
+                        description:
+                            "It is possible to fire a rocket to hit a crouched bounce, but it will require manually timing/aiming the rocket.",
+
+                        type:
+                            "technique-tag"
+                    }
+                )
+            );
+
+        }
+
+    }
+
 
     if (
         techniques.bhop?.possible
@@ -727,58 +779,6 @@ function buildTechniqueTags(setup) {
     }
     
     if (
-        techniques.bounce?.possible
-    ) {
-
-        if (techniques.bounce.automatic) {
-            if (techniques.bounce.fullyAutomatic) {
-                tags.push(
-                    createTag(
-                        "Bounce (Fully auto)",
-                        {
-                            description:
-                                "Holding m1 (while looking straight down) results in firing a rocket that can be used to hit a crouched bounce.",
-
-                            type:
-                                "technique-fullyAuto"
-                        }
-                    )
-                );
-
-            } else {
-                tags.push(
-                    createTag(
-                        "Bounce (Auto)",
-                        {
-                            description:
-                                "Holding m1 results in firing a rocket that can be to hit a crouched bounce. However, this may require accurately aiming the rocket.",
-
-                            type:
-                                "technique-auto"
-                        }
-                    )
-                );
-
-            }
-        } else {
-            tags.push(
-                createTag(
-                    "Bounce",
-                    {
-                        description:
-                            "It is possible to fire a rocket to hit a crouched bounce, but it will require manually timing/aiming the rocket.",
-
-                        type:
-                            "technique-tag"
-                    }
-                )
-            );
-
-        }
-
-    }
-
-    if (
         techniques.standingBounce?.possible
     ) {
         if (techniques.standingBounce.automatic) {
@@ -788,7 +788,7 @@ function buildTechniqueTags(setup) {
                         "Standing bounce (Fully auto)",
                         {
                             description:
-                                "Holding m1 (while looking straight down) results in firing a rocket that can be used to hit a standing bounce.",
+                                "Holding m1 (while looking straight down) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce.",
 
                             type:
                                 "technique-fullyAuto"
@@ -802,7 +802,7 @@ function buildTechniqueTags(setup) {
                         "Standing bounce (Auto)",
                         {
                             description:
-                                "Holding m1 results in firing a rocket that can be to hit a standing bounce. However, this may require accurately aim the rocket.",
+                                `Holding m1 results in a rocket that can be used to hit a standing bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_standing_bounce} ticks too early.`,
 
                             type:
                                 "technique-auto"
@@ -839,7 +839,7 @@ function buildTechniqueTags(setup) {
                         "Synced bounce (Fully auto)",
                         {
                             description:
-                                "Holding m1 (while looking straight down) results in prefiring a rocket that can be used to hit a crouched bounce/synced bounce.",
+                                "Holding m1 (while looking straight down) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce/synced bounce.",
 
                             type:
                                 "technique-fullyAuto"
@@ -853,7 +853,7 @@ function buildTechniqueTags(setup) {
                         "Synced bounce (Auto)",
                         {
                             description:
-                                "Holding m1 results in prefiring a rocket that can be to hit a crouched bounce/synced bounce. However, this may require accurately aiming the prefire.",
+                                `Holding m1 prefires a rocket that can be used to hit a crouched bounce/synced bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_synced_bounce} ticks too early.`,
 
                             type:
                                 "technique-auto"
@@ -877,7 +877,56 @@ function buildTechniqueTags(setup) {
             );
 
         }
+    }
+    
+    if (
+        techniques.syncedStandingBounce?.possible
+    ) {
+        if (techniques.syncedStandingBounce.automatic) {
+            if (techniques.syncedStandingBounce.fullyAutomatic) {
+                tags.push(
+                    createTag(
+                        "Synced standing bounce (Fully auto)",
+                        {
+                            description:
+                                "Holding m1 (while looking straight down) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce/synced standing bounce.",
 
+                            type:
+                                "technique-fullyAuto"
+                        }
+                    )
+                );
+
+            } else {
+                tags.push(
+                    createTag(
+                        "Synced standing bounce (Auto)",
+                        {
+                            description:
+                                `Holding m1 prefires a rocket that can be used to hit a standing bounce/synced standing bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_synced_bounce} ticks too early.`,
+
+                            type:
+                                "technique-auto"
+                        }
+                    )
+                );
+
+            }
+        } else {
+            tags.push(
+                createTag(
+                    "Synced standing bounce",
+                    {
+                        description:
+                            "It is possible to prefire a rocket to hit a synced standing bounce, but it will require manually timing/aiming the prefire.",
+
+                        type:
+                            "technique-tag"
+                    }
+                )
+            );
+
+        }
     }
 
     return tags.join("");
@@ -1002,6 +1051,10 @@ const FLAG_NAMES = [
     "ASBOUNCE",
     "ASTANDBOUNCE",
     "ASSTANDBOUNCE",
+    "FABOUNCE",
+    "FASBOUNCE",
+    "FASTANDBOUNCE",
+    "FASSTANDBOUNCE",
     "HEIGHT",
     "DIST",
     "SPEED",
@@ -1013,6 +1066,7 @@ const FLAG_NAMES = [
     "SBOUNCE",
     "SPB",
     "SJBPB",
+    "SSTANDBOUNCE",
     "CROUCHED",
     "NOMOVING",
     "DIAGONAL",
@@ -1031,7 +1085,7 @@ const FLAG_NAMES = [
 
 ];
 
-const RECORD_SIZE = 79;
+const RECORD_SIZE = 88;
 
 function decodeSetup(view, offset) {
 
@@ -1060,7 +1114,19 @@ function decodeSetup(view, offset) {
 
     setup.num_rockets =
         view.getUint8(cursor++);
+    
+    setup.tick_delay_auto_bounce =
+        view.getUint8(cursor++);
 
+    setup.tick_delay_auto_synced_bounce =
+        view.getUint8(cursor++);
+
+    setup.tick_delay_auto_standing_bounce =
+        view.getUint8(cursor++);
+
+    setup.tick_delay_auto_synced_standing_bounce =
+        view.getUint8(cursor++);
+    
     for (const flag of FLAG_NAMES) {
 
         setup[flag] =
@@ -1084,7 +1150,6 @@ function decodeSetup(view, offset) {
         );
 
         cursor += 4;
-
     }
 
     // Create JSON structure
@@ -1118,44 +1183,15 @@ function decodeSetup(view, offset) {
     setup.techniques = {};
     setup.techniques.bounce = {
         possible: false,
-        automatic: false
+        automatic: false,
+        fullyAutomatic: false
     }
     if (setup.BOUNCE >= 128) {
         setup.techniques.bounce.possible = true;
         if (setup.ABOUNCE >= 128) {
             setup.techniques.bounce.automatic = true;
-            if (setup.ABOUNCE >= 200) {
+            if (setup.FABOUNCE >= 128) {
                 setup.techniques.bounce.fullyAutomatic = true;
-            }
-        }
-    }
-
-    // synced bounce
-    setup.techniques.syncedBounce = {
-        possible: false,
-        automatic: false
-    }
-    if (setup.SBOUNCE >= 128) {
-        setup.techniques.syncedBounce.possible = true;
-        if (setup.ASBOUNCE >= 128) {
-            setup.techniques.syncedBounce.automatic = true;
-            if (setup.ASBOUNCE >= 200) {
-                setup.techniques.syncedBounce.fullyAutomatic = true;
-            }
-        }
-    }
-
-    // standing bounce
-    setup.techniques.standingBounce = {
-        possible: false,
-        automatic: false
-    }
-    if (setup.STANDBOUNCE >= 128) {
-        setup.techniques.standingBounce.possible = true;
-        if (setup.ASTANDBOUNCE >= 128) {
-            setup.techniques.standingBounce.automatic = true;
-            if (setup.ASTANDBOUNCE >= 128) {
-                setup.techniques.standingBounce.fullyAutomatic = true;
             }
         }
     }
@@ -1178,6 +1214,53 @@ function decodeSetup(view, offset) {
         setup.techniques.jumpbug.possible = true;
     }
 
+    // synced bounce
+    setup.techniques.syncedBounce = {
+        possible: false,
+        automatic: false,
+        fullyAutomatic: false
+    }
+    if (setup.SBOUNCE >= 128) {
+        setup.techniques.syncedBounce.possible = true;
+        if (setup.ASBOUNCE >= 128) {
+            setup.techniques.syncedBounce.automatic = true;
+            if (setup.FASBOUNCE >= 128) {
+                setup.techniques.syncedBounce.fullyAutomatic = true;
+            }
+        }
+    }
+
+    // standing bounce
+    setup.techniques.standingBounce = {
+        possible: false,
+        automatic: false,
+        fullyAutomatic: false
+    }
+    if (setup.STANDBOUNCE >= 128) {
+        setup.techniques.standingBounce.possible = true;
+        if (setup.ASTANDBOUNCE >= 128) {
+            setup.techniques.standingBounce.automatic = true;
+            if (setup.FASTANDBOUNCE >= 128) {
+                setup.techniques.standingBounce.fullyAutomatic = true;
+            }
+        }
+    }
+    
+    // synced standing bounce
+    setup.techniques.syncedStandingBounce = {
+        possible: false,
+        automatic: false,
+        fullyAutomatic: false
+    }
+    if (setup.SSTANDBOUNCE >= 128) {
+        setup.techniques.syncedStandingBounce.possible = true;
+        if (setup.ASSTANDBOUNCE >= 128) {
+            setup.techniques.syncedStandingBounce.automatic = true;
+            if (setup.FASSTANDBOUNCE >= 128) {
+                setup.techniques.syncedStandingBounce.fullyAutomatic = true;
+            }
+        }
+    }
 
     // name
     // description
@@ -1465,8 +1548,6 @@ function decodeSetup(view, offset) {
         }
     }
 
-
-    console.log(setup.start_action);
 
     action_bind = {};
 

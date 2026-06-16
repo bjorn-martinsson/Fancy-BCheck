@@ -289,3 +289,46 @@ a:hover {
     margin-bottom: 15px;
     color: #6b7280;
 }
+
+.results-controls {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        20px;
+
+}
+
+.show-buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+.show-buttons button {
+
+    border-radius:
+        999px;
+
+    padding:
+        6px 12px;
+
+}
+
+.show-buttons button.active {
+
+    background:
+        #2563eb;
+
+    color:
+        white;
+
+}

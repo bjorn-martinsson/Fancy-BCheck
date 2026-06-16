@@ -279,9 +279,12 @@ function initializePreferenceLogic() {
                     pref.id,
                     value
                 );
-
+            });
+            
+            slider.addEventListener(
+                "change",
+                () => {
                 rerankResults();
-
             });
 
             number.addEventListener(
@@ -424,16 +427,33 @@ async function findSetups() {
 
 function rerankResults() {
 
-    currentResults.sort(
-        (a, b) =>
-            scoreSetup(b)
-            -
-            scoreSetup(a)
-    );
+    currentResults = currentResults
+        .map(setup => ({
+            setup: setup,
+            score: scoreSetup(setup)
+        }))
+        .sort(
+            (a, b) =>
+                b.score - a.score
+        )
+        .map(
+            item => item.setup
+        );
 
     displayResults();
 
 }
+
+let maxDisplayed = 20;
+
+function setMaxDisplayed(value) {
+
+    maxDisplayed = value;
+
+    displayResults();
+
+}
+
 
 function displayResults() {
 
@@ -455,8 +475,81 @@ function displayResults() {
 
     }
     
-    currentResults.forEach(
-        setup => {
+    container.innerHTML = `
+
+    <div class="results-controls">
+
+        <p>
+
+            Showing
+
+            ${Math.min(
+                maxDisplayed,
+                currentResults.length
+            )}
+
+            of
+
+            ${currentResults.length}
+
+            setups
+
+        </p>
+
+        <div class="show-buttons">
+            <button
+                class="${
+                    maxDisplayed === 20
+                        ? "active"
+                        : ""
+                }"
+                onclick="setMaxDisplayed(20)">
+                20
+            </button>
+
+            <button
+                class="${
+                    maxDisplayed === 50
+                        ? "active"
+                        : ""
+                }"
+                onclick="setMaxDisplayed(50)">
+                50
+            </button>
+
+            <button
+                class="${
+                    maxDisplayed === 250
+                        ? "active"
+                        : ""
+                }"
+                onclick="setMaxDisplayed(250)">
+                250
+            </button>
+
+            <button
+                class="${
+                    maxDisplayed === Infinity
+                        ? "active"
+                        : ""
+                }"
+                onclick="setMaxDisplayed(Infinity)">
+                All
+            </button>
+
+        </div>
+
+    </div>
+
+    `;
+
+    const shownResults =
+    currentResults.slice(
+        0,
+        maxDisplayed
+    );
+
+    shownResults.forEach(setup => {
 
             const div =
                 document.createElement(
@@ -777,6 +870,94 @@ function buildTechniqueTags(setup) {
             )
         );
     }
+
+
+    if (
+        techniques.spb?.possible
+    ) {
+
+        tags.push(
+            createTag(
+                "Synced powerbounce",
+                {
+                    description:
+                        "Synced powerbounce is possible.",
+
+                    type:
+                        "technique-tag"
+                }
+            )
+        );
+
+    }
+    else if (
+        techniques.sjbpb?.possible
+    ) {
+        tags.push(
+            createTag(
+                "Synced jumpbug powerbounce",
+                {
+                    description:
+                        "Synced jumpbug powerbounce is possible.",
+
+                    type:
+                        "technique-tag"
+                }
+            )
+        );
+
+        if (
+            techniques.pb?.possible
+        ) {
+
+            tags.push(
+                createTag(
+                    "Powerbounce",
+                    {
+                        description:
+                            "Powerbounce is possible.",
+
+                        type:
+                            "technique-tag"
+                    }
+                )
+            );
+
+        }
+
+    } else if (
+            techniques.pb?.possible
+    ) {
+
+        tags.push(
+            createTag(
+                "Powerbounce",
+                {
+                    description:
+                        "Powerbounce is possible.",
+
+                    type:
+                        "technique-tag"
+                }
+            )
+        );
+
+    } else if (
+            techniques.jbpb?.possible
+    ) {
+
+        tags.push(
+            createTag(
+                "Jumpbug powerbounce",
+                {
+                    description:
+                        "Jumpbug powerbounce is possible.",
+                    type:
+                        "technique-tag"
+                }
+            )
+        );
+    }
     
     if (
         techniques.standingBounce?.possible
@@ -967,7 +1148,7 @@ function buildRocketSpeedSection(
                 class="speed-badge">
 
                 Initial:
-                ${speed}
+                ${speed.toFixed(2)}
                 u/s
 
             </span>` 
@@ -976,7 +1157,7 @@ function buildRocketSpeedSection(
                 class="speed-badge">
 
                 R<sub>${index}</sub>:
-                ${speed}
+                ${speed.toFixed(2)}
                 u/s
 
             </span>` 
@@ -1074,13 +1255,13 @@ const FLAG_NAMES = [
     "STRAFE",
     "NOMOVEMENTBIND",
     "SHOTGUN",
-    "0ROCKET",
-    "1ROCKET",
+    "ZEROROCKET",
+    "ONEROCKET",
     "JS",
     "JDS",
-    "CTAP JDS",
-    "1TICK",
-    "2TICK",
+    "CTAP_JDS",
+    "ONETICK",
+    "TWOTICK",
     "NOACTIONBIND"
 
 ];
@@ -1229,6 +1410,39 @@ function decodeSetup(view, offset) {
             }
         }
     }
+    
+    // power bounce
+    setup.techniques.pb = {
+        possible: false,
+    }
+    if (setup.PB >= 128) {
+        setup.techniques.pb.possible = true;
+    }
+    
+    // synced power bounce
+    setup.techniques.spb = {
+        possible: false,
+    }
+    if (setup.SPB >= 128) {
+        setup.techniques.spb.possible = true;
+    }
+    
+    // jb power bounce
+    setup.techniques.jbpb = {
+        possible: false,
+    }
+    if (setup.JBPB >= 128) {
+        setup.techniques.jbpb.possible = true;
+    }
+    
+    // synced jb power bounce
+    setup.techniques.sjbpb = {
+        possible: false,
+    }
+    if (setup.SJBPB >= 128) {
+        setup.techniques.sjbpb.possible = true;
+    }
+
 
     // standing bounce
     setup.techniques.standingBounce = {

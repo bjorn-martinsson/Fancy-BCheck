@@ -260,16 +260,16 @@
                     "description": "Setups that start by quickswapping to delay the first rocket. The player needs to be holding a different weapon than their rocket launcher for this to work."
                 },
                 {
-                    "id": "0ROCKET",
+                    "id": "ZEROROCKET",
                     "label": "Rocketless setup",
                     "defaultWeight": 0,
                     "description": "Setups that involve no rockets in the initial action. Note that setups may still require rockets to hit for example a bounce."
                 },
                 {
-                    "id": "1ROCKET",
+                    "id": "ONEROCKET",
                     "label": "1 Rocket setup",
                     "defaultWeight": 2,
-                    "description": "Setups that use at most 1 rocket. (Excluding any rocket used to hit a bounce)."
+                    "description": "Setups that use exactly 1 rocket. (Excluding any rocket used to hit a bounce)."
                 },
                 {
                     "id": "JS",
@@ -284,19 +284,19 @@
                     "description": "Setups that start with a \"Jump duck shot\", shooting and crouched jumping at the same time."
                 },
                 {
-                    "id": "CTAP JDS",
+                    "id": "CTAP_JDS",
                     "label": "Ctap jump duck shoot",
                     "defaultWeight": 0,
                     "description": "Setups that start with a \"CTAP jump duck shot\", shooting and ctap jumping at the same time. This is preferable to maximize height."
                 },
                 {
-                    "id": "1TICK",
+                    "id": "ONETICK",
                     "label": "Shoot 1 tick early",
                     "defaultWeight": -20,
                     "description": "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed."
                 },
                 {
-                    "id": "2TICK",
+                    "id": "TWOTICK",
                     "label": "Shoot 2 ticks early",
                     "defaultWeight": -20,
                     "description": "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last."

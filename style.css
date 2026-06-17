@@ -82,11 +82,11 @@ body {
 .tooltip {
     visibility: hidden;
     position: absolute;
-    
+
     /* 1. Fix the blocking issue (Positions it above the icon) */
-    top: 100%;          /* Pushes it up past the button of the icon */
-    left: 0;             /* Moves its left edge to the center of the icon */
-    transform: translateX(0%); /* Shifts it back left by half its own width to center it perfectly */
+    top: 0%;          /* Pushes it up past the button of the icon */
+    left: 20%;             /* Moves its left edge to the center of the icon */
+    transform: translate(-20%, -105%); /* Shifts it back left by half its own width to center it perfectly */
 
     /* 2. Fix the width issue */
     width: max-content;    /* Shrinks perfectly around short text */
@@ -104,6 +104,12 @@ body {
     transition: opacity 0.2s ease;
 
     text-align: left;
+}
+
+.tooltip-container.is-right .tooltip {
+    top: 0%;          /* Pushes it up past the button of the icon */
+    left: 0%;             /* Moves its left edge to the center of the icon */
+    transform: translate(10%, -20%); /* Shifts it back left by half its own width to center it perfectly */
 }
 
 .tooltip-container:hover .tooltip {

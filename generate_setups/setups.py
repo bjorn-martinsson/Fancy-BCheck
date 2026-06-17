@@ -236,8 +236,14 @@ class Setup:
 #out.append(obj.pack())
 
 def export_setups(setups, height):
-    print('Saving %d setups for height %d into file ../data/%d.bin' % (len(setups), height, height))
+    file_path = '../data/%d00to%d99/%d.bin.gz' % (height//100, height//100, height)
+    print('Saving %d setups for height %d into file %s' % (len(setups), height, file_path))
+    from pathlib import Path
+    path = Path(file_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
     out = [setup.pack() for setup in setups]
-    with open('../data/%d.bin' % height, 'wb') as f:
+    import gzip
+    with gzip.open(file_path, 'wb') as f:
         for data in out:
             f.write(data)

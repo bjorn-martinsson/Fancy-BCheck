@@ -1852,30 +1852,30 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Jump + quick-switch.";
                 action_bind.description = "A normal jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
             } else {
-                action_bind.name = "JS + quick-switch.";
-                action_bind.description = "JS (Jump shot) + quick-switch to rocket launcher (delays firing by 34 ticks). Jump + quick-switch at same time (while looking straight down), then continue holding m1.";
+                action_bind.name = "Jump + quick-switch.";
+                action_bind.description = "A normal jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Jump + quick-switch at same time (while looking straight down), then press and hold m1 to shoot the delayed rocket/rockets.";
             } 
             action_bind.code = "alias +strike \"slot1; +attack; +jump; -jump -1\";\nalias -strike \"-attack -1\";";
             break;
         case 6:
             //first_rocket_fired_at_tick += 34
             if (setup.num_rockets == 0) {
-                action_bind.name = "JDS + quick-switch.";
-                action_bind.description = "JDS (Jump duck shot) combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
+                action_bind.name = "Crouched jump + quick-switch.";
+                action_bind.description = "Crouched jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
             } else {
-                action_bind.name = "JDS + quick-switch.";
-                action_bind.description = "JDS (Jump duck shot) + quick-switch to rocket launcher (delays firing by 34 ticks). Crouched jump + quick-switch at same time (while looking straight down), then continue holding m1.";
+                action_bind.name = "Crouched jump + quick-switch.";
+                action_bind.description = "Crouched jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Crouched jump + quick-switch at same time (while looking straight down), then press and hold m1 to fire the delayed rocket/rockets.";
             } 
             action_bind.code = "alias +strike \"slot1; +attack; +jump; -jump -1; +duck\";\nalias -strike \"-attack -1; -duck -1\";";
             break;
         case 7:
             //first_rocket_fired_at_tick += 34
             if (setup.num_rockets == 0) {
-                action_bind.name = "Ctap JDS + quick-switch.";
-                action_bind.description = "Ctap JDS (Ctap jump duck shot) combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
+                action_bind.name = "Ctap + quick-switch.";
+                action_bind.description = "Ctap combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
             } else {
-                action_bind.name = "Ctap JDS + quick-switch.";
-                action_bind.description = "Ctap JDS (Ctap jump duck shot) + quick-switch to rocket launcher (delays firing by 34 ticks). Ctap + quick-switch at same time (while looking straight down), then continue holding m1.";
+                action_bind.name = "Ctap + quick-switch.";
+                action_bind.description = "Ctap combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Ctap + quick-switch at same time (while looking straight down), then press and hold m1 to fire the delayed rocket/rockets.";
             } 
             action_bind.code = "alias +strike \"slot1; +attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";";
             break;
@@ -1913,10 +1913,10 @@ function decodeSetup(view, offset) {
 async function loadHeight(
     height
 ) {
-
+    
     const response =
         await fetch(
-            `data/${height}.bin`
+            `data/${Math.floor(height/100)}00to${Math.floor(height/100)}99/${height}.bin.gz`
         );
 
     if (
@@ -1926,9 +1926,15 @@ async function loadHeight(
         return [];
 
     }
+    
+    // Pipe the download through the browser's native decompression engine
+    const decompressedStream = response.body.pipeThrough(new DecompressionStream('gzip'));
+  
+    // Convert the decompressed stream into an ArrayBuffer for your parser
+    const decompressedResponse = new Response(decompressedStream);
 
     const buffer =
-        await response
+        await decompressedResponse
             .arrayBuffer();
 
     

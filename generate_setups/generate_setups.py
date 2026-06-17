@@ -944,7 +944,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
 #height = 4504.0 # jump_ricko
 #height = 2240.0 # jump_ricko
 #height = 992.0 # jump_superserious
-height = 608.0 # jump_simister
+#height = 608.0 # jump_simister
 #height = 1602.0 # jump_sweet
 #height = 604.0 # jump_hanami, lvl 3
 #height = 464.0 # jump_hanami, lvl 4
@@ -958,21 +958,61 @@ height = 608.0 # jump_simister
 #height = 1216.0 # jump_speed2 last
 #height = 128.0 # jump_speed2 last
 
+
 def find_bounce_setups_for_height(height):
-    from explore_code_paths import explore_paths
-    from setups import Setup
+    from explore_code_paths import explore_all_paths, explore_specifc_paths
+    from setups import Setup, export_setups
+    from precompute import manage_precompute
 
-    f = lambda make_choice, path_id: try_bounce_setup([0.0, height], make_choice, path_id)
+    def generate_interesting_setup_ids():
+        f = lambda make_choice, path_id: try_bounce_setup([0.0, height], make_choice, path_id)
+        
+        found_setups = {}
+        for setup in explore_all_paths(f):
+            if type(setup) == Setup:
+                if setup.my_hash not in found_setups:
+                    found_setups[setup.my_hash] = setup
+
+        from setups import export_setups
+        interesting_setups = [found_setups[my_hash] for my_hash in found_setups]
+
+        return [setup.ID for setup in interesting_setups]
     
-    found_setups = {}
-    for setup in explore_paths(f):
-        if type(setup) == Setup:
-            if setup.my_hash not in found_setups:
-                found_setups[setup.my_hash] = setup
+    def generate_setups_given_ids(setup_ids):
+        f = lambda make_choice, path_id: try_bounce_setup([0.0, height], make_choice, path_id)
+        
+        found_setups = []
+        for setup in explore_specifc_paths(f, setup_ids):
+            if type(setup) == Setup:
+                if setup.my_hash not in found_setups:
+                    found_setups.append(setup)
 
-    from setups import export_setups
-    interesting_setups = [found_setups[my_hash] for my_hash in found_setups]
+        return found_setups
+    
+    interesting_setup_ids = manage_precompute(generate_interesting_setup_ids, '../precompute/%d00to%d99/%d.bin' % (height//100, height//100, height))
+    interesting_setups = generate_setups_given_ids(interesting_setup_ids)
+
     print('Number of setups found:', len(interesting_setups))
     export_setups(interesting_setups, height)
 
-find_bounce_setups_for_height(height)
+H = [
+4504.0, 
+2240.0 ,
+992.0 ,
+608.0 ,
+1602.0 ,
+604.0 ,
+464.0 ,
+240.0 ,
+5082.0 ,
+1172.0 ,
+1534.0 ,
+384.0 ,
+768.0 ,
+1792.0 ,
+1216.0 ,
+128.0 ,
+]
+
+for height in 240,1602:
+    find_bounce_setups_for_height(height)

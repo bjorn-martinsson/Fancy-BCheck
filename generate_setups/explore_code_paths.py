@@ -24,11 +24,6 @@ def explore_all_paths(f, starting_id = 0):
         path_id = next_path_id
         part_previously_read = 1
         
-        print()
-        print('STARTING NEW TEST #', count, 'with path_id:', path_id, flush=True)
-        print()
-        count += 1
-
         class fake_stdout:
             def flush(self):
                 return
@@ -37,6 +32,12 @@ def explore_all_paths(f, starting_id = 0):
         
         import sys
         sys.stdout = fake_stdout()
+        
+        print()
+        print('STARTING NEW TEST #', count, 'with path_id:', path_id, flush=True)
+        print()
+        count += 1
+
         yield f(make_choice, path_id)
         #exit()
         sys.stdout = sys.__stdout__
@@ -58,11 +59,6 @@ def explore_specifc_paths(f, path_ids):
     for path_id in path_ids:
         part_previously_read = 1
         
-        print()
-        print('STARTING NEW TEST #', count, 'with path_id:', path_id, flush=True)
-        print()
-        count += 1
-
         class fake_stdout:
             def flush(self):
                 return
@@ -71,6 +67,13 @@ def explore_specifc_paths(f, path_ids):
         
         import sys
         sys.stdout = fake_stdout()
+        
+        print()
+        print('STARTING NEW TEST #', count, 'with path_id:', path_id, flush=True)
+        print()
+        count += 1
+
+        
         yield f(make_choice, path_id)
         #exit()
         sys.stdout = sys.__stdout__

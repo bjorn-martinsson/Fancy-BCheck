@@ -651,7 +651,10 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
 
     interesting = False
     if possible_bounces:
+
+        #possible_bounces = possible_bounces[-1:]
         assert len(possible_bounces) == 1
+        
         print('BOUNCE POSSIBLE')
         for tick, pos in possible_bounces:
             print('Bounce possible at tick:', tick,'at position:', pos, flush=True)
@@ -746,7 +749,11 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
 
    
     if possible_jumpbugs:
+
+        # If many jump bugs are found, pick the last one
+        possible_jumpbugs = possible_jumpbugs[-1:]
         assert len(possible_jumpbugs) == 1
+        
         print('JUMPBUG POSSIBLE')
         #interesting = True
         for tick, pos in possible_jumpbugs:
@@ -992,7 +999,7 @@ def find_bounce_setups_for_height(height):
     interesting_setup_ids = manage_precompute(generate_interesting_setup_ids, '../precompute/%d00to%d99/%d.bin' % (height//100, height//100, height))
     interesting_setups = generate_setups_given_ids(interesting_setup_ids)
 
-    print('Number of setups found:', len(interesting_setups))
+    print('Number of setups found: %d at height %d' % (len(interesting_setups), height))
     export_setups(interesting_setups, height)
 
 H = [
@@ -1014,5 +1021,17 @@ H = [
 128.0 ,
 ]
 
-for height in 240,1602:
-    find_bounce_setups_for_height(height)
+#heights = [928.0, 256.0, 384.0, 128.0, 1408.0, 1792.0, 320.0, 960.0, 1952.0, 2944.0, 3936.0, 4960.0, 2112.0]
+
+#find_bounce_setups_for_height(928)
+
+
+from concurrent.futures import ProcessPoolExecutor
+
+# It is important to wrap like this, otherwise children will recursively try to create more threads
+if __name__ == '__main__':
+    heights = range(1, 7000)
+    
+    # This launches 10 completely separate Python processes
+    with ProcessPoolExecutor(max_workers=12) as executor:
+        executor.map(find_bounce_setups_for_height, heights)

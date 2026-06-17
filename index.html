@@ -29,8 +29,66 @@
 
             <button onclick="togglePreferences()">
                 Preferences
+                <span
+                    class="tooltip-container">
+
+                    ⓘ
+
+                    <span
+                        class="tooltip">
+                        <h4>
+                            Ranking Preferences
+                        </h4>
+
+                        <p>
+                            Each setup is scored based on your preferences.
+                            Setups with higher scores are shown first.
+                        </p>
+
+                        <ul>
+
+                            <li>
+                                <b>Positive</b> values favor setups with that property.
+                            </li>
+
+                            <li>
+                                <b>Negative</b> values penalize setups with that property.
+                            </li>
+
+                            <li>
+                                <b>Zero</b> ignores the property entirely.
+                            </li>
+
+                        </ul>
+
+                        <p>
+
+                            <b>Example:</b>
+
+                            <br>
+
+                            <code>
+                                Stock = +100
+                            </code>
+
+                            strongly prefers setups for the stock launcher.
+
+                        </p>
+
+                        <p>
+
+                            <b>Note:</b>
+
+                            Preferences affect
+                            <b>ranking</b>,
+                            not filtering.
+
+                        </p>
+                    </span>
+
+                </span>
             </button>
-            
+ 
             <button onclick="window.location.href='faq.html'">
                 FAQ
             </button>

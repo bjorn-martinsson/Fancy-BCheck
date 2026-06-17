@@ -84,7 +84,7 @@ body {
     position: absolute;
     
     /* 1. Fix the blocking issue (Positions it above the icon) */
-    bottom: 125%;          /* Pushes it up past the top of the icon */
+    top: 100%;          /* Pushes it up past the button of the icon */
     left: 0;             /* Moves its left edge to the center of the icon */
     transform: translateX(0%); /* Shifts it back left by half its own width to center it perfectly */
 
@@ -102,6 +102,8 @@ body {
     /* Optional: Smooth fade-in effect */
     opacity: 0;
     transition: opacity 0.2s ease;
+
+    text-align: left;
 }
 
 .tooltip-container:hover .tooltip {
@@ -330,5 +332,13 @@ a:hover {
 
     color:
         white;
+
+}
+
+.tooltip ul {
+
+    margin: 6px 0;
+
+    padding-left: 20px;
 
 }

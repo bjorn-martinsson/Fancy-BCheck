@@ -822,7 +822,7 @@ function buildTechniqueTags(setup) {
                         "Bounce (Auto)",
                         {
                             description:
-                                `Holding m1 results in a rocket that can be used to hit a crouched bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_bounce} ticks too early.`,
+                                `Holding m1 results in a rocket that can be used to hit a crouched bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_bounce} ${setup.tick_delay_auto_bounce == 1 ? "tick" : "ticks"} too early.`,
 
                             type:
                                 "technique-auto"
@@ -1001,7 +1001,7 @@ function buildTechniqueTags(setup) {
                         "Standing bounce (Auto)",
                         {
                             description:
-                                `Holding m1 results in a rocket that can be used to hit a standing bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_standing_bounce} ticks too early.`,
+                                `Holding m1 results in a rocket that can be used to hit a standing bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_standing_bounce} ${setup.tick_delay_auto_standing_bounce == 1 ? "tick" : "ticks"} too early.`,
 
                             type:
                                 "technique-auto"
@@ -1054,7 +1054,7 @@ function buildTechniqueTags(setup) {
                         "Synced bounce (Auto)",
                         {
                             description:
-                                `Holding m1 prefires a rocket that can be used to hit a crouched bounce/synced bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_synced_bounce} ticks too early.`,
+                                `Holding m1 prefires a rocket that can be used to hit a crouched bounce/synced bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_synced_bounce} ${setup.tick_delay_auto_synced_bounce == 1 ? "tick": "ticks"} too early.`,
 
                             type:
                                 "technique-auto"
@@ -1104,7 +1104,7 @@ function buildTechniqueTags(setup) {
                         "Synced standing bounce (Auto)",
                         {
                             description:
-                                `Holding m1 prefires a rocket that can be used to hit a standing bounce/synced standing bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_synced_bounce} ticks too early.`,
+                                `Holding m1 prefires a rocket that can be used to hit a standing bounce/synced standing bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_synced_bounce} ${setup.tick_delay_auto_synced_bounce == 1? "tick" : "ticks"} too early.`,
 
                             type:
                                 "technique-auto"

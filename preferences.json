@@ -52,19 +52,19 @@
                 {
                     "id": "SIMPLE",
                     "label": "Simple",
-                    "defaultWeight": 60,
+                    "defaultWeight": 65,
                     "description": "Setups that are simple. Requiring few/no binds, few inputs, and few rockets."
                 },
                 {
                     "id": "CONIST",
                     "label": "Consistency",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups avoiding diagonal movement, which can be inconsistent without a bind. Also prefer bounce setups where the timing window for hitting the bounce is large."
                 },
                 {
                     "id": "NOBIND",
                     "label": "No bind required",
-                    "defaultWeight": 10,
+                    "defaultWeight": 0,
                     "description": "Setups that use no binds."
                 }
             ]
@@ -81,7 +81,7 @@
                 {
                     "id": "ASBOUNCE",
                     "label": "Auto synced bounce",
-                    "defaultWeight": 5,
+                    "defaultWeight": 0,
                     "description": "It is possible to prefire a rocket for a synced bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic)."
                 },
                 {
@@ -104,7 +104,7 @@
                 {
                     "id": "FABOUNCE",
                     "label": "Fully auto bounce",
-                    "defaultWeight": 20,
+                    "defaultWeight": 30,
                     "description": "Can be bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground."
                 },
                 {
@@ -133,31 +133,31 @@
                 {
                     "id": "HEIGHT",
                     "label": "Height",
-                    "defaultWeight": 1,
+                    "defaultWeight": 0,
                     "description": "The heighest point your feet reach during the setup."
                 },
                 {
                     "id": "DIST",
                     "label": "Distance",
-                    "defaultWeight": 1,
+                    "defaultWeight": 0,
                     "description": "The horizontal distance traversed from leaving the initial platform to hitting the bounce/bhop/powerbounce."
                 },
                 {
                     "id": "SPEED",
                     "label": "Speed",
-                    "defaultWeight": 1,
+                    "defaultWeight": 0,
                     "description": "The horizontal speed when leaving the initial platoform. This is often maximized by multi-rocket setups that hit a speedshot."
                 },
                 {
                     "id": "COMPACT",
                     "label": "Compact",
-                    "defaultWeight": 1,
+                    "defaultWeight": 0,
                     "description": "The horizontal distance traversed on the initial platform. This can be used to avoid setups that require large amount of space."
                 },
                 {
                     "id": "QUICK",
                     "label": "Quick",
-                    "defaultWeight": 1,
+                    "defaultWeight": 0,
                     "description": "The time taken from the start of the setup to hitting the bounce/bhop/jumpbug."
                 }
             ]
@@ -168,13 +168,13 @@
                 {
                     "id": "STANDBBOUNCE",
                     "label": "Standing bounce",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups where you have time to fire a rocket in order to do a standing bounce."
                 },
                 {
                     "id": "PB",
                     "label": "Power bounce",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups where you can both bhop and have time to shoot a rocket in order to do a \"power bounce\"."
                 },
                 {
@@ -186,13 +186,13 @@
                 {
                     "id": "SBOUNCE",
                     "label": "Synced bounce",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups where you have time to prefire a rocket in order to perform a synced bounce."
                 },
                 {
                     "id": "SPB",
                     "label": "Synced powerbounce",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups where you have time to prefire a rocket in order to perform a synced power bounce,"
                 },
                 {
@@ -221,13 +221,13 @@
                 {
                     "id": "NOMOVING",
                     "label": "Non-moving starts",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups where you do not press any movement keys. May be preferable because of consistency."
                 },
                 {
                     "id": "DIAGONAL",
                     "label": "Diagonal movement",
-                    "defaultWeight": -2,
+                    "defaultWeight": 0,
                     "description": "Setups with diagonal movement, which, unless a bind is used, may be inconsistent."
                 },
                 {
@@ -245,7 +245,7 @@
                 {
                     "id": "NOMOVEMENTBIND",
                     "label": "No bind required",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups that can be performed using just WASD. Note that a bind might still be preferable for consistency in the case of diagonal movement."
                 }
             ]
@@ -268,7 +268,7 @@
                 {
                     "id": "ONEROCKET",
                     "label": "1 Rocket setup",
-                    "defaultWeight": 2,
+                    "defaultWeight": 0,
                     "description": "Setups that use exactly 1 rocket. (Excluding any rocket used to hit a bounce)."
                 },
                 {
@@ -304,7 +304,7 @@
                 {
                     "id": "NOACTIONBIND",
                     "label": "No bind required",
-                    "defaultWeight": 1,
+                    "defaultWeight": 0,
                     "description": "Setups that only involve jumping or firing a rocket."
                 }
             ]

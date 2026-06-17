@@ -14,62 +14,62 @@ DATA = {
     ],
 
     "Complexity" : [ 
-        "Simple",             60, "SIMPLE",    "Setups that are simple. Requiring few/no binds, few inputs, and few rockets.",
-        "Consistency",        2,  "CONIST",    "Setups avoiding diagonal movement, which can be inconsistent without a bind. Also prefer bounce setups where the timing window for hitting the bounce is large.",
-        "No bind required",   10, "NOBIND",    "Setups that use no binds.",
+        "Simple",             65, "SIMPLE",    "Setups that are simple. Requiring few/no binds, few inputs, and few rockets.",
+        "Consistency",        0,  "CONIST",    "Setups avoiding diagonal movement, which can be inconsistent without a bind. Also prefer bounce setups where the timing window for hitting the bounce is large.",
+        "No bind required",   0, "NOBIND",    "Setups that use no binds.",
     ],
 
     "Automatic bounce" : [
         "Auto bounce",                   10, "ABOUNCE",         "Can be bounced by only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
-        "Auto synced bounce",            5, "ASBOUNCE",        "It is possible to prefire a rocket for a synced bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
+        "Auto synced bounce",            0, "ASBOUNCE",        "It is possible to prefire a rocket for a synced bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
         "Auto standing bounce",          10, "ASTANDBOUNCE",    "Can be standing bounced by only holding m1. Perfect setup if you want to go straight into a pogo. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
         "Auto synced standing bounce",   0,  "ASSTANDBOUNCE",   "It is possible to prefire a rocket for a synced standing bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
     ],
 
     "Fully automatic bounce" : [
-        "Fully auto bounce",                   20, "FABOUNCE",         "Can be bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground.",
+        "Fully auto bounce",                   30, "FABOUNCE",         "Can be bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground.",
         "Fully auto synced bounce",            10, "FASBOUNCE",        "It is possible to prefire a rocket straight down for a synced bounce only holding m1. The rocket explpodes the tick the player hits the ground.",
         "Fully auto standing bounce",          20, "FASTANDBOUNCE",    "Can be standing bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground. Perfect setup if you want to go straight into a pogo.",
         "Auto synced standing bounce",   0,  "FASSTANDBOUNCE",   "It is possible to prefire a rocket for a synced standing bounce only holding m1 looking straight down. The rocket explodes the tick the player hits the ground.",
     ],
 
     "Trajectory" : [
-        "Height",       1, "HEIGHT",  "The heighest point your feet reach during the setup.",
-        "Distance",     1, "DIST",    "The horizontal distance traversed from leaving the initial platform to hitting the bounce/bhop/powerbounce.",
-        "Speed",        1, "SPEED",   "The horizontal speed when leaving the initial platoform. This is often maximized by multi-rocket setups that hit a speedshot.",
-        "Compact",      1, "COMPACT", "The horizontal distance traversed on the initial platform. This can be used to avoid setups that require large amount of space.",
-        "Quick",        1, "QUICK",   "The time taken from the start of the setup to hitting the bounce/bhop/jumpbug."
+        "Height",       0, "HEIGHT",  "The heighest point your feet reach during the setup.",
+        "Distance",     0, "DIST",    "The horizontal distance traversed from leaving the initial platform to hitting the bounce/bhop/powerbounce.",
+        "Speed",        0, "SPEED",   "The horizontal speed when leaving the initial platoform. This is often maximized by multi-rocket setups that hit a speedshot.",
+        "Compact",      0, "COMPACT", "The horizontal distance traversed on the initial platform. This can be used to avoid setups that require large amount of space.",
+        "Quick",        0, "QUICK",   "The time taken from the start of the setup to hitting the bounce/bhop/jumpbug."
     ],
 
     "Advanced bounce" : [
-        "Standing bounce",             2, "STANDBBOUNCE", "Setups where you have time to fire a rocket in order to do a standing bounce.",
-        "Power bounce",                2, "PB",           "Setups where you can both bhop and have time to shoot a rocket in order to do a \"power bounce\".",
+        "Standing bounce",             0, "STANDBBOUNCE", "Setups where you have time to fire a rocket in order to do a standing bounce.",
+        "Power bounce",                0, "PB",           "Setups where you can both bhop and have time to shoot a rocket in order to do a \"power bounce\".",
         "Jumpbug power bounce",        0, "JBPB",         "Setups where you can both jumpbug and have time to shoot a rocket in order to do a \"jumpbug power bounce\".",
-        "Synced bounce",               2, "SBOUNCE",      "Setups where you have time to prefire a rocket in order to perform a synced bounce.",
-        "Synced powerbounce",          2, "SPB",          "Setups where you have time to prefire a rocket in order to perform a synced power bounce,",
+        "Synced bounce",               0, "SBOUNCE",      "Setups where you have time to prefire a rocket in order to perform a synced bounce.",
+        "Synced powerbounce",          0, "SPB",          "Setups where you have time to prefire a rocket in order to perform a synced power bounce,",
         "Synced jumpbug powerbounce",  0, "SJBPB",        "Setups where you have time to prefire a rocket in order to perform a synced jumpbug power bounce.",
         "Synced standing bounce",               0, "SSTANDBOUNCE",      "Setups where you have time to prefire a rocket in order to perform a synced standing bounce.",
     ],
 
     "Movement" : [
         "Crouched start",      0,  "CROUCHED",         "Setups starting with being crouched. May not be preferable because of low horizontal speed.",
-        "Non-moving starts",   2,  "NOMOVING",         "Setups where you do not press any movement keys. May be preferable because of consistency.",
-        "Diagonal movement",   -2, "DIAGONAL",         "Setups with diagonal movement, which, unless a bind is used, may be inconsistent.",
+        "Non-moving starts",   0,  "NOMOVING",         "Setups where you do not press any movement keys. May be preferable because of consistency.",
+        "Diagonal movement",   0, "DIAGONAL",         "Setups with diagonal movement, which, unless a bind is used, may be inconsistent.",
         "+moveup",             0,  "MOVEUP",           "Setups involving the +moveup command. This allows the player to accelerate/walk slower.",
         "+strafe",             0,  "STRAFE",           "Setups involving +strafe together with +left or +right. This allows the player to walk in directions/speeds that are otherwise impossible.",
-        "No bind required",    2,  "NOMOVEMENTBIND",   "Setups that can be performed using just WASD. Note that a bind might still be preferable for consistency in the case of diagonal movement.",
+        "No bind required",    0,  "NOMOVEMENTBIND",   "Setups that can be performed using just WASD. Note that a bind might still be preferable for consistency in the case of diagonal movement.",
     ],
 
     "Action" : [
         "Quickswap",            0,   "SHOTGUN",        "Setups that start by quickswapping to delay the first rocket. The player needs to be holding a different weapon than their rocket launcher for this to work.",
         "Rocketless setup",     0,   "ZEROROCKET",     "Setups that involve no rockets in the initial action. Note that setups may still require rockets to hit for example a bounce.",
-        "1 Rocket setup",       2,   "ONEROCKET",      "Setups that use exactly 1 rocket. (Excluding any rocket used to hit a bounce).",
+        "1 Rocket setup",       0,   "ONEROCKET",      "Setups that use exactly 1 rocket. (Excluding any rocket used to hit a bounce).",
         "Jump shoot",           0,   "JS",             "Setups that start with a \"Jump shot\", shooting and jumping at the same time.",
         "Jump duck shoot",      0,   "JDS",            "Setups that start with a \"Jump duck shot\", shooting and crouched jumping at the same time.",
         "Ctap jump duck shoot", 0,   "CTAP_JDS",       "Setups that start with a \"CTAP jump duck shot\", shooting and ctap jumping at the same time. This is preferable to maximize height.",
         "Shoot 1 tick early",   -1000, "ONETICK",        "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed.",
         "Shoot 2 ticks early",  -1000, "TWOTICK",        "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.",
-        "No bind required",     1,   "NOACTIONBIND",   "Setups that only involve jumping or firing a rocket.",
+        "No bind required",     0,   "NOACTIONBIND",   "Setups that only involve jumping or firing a rocket.",
     ],
 }
 

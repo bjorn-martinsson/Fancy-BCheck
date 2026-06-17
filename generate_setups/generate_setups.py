@@ -914,7 +914,9 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
     
     # Compute simple and consitency from previous scores
 
-    complications = [255 - setup.NOACTIONBIND, 255 - setup.NOBIND, 255 * 2**-(number_of_rockets_to_be_fired), setup.STRAFE, setup.MOVEUP, setup.ONETICK, setup.TWOTICK]
+    complications = [255 - setup.NOACTIONBIND, 255 - setup.NOBIND]
+    complications+= [255 - round(255 * 2**-max(0, (number_of_rockets_to_be_fired - 1)/3))] * 10
+    complications+= [setup.ONETICK, setup.TWOTICK]
     setup.SIMPLE = max(0, round(255 - sum(complications) / len(complications)))
     
     consistency = [255 - setup.DIAGONAL, setup.FABOUNCE, setup.FASBOUNCE, setup.ABOUNCE, setup.ASBOUNCE, setup.NOMOVING, 255 * 2**-(number_of_rockets_to_be_fired), 255-setup.ONETICK, 255 - setup.TWOTICK]
@@ -924,7 +926,6 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
     print(setup)
     import sys
     sys.stdout.flush()
-    interesting = True
     if interesting and (possible_bounces or possible_jumpbugs):
         #global interesting_count
         #interesting_count[tuple(sorted(z for x,y,z in player_pos))] = 1

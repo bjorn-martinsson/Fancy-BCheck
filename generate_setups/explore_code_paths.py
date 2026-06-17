@@ -17,13 +17,24 @@ def explore_paths(f, starting_id = 0):
             next_path_id = (path_id + part_previously_read) % (m * part_previously_read)
         part_previously_read *= m
         return A[alt]
-    next_path_id = 19847
+   
+    count = 0
     while path_id != next_path_id:
         path_id = next_path_id
         part_previously_read = 1
         
         print()
-        print('STARTING NEW TEST, path_id:', path_id, flush=True)
+        print('STARTING NEW TEST #', count, 'with path_id:', path_id, flush=True)
         print()
+        count += 1
+
+        class fake_stdout:
+            def flush(self):
+                return
+            def write(self, s):
+                return
+        
+        import sys
+        sys.stdout = fake_stdout()
         yield f(make_choice, path_id)
-        exit()
+        sys.stdout = sys.__stdout__

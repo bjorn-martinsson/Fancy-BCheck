@@ -786,9 +786,8 @@ function buildTechniqueTags(setup) {
     if (
         techniques.bounce?.possible
     ) {
-
-        if (techniques.bounce.automatic) {
-            if (techniques.bounce.fullyAutomatic) {
+        if (techniques.bounce.fullyAutomatic) {
+            if (!techniques.syncedBounce.fullyAutomatic) {
                 tags.push(
                     createTag(
                         "Bounce (Fully auto)",
@@ -801,8 +800,10 @@ function buildTechniqueTags(setup) {
                         }
                     )
                 );
+            }
 
-            } else {
+        } else if (techniques.bounce.automatic) {
+            if (!techniques.syncedBounce.automatic) {
                 tags.push(
                     createTag(
                         "Bounce (Auto)",
@@ -815,21 +816,22 @@ function buildTechniqueTags(setup) {
                         }
                     )
                 );
-
             }
         } else {
-            tags.push(
-                createTag(
-                    "Bounce",
-                    {
-                        description:
-                            "It is possible to fire a rocket to hit a crouched bounce, but it will require manually timing/aiming the rocket.",
+            if (!techniques.syncedBounce.possible) {
+                tags.push(
+                    createTag(
+                        "Bounce",
+                        {
+                            description:
+                                "It is possible to fire a rocket to hit a crouched bounce, but it will require manually timing/aiming the rocket.",
 
-                        type:
-                            "technique-tag"
-                    }
-                )
-            );
+                            type:
+                                "technique-tag"
+                        }
+                    )
+                );
+            }
 
         }
 
@@ -881,7 +883,7 @@ function buildTechniqueTags(setup) {
                 "Synced powerbounce",
                 {
                     description:
-                        "Synced powerbounce is possible.",
+                        "Synced powerbounce (bhop + two rockets) is possible.",
 
                     type:
                         "technique-tag"
@@ -898,7 +900,7 @@ function buildTechniqueTags(setup) {
                 "Synced jumpbug powerbounce",
                 {
                     description:
-                        "Synced jumpbug powerbounce is possible.",
+                        "Synced jumpbug powerbounce (jumpbug + two rockets) is possible.",
 
                     type:
                         "technique-tag"
@@ -915,7 +917,7 @@ function buildTechniqueTags(setup) {
                     "Powerbounce",
                     {
                         description:
-                            "Powerbounce is possible.",
+                            "Powerbounce (bhop + rocket) is possible.",
 
                         type:
                             "technique-tag"
@@ -934,7 +936,7 @@ function buildTechniqueTags(setup) {
                 "Powerbounce",
                 {
                     description:
-                        "Powerbounce is possible.",
+                        "Powerbounce (bhop + rocket) is possible.",
 
                     type:
                         "technique-tag"
@@ -951,7 +953,7 @@ function buildTechniqueTags(setup) {
                 "Jumpbug powerbounce",
                 {
                     description:
-                        "Jumpbug powerbounce is possible.",
+                        "Jumpbug powerbounce (jumpbug + rocket) is possible.",
                     type:
                         "technique-tag"
                 }
@@ -962,8 +964,9 @@ function buildTechniqueTags(setup) {
     if (
         techniques.standingBounce?.possible
     ) {
-        if (techniques.standingBounce.automatic) {
-            if (techniques.standingBounce.fullyAutomatic) {
+
+        if (techniques.standingBounce.fullyAutomatic) {
+            if (!techniques.syncedStandingBounce.fullyAutomatic) {
                 tags.push(
                     createTag(
                         "Standing bounce (Fully auto)",
@@ -976,8 +979,10 @@ function buildTechniqueTags(setup) {
                         }
                     )
                 );
+            }
 
-            } else {
+        } else if (techniques.standingBounce.automatic) {
+            if (!techniques.syncedStandingBounce.automatic) {
                 tags.push(
                     createTag(
                         "Standing bounce (Auto)",
@@ -990,21 +995,23 @@ function buildTechniqueTags(setup) {
                         }
                     )
                 );
-
             }
-        } else {
-            tags.push(
-                createTag(
-                    "Standing bounce",
-                    {
-                        description:
-                            "It is possible to fire a rocket to hit a standing bounce, but it will require manually timing/aiming the rocket.",
 
-                        type:
-                            "technique-tag"
-                    }
-                )
-            );
+        } else {
+            if (!techniques.syncedStandingBounce.possible) {
+                tags.push(
+                    createTag(
+                        "Standing bounce",
+                        {
+                            description:
+                                "It is possible to fire a rocket to hit a standing bounce, but it will require manually timing/aiming the rocket.",
+
+                            type:
+                                "technique-tag"
+                        }
+                    )
+                );
+            }
 
         }
 

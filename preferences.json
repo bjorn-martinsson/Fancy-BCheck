@@ -52,7 +52,7 @@
                 {
                     "id": "SIMPLE",
                     "label": "Simple",
-                    "defaultWeight": 10,
+                    "defaultWeight": 60,
                     "description": "Setups that are simple. Requiring few/no binds, few inputs, and few rockets."
                 },
                 {
@@ -81,7 +81,7 @@
                 {
                     "id": "ASBOUNCE",
                     "label": "Auto synced bounce",
-                    "defaultWeight": 10,
+                    "defaultWeight": 5,
                     "description": "It is possible to prefire a rocket for a synced bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic)."
                 },
                 {
@@ -93,7 +93,7 @@
                 {
                     "id": "ASSTANDBOUNCE",
                     "label": "Auto synced standing bounce",
-                    "defaultWeight": 6,
+                    "defaultWeight": 0,
                     "description": "It is possible to prefire a rocket for a synced standing bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic)."
                 }
             ]
@@ -104,7 +104,7 @@
                 {
                     "id": "FABOUNCE",
                     "label": "Fully auto bounce",
-                    "defaultWeight": 10,
+                    "defaultWeight": 20,
                     "description": "Can be bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground."
                 },
                 {
@@ -116,13 +116,13 @@
                 {
                     "id": "FASTANDBOUNCE",
                     "label": "Fully auto standing bounce",
-                    "defaultWeight": 10,
+                    "defaultWeight": 20,
                     "description": "Can be standing bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground. Perfect setup if you want to go straight into a pogo."
                 },
                 {
                     "id": "FASSTANDBOUNCE",
                     "label": "Auto synced standing bounce",
-                    "defaultWeight": 6,
+                    "defaultWeight": 0,
                     "description": "It is possible to prefire a rocket for a synced standing bounce only holding m1 looking straight down. The rocket explodes the tick the player hits the ground."
                 }
             ]
@@ -292,13 +292,13 @@
                 {
                     "id": "ONETICK",
                     "label": "Shoot 1 tick early",
-                    "defaultWeight": -20,
+                    "defaultWeight": -1000,
                     "description": "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed."
                 },
                 {
                     "id": "TWOTICK",
                     "label": "Shoot 2 ticks early",
-                    "defaultWeight": -20,
+                    "defaultWeight": -1000,
                     "description": "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last."
                 },
                 {

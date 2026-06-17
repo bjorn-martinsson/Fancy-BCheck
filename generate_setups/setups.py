@@ -14,23 +14,23 @@ DATA = {
     ],
 
     "Complexity" : [ 
-        "Simple",             10, "SIMPLE",    "Setups that are simple. Requiring few/no binds, few inputs, and few rockets.",
+        "Simple",             60, "SIMPLE",    "Setups that are simple. Requiring few/no binds, few inputs, and few rockets.",
         "Consistency",        2,  "CONIST",    "Setups avoiding diagonal movement, which can be inconsistent without a bind. Also prefer bounce setups where the timing window for hitting the bounce is large.",
         "No bind required",   10, "NOBIND",    "Setups that use no binds.",
     ],
 
     "Automatic bounce" : [
         "Auto bounce",                   10, "ABOUNCE",         "Can be bounced by only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
-        "Auto synced bounce",            10, "ASBOUNCE",        "It is possible to prefire a rocket for a synced bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
+        "Auto synced bounce",            5, "ASBOUNCE",        "It is possible to prefire a rocket for a synced bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
         "Auto standing bounce",          10, "ASTANDBOUNCE",    "Can be standing bounced by only holding m1. Perfect setup if you want to go straight into a pogo. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
-        "Auto synced standing bounce",   6,  "ASSTANDBOUNCE",   "It is possible to prefire a rocket for a synced standing bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
+        "Auto synced standing bounce",   0,  "ASSTANDBOUNCE",   "It is possible to prefire a rocket for a synced standing bounce only holding m1. Note that some setups require aiming straight down (fully automatic), and others require aiming forward (half automatic).",
     ],
 
     "Fully automatic bounce" : [
-        "Fully auto bounce",                   10, "FABOUNCE",         "Can be bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground.",
+        "Fully auto bounce",                   20, "FABOUNCE",         "Can be bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground.",
         "Fully auto synced bounce",            10, "FASBOUNCE",        "It is possible to prefire a rocket straight down for a synced bounce only holding m1. The rocket explpodes the tick the player hits the ground.",
-        "Fully auto standing bounce",          10, "FASTANDBOUNCE",    "Can be standing bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground. Perfect setup if you want to go straight into a pogo.",
-        "Auto synced standing bounce",   6,  "FASSTANDBOUNCE",   "It is possible to prefire a rocket for a synced standing bounce only holding m1 looking straight down. The rocket explodes the tick the player hits the ground.",
+        "Fully auto standing bounce",          20, "FASTANDBOUNCE",    "Can be standing bounced by only holding m1 and looking straight down. The rocket explodes the tick the player hits the ground. Perfect setup if you want to go straight into a pogo.",
+        "Auto synced standing bounce",   0,  "FASSTANDBOUNCE",   "It is possible to prefire a rocket for a synced standing bounce only holding m1 looking straight down. The rocket explodes the tick the player hits the ground.",
     ],
 
     "Trajectory" : [
@@ -67,8 +67,8 @@ DATA = {
         "Jump shoot",           0,   "JS",             "Setups that start with a \"Jump shot\", shooting and jumping at the same time.",
         "Jump duck shoot",      0,   "JDS",            "Setups that start with a \"Jump duck shot\", shooting and crouched jumping at the same time.",
         "Ctap jump duck shoot", 0,   "CTAP_JDS",       "Setups that start with a \"CTAP jump duck shot\", shooting and ctap jumping at the same time. This is preferable to maximize height.",
-        "Shoot 1 tick early",   -20, "ONETICK",        "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed.",
-        "Shoot 2 ticks early",  -20, "TWOTICK",        "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.",
+        "Shoot 1 tick early",   -1000, "ONETICK",        "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed.",
+        "Shoot 2 ticks early",  -1000, "TWOTICK",        "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.",
         "No bind required",     1,   "NOACTIONBIND",   "Setups that only involve jumping or firing a rocket.",
     ],
 }

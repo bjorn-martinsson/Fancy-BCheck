@@ -770,6 +770,45 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             else:
                 bhopable = False
             
+            synced_jb_pb = 0
+            jb_pb = 0
+           
+            # Code handling pb/synced pb/jb/synced jb
+            for tmp in range(last_tick_exploded_rocket_fired + 54, tick):
+                old_player_pos = list(player_pos[tmp + 1])
+                old_player_pos[2] += 45.0 - 23.5
+                old_player_vspeed = player_vel[tmp+1][2]
+                
+                max_dist = sqrt(sum((x - y)**2 for x,y in zip(pos, old_player_pos)))
+                min_dist = old_player_pos[2] - floors[-1].z
+                
+                # The +1 is to avoid rocket exploding the same tick the player intendeds to bhop/jb
+                if min_dist/(1100.0*0.015) + 1 <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
+                    if tick - tmp >= 54 - 5:
+                        synced_jb_pb = True
+            
+            if last_tick_exploded_rocket_fired + 54 <= tick + 5:
+                jb_pb = True
+
+
+            if bhopable:
+                if synced_jb_pb:
+                    print('Synced powerbounce potential')
+                    setup.SPB = 128
+                if jb_pb:
+                    print('Power bounce potential')
+                    setup.PB = 128
+
+            if synced_jb_pb:
+                print('Synced jb powerbounce potential')
+                setup.SJBPB = 128
+            if jb_pb:
+                print('Jb power bounce potential')
+                setup.JBPB = 128
+            
+            # Subtrackt 1 from tick since standing bounce has to happen one tick earlier
+            tick -= 1
+
             fully_auto_synced_sbounce = 0
             auto_synced_sbounce = 0
             synced_sbounce = 0
@@ -858,41 +897,6 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
                     setup.STANDBOUNCE = 128
             
 
-            synced_jb_pb = 0
-            jb_pb = 0
-           
-            # Code handling pb/synced pb/jb/synced jb
-            for tmp in range(last_tick_exploded_rocket_fired + 54, tick):
-                old_player_pos = list(player_pos[tmp + 1])
-                old_player_pos[2] += 45.0 - 23.5
-                old_player_vspeed = player_vel[tmp+1][2]
-                
-                max_dist = sqrt(sum((x - y)**2 for x,y in zip(pos, old_player_pos)))
-                min_dist = old_player_pos[2] - floors[-1].z
-                
-                # The +1 is to avoid rocket exploding the same tick the player intendeds to bhop/jb
-                if min_dist/(1100.0*0.015) + 1 <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
-                    if tick - tmp >= 54 - 5:
-                        synced_jb_pb = True
-            
-            if last_tick_exploded_rocket_fired + 54 <= tick + 5:
-                jb_pb = True
-
-
-            if bhopable:
-                if synced_jb_pb:
-                    print('Synced powerbounce potential')
-                    setup.SPB = 128
-                if jb_pb:
-                    print('Power bounce potential')
-                    setup.PB = 128
-
-            if synced_jb_pb:
-                print('Synced jb powerbounce potential')
-                setup.SJBPB = 128
-            if jb_pb:
-                print('Jb power bounce potential')
-                setup.JBPB = 128
    
     # Compute height weight
     diff = max(z for x,y,z in player_pos) - player_pos[0][2]
@@ -1021,7 +1025,7 @@ H = [
 128.0 ,
 ]
 
-#heights = [928.0, 256.0, 384.0, 128.0, 1408.0, 1792.0, 320.0, 960.0, 1952.0, 2944.0, 3936.0, 4960.0, 2112.0]
+heights = [928.0, 256.0, 384.0, 128.0, 1408.0, 1792.0, 320.0, 960.0, 1952.0, 2944.0, 3936.0, 4960.0, 2112.0]
 
 #find_bounce_setups_for_height(928)
 
@@ -1030,7 +1034,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 # It is important to wrap like this, otherwise children will recursively try to create more threads
 if __name__ == '__main__':
-    heights = range(1, 7000)
+#    heights = range(1, 7000)
     
     # This launches 10 completely separate Python processes
     with ProcessPoolExecutor(max_workers=12) as executor:

@@ -627,7 +627,20 @@ function displayResults() {
                 </button>
 
                 <h4>
-                    Initial hspeed and hspeed after each rocket hits
+                    Initial hspeed and hspeed from each rocket
+
+                    <span
+                        class="tooltip-container">
+
+                        ⓘ
+
+                        <span
+                            class="tooltip">
+
+                            The initial walking speed and the speed you have after getting hit by rockets, ordered by when they were shot. Note that you might need to manually duck/unduck in mid-air to reach the correct speeds. You'll know you're doing it right if you reach the correct speeds.
+
+                        </span>
+                    </span>
                 </h4>
 
                 <div>
@@ -1164,8 +1177,7 @@ function buildRocketSpeedSection(
                 class="speed-badge">
 
                 R<sub>${index}</sub>:
-                ${speed.toFixed(2)}
-                u/s
+                ${speed == 0 ? "-" : speed.toFixed(2) + " u/s"}
 
             </span>` 
         )
@@ -1326,7 +1338,7 @@ function decodeSetup(view, offset) {
 
     setup.speeds = [];
 
-    for (let i = 0; i < setup.num_rockets + 1; i++) {
+    for (let i = 0; i < 7; i++) {
 
         setup.speeds.push(
 
@@ -1339,6 +1351,7 @@ function decodeSetup(view, offset) {
 
         cursor += 4;
     }
+    setup.speeds = setup.speeds.slice(0, setup.num_rockets + 1);
 
     // Create JSON structure
     

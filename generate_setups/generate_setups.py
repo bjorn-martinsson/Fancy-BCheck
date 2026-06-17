@@ -78,6 +78,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
     rocket_positions = defaultdict(list)
     rocket_explosions = {}
     rocket_creation_time = {}
+    rockets_shot = []
     player_pos = []
     player_vel = []
 
@@ -97,6 +98,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
         def rocket_creation(self, rocket):
             print('Update at tick', tick, end = ':\n')
             print('Rocket was created with id', rocket.rocket_id)
+            rockets_shot.append(rocket.rocket_id)
             rocket_positions[rocket.rocket_id].append(list(rocket.pos))
             rocket_creation_time[rocket.rocket_id] = tick
             last_rocket_shot[0] = rocket.rocket_id
@@ -116,7 +118,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             print('Update at tick', tick, end = ':\n')
             print('Player hit by rocket, new hspeed is', sqrt(sum(p.vel[i]**2 for i in range(2))), p.vel)
             
-            setup.speeds.append(sqrt(sum(p.vel[i]**2 for i in range(2))))
+            setup.speeds[rockets_shot.index(rocket.rocket_id) + 1] = sqrt(sum(p.vel[i]**2 for i in range(2)))
 
             print('Current floor is', p.floor.z)
             p.floor = make_choice([floor for floor in floors[floors.index(p.floor):]])
@@ -188,6 +190,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
     first_rocket_fired_at_tick = 20
     number_of_rockets_to_be_fired = make_choice(list(range(7)))
     setup.num_rockets = number_of_rockets_to_be_fired
+    setup.speeds = [float('NaN')] * 7
 
     launchers = [simulation.Stock, simulation.Original, simulation.Mangler]
     
@@ -541,7 +544,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
                 my_key_state.release_key('+duck')
         
         if tick == 20:
-            setup.speeds.append(sqrt(sum(p.vel[i]**2 for i in range(2))))
+            setup.speeds[0] = sqrt(sum(p.vel[i]**2 for i in range(2)))
         
         match starting_shot:
             case 0:

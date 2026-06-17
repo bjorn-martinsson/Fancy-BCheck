@@ -168,7 +168,7 @@ class Setup:
     def pack(self):
 
         while len(self.speeds) < 7:
-            self.speeds.append(0.0)
+            self.speeds.append(float('NaN'))
         assert len(self.speeds) == 7
 
         mask8 = 2**8 - 1
@@ -186,7 +186,9 @@ class Setup:
 
         for item_id in item_ids:
             data.append(self.__dict__[item_id] & mask8)
-        data += [round(100 * v) & mask32 for v in self.speeds]
+        
+        import math
+        data += [round(100 * v) & mask32 if not math.isnan(v) else 0 for v in self.speeds]
 
         record = struct.pack(
             f"<Q{8 + len(item_ids)}B7I",

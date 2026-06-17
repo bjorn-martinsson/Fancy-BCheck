@@ -19,6 +19,7 @@ def explore_paths(f, starting_id = 0):
         return A[alt]
    
     count = 0
+    #next_path_id = 546110
     while path_id != next_path_id:
         path_id = next_path_id
         part_previously_read = 1
@@ -37,4 +38,5 @@ def explore_paths(f, starting_id = 0):
         import sys
         sys.stdout = fake_stdout()
         yield f(make_choice, path_id)
+        #exit()
         sys.stdout = sys.__stdout__

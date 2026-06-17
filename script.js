@@ -822,7 +822,7 @@ function buildTechniqueTags(setup) {
                         "Bounce (Auto)",
                         {
                             description:
-                                "Holding m1 results in a rocket that can be used to hit a crouched bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_bounce} ticks too early.",
+                                `Holding m1 results in a rocket that can be used to hit a crouched bounce. However, this require aiming the rocket. If aimed straight down, the rocket explodes ${setup.tick_delay_auto_bounce} ticks too early.`,
 
                             type:
                                 "technique-auto"

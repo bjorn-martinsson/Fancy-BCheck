@@ -944,8 +944,8 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
 #height = 4504.0 # jump_ricko
 #height = 2240.0 # jump_ricko
 #height = 992.0 # jump_superserious
-#height = 608.0 # jump_simister
-height = 1602.0 # jump_sweet
+height = 608.0 # jump_simister
+#height = 1602.0 # jump_sweet
 #height = 604.0 # jump_hanami, lvl 3
 #height = 464.0 # jump_hanami, lvl 4
 #height = 240.0 # jump_pump

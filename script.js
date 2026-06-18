@@ -81,6 +81,20 @@ async function loadData() {
 
 }
 
+document
+    .getElementById("searchForm")
+    .addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+            findSetups();
+
+        }
+    );
+
+
 loadData();
 
 function togglePreferences() {

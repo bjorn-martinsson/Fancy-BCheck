@@ -361,6 +361,10 @@ a:hover {
 
 }
 
+#targetInput {
+    width: 20ch; /* Adjust this number up or down to get the exact length you want! */
+}
+
 .banner {
 
     width: 90%;

@@ -348,3 +348,13 @@ a:hover {
     padding-left: 20px;
 
 }
+
+#searchForm {
+
+    display: inline-flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+}

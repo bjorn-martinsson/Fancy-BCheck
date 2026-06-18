@@ -7,7 +7,9 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>SUthrey's fancy bounce checker</title>
-
+    
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
     <link rel="stylesheet"
           href="style.css">
 </head>
@@ -18,14 +20,22 @@
 
         <div class="search-area">
 
-            <input
-                id="targetInput"
-                type="number"
-                placeholder="Enter floor height">
+            <form
+                id="searchForm">
 
-            <button onclick="findSetups()">
-                Search
-            </button>
+                <input
+                    id="targetInput"
+                    type="number"
+                    placeholder="Enter floor height">
+
+                <button
+                    type="submit">
+
+                    Search
+
+                </button>
+
+            </form>
 
             <button onclick="togglePreferences()">
                 Preferences

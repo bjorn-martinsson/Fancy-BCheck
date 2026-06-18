@@ -109,7 +109,7 @@ body {
 
 .tooltip-container.is-right .tooltip {
     /* 1. Position the top of the tooltip below the icon */
-    top: 120%;         /* Adjust to 100% if you want it closer, or 120% for a tiny gap */
+    top: 130%;         /* Adjust to 120% if you want it closer, or 130% for a tiny gap */
     
     /* 2. Move the left edge of the tooltip to the exact center of the icon */
     left: 50%;         

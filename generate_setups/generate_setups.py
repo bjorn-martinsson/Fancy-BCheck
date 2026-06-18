@@ -444,7 +444,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             print('alias +strike "+attack; +jump; -jump -1; +duck; -duck -1";')
             print('alias -strike "-attack -1";')
         
-    if starting_shot == 4:
+    if starting_shot == 1:
         my_key_state.press_key('+duck')
 
     match starting_walk:

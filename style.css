@@ -108,9 +108,14 @@ body {
 }
 
 .tooltip-container.is-right .tooltip {
-    top: 0%;          /* Pushes it up past the button of the icon */
-    left: 0%;             /* Moves its left edge to the center of the icon */
-    transform: translate(10%, -20%); /* Shifts it back left by half its own width to center it perfectly */
+    /* 1. Position the top of the tooltip below the icon */
+    top: 120%;         /* Adjust to 100% if you want it closer, or 120% for a tiny gap */
+    
+    /* 2. Move the left edge of the tooltip to the exact center of the icon */
+    left: 50%;         
+    
+    /* 3. Shift the tooltip back to the left by exactly half of its OWN width */
+    transform: translateX(-50%);
 }
 
 .tooltip-container:hover .tooltip {

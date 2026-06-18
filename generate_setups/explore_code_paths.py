@@ -75,5 +75,4 @@ def explore_specifc_paths(f, path_ids):
 
         
         yield f(make_choice, path_id)
-        #exit()
         sys.stdout = sys.__stdout__

@@ -159,6 +159,9 @@ class Setup:
     tick_delay_auto_synced_bounce = -1
     tick_delay_auto_standing_bounce = -1
     tick_delay_auto_synced_standing_bounce = -1
+    
+    bounce_flag = 0
+    standing_bounce_flag = 0
 
     def __init__(self):
         self.speeds = []
@@ -184,6 +187,8 @@ class Setup:
 
         data += [self.tick_delay_auto_bounce & mask8, self.tick_delay_auto_synced_bounce & mask8, self.tick_delay_auto_standing_bounce & mask8, self.tick_delay_auto_synced_standing_bounce & mask8]
 
+        data += [self.bounce_flag & mask8, self.standing_bounce_flag & mask8]
+
         for item_id in item_ids:
             data.append(self.__dict__[item_id] & mask8)
         
@@ -191,7 +196,7 @@ class Setup:
         data += [round(100 * v) & mask32 if not math.isnan(v) else 0 for v in self.speeds]
 
         record = struct.pack(
-            f"<Q{8 + len(item_ids)}B7I",
+            f"<Q{10 + len(item_ids)}B7I",
             *data
         )
 
@@ -201,7 +206,7 @@ class Setup:
         out = []
         
         VARs = ["ID", "launcher", "start_moving", "start_action", "num_rockets", "tick_delay_auto_bounce", "tick_delay_auto_synced_bounce"]
-        VARs+= ["tick_delay_auto_standing_bounce", "tick_delay_auto_synced_standing_bounce", "speeds"]
+        VARs+= ["tick_delay_auto_standing_bounce", "tick_delay_auto_synced_standing_bounce", "bounce_flag", "standing_bounce_flag","speeds"]
 
         for var in VARs:
             out.append("%s = %s" % (var, getattr(self, var)))

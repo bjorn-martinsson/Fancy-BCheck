@@ -801,18 +801,48 @@ function buildTechniqueTags(setup) {
     ) {
         if (techniques.bounce.fullyAutomatic) {
             if (!techniques.syncedBounce.fullyAutomatic) {
-                tags.push(
-                    createTag(
-                        "Bounce (Fully auto)",
-                        {
-                            description:
-                                "Holding m1 (while looking straight down) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce.",
+                if (techniques.bounce.fullyAutomaticCrouched && techniques.bounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Bounce (Fully auto)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce.",
 
-                            type:
-                                "technique-fullyAuto"
-                        }
-                    )
-                );
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                } else if (techniques.bounce.fullyAutomaticCrouched) {
+                    tags.push(
+                        createTag(
+                            "Bounce (Fully auto with crouched prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being crouched) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+
+                } else if (techniques.bounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Bounce (Fully auto with standing prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being uncrouched) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+
+                }
             }
 
         } else if (techniques.bounce.automatic) {
@@ -980,18 +1010,48 @@ function buildTechniqueTags(setup) {
 
         if (techniques.standingBounce.fullyAutomatic) {
             if (!techniques.syncedStandingBounce.fullyAutomatic) {
-                tags.push(
-                    createTag(
-                        "Standing bounce (Fully auto)",
-                        {
-                            description:
-                                "Holding m1 (while looking straight down) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce.",
 
-                            type:
-                                "technique-fullyAuto"
-                        }
-                    )
-                );
+                if (techniques.standingBounce.fullyAutomaticCrouched && techniques.standingBounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Standing bounce (Fully auto)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                } else if (techniques.standingBounce.fullyAutomaticCrouched) {
+                    tags.push(
+                        createTag(
+                            "Standing bounce (Fully auto with crouched prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being crouched) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+
+                } else if (techniques.standingBounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Standing bounce (Fully auto with standing prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being uncrouched) results in a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                }
             }
 
         } else if (techniques.standingBounce.automatic) {
@@ -1035,18 +1095,47 @@ function buildTechniqueTags(setup) {
     ) {
         if (techniques.syncedBounce.automatic) {
             if (techniques.syncedBounce.fullyAutomatic) {
-                tags.push(
-                    createTag(
-                        "Synced bounce (Fully auto)",
-                        {
-                            description:
-                                "Holding m1 (while looking straight down) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce/synced bounce.",
 
-                            type:
-                                "technique-fullyAuto"
-                        }
-                    )
-                );
+                if (techniques.syncedBounce.fullyAutomaticCrouched && techniques.syncedBounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Synced bounce (Fully auto)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce/synced bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                } else if (techniques.syncedBounce.fullyAutomaticCrouched) {
+                    tags.push(
+                        createTag(
+                            "Synced bounce (Fully auto with crouched prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being crouched) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce/synced bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                } else if (techniques.syncedBounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Synced bounce (Fully auto with standing prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being uncrouched) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a crouched bounce/synced bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                }
 
             } else {
                 tags.push(
@@ -1085,18 +1174,46 @@ function buildTechniqueTags(setup) {
     ) {
         if (techniques.syncedStandingBounce.automatic) {
             if (techniques.syncedStandingBounce.fullyAutomatic) {
-                tags.push(
-                    createTag(
-                        "Synced standing bounce (Fully auto)",
-                        {
-                            description:
-                                "Holding m1 (while looking straight down) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce/synced standing bounce.",
+                if (techniques.syncedStandingBounce.fullyAutomaticCrouched && techniques.syncedStandingBounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Synced standing bounce (Fully auto)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce/synced standing bounce.",
 
-                            type:
-                                "technique-fullyAuto"
-                        }
-                    )
-                );
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                } else if (techniques.syncedStandingBounce.fullyAutomaticCrouched) {
+                    tags.push(
+                        createTag(
+                            "Synced standing bounce (Fully auto with crouched prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being crouched) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce/synced standing bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                } else if (techniques.syncedStandingBounce.fullyAutomaticStanding) {
+                    tags.push(
+                        createTag(
+                            "Synced standing bounce (Fully auto with standing prefire)",
+                            {
+                                description:
+                                    "Holding m1 (while looking straight down and being uncrouched) prefires a rocket that explodes the tick the player hits the ground. Can be used to hit a standing bounce/synced standing bounce.",
+
+                                type:
+                                    "technique-fullyAuto"
+                            }
+                        )
+                    );
+                }
 
             } else {
                 tags.push(
@@ -1285,7 +1402,7 @@ const FLAG_NAMES = [
 
 ];
 
-const RECORD_SIZE = 88;
+const RECORD_SIZE = 90;
 
 function decodeSetup(view, offset) {
 
@@ -1325,6 +1442,12 @@ function decodeSetup(view, offset) {
         view.getUint8(cursor++);
 
     setup.tick_delay_auto_synced_standing_bounce =
+        view.getUint8(cursor++);
+
+    setup.bounce_flag = 
+        view.getUint8(cursor++);
+    
+    setup.standing_bounce_flag = 
         view.getUint8(cursor++);
     
     for (const flag of FLAG_NAMES) {
@@ -1381,21 +1504,24 @@ function decodeSetup(view, offset) {
     
     // techniques:
     // bounce
+    flag = setup.bounce_flag;
     setup.techniques = {};
     setup.techniques.bounce = {
-        possible: false,
-        automatic: false,
-        fullyAutomatic: false
+        possible: !!(flag & 1),
+        automatic: !!(flag & 2),
+        fullyAutomaticCrouched: !!(flag & 4),
+        fullyAutomaticStanding: !!(flag & 8)
     }
-    if (setup.BOUNCE >= 128) {
-        setup.techniques.bounce.possible = true;
-        if (setup.ABOUNCE >= 128) {
-            setup.techniques.bounce.automatic = true;
-            if (setup.FABOUNCE >= 128) {
-                setup.techniques.bounce.fullyAutomatic = true;
-            }
-        }
+    setup.techniques.bounce.fullyAutomatic = setup.techniques.bounce.fullyAutomaticCrouched || setup.techniques.bounce.fullyAutomaticStanding;
+    
+    // synced bounce
+    setup.techniques.syncedBounce = {
+        possible: !!(flag & 16),
+        automatic: !!(flag & 32),
+        fullyAutomaticCrouched: !!(flag & 64),
+        fullyAutomaticStanding: !!(flag & 128)
     }
+    setup.techniques.syncedBounce.fullyAutomatic = setup.techniques.syncedBounce.fullyAutomaticCrouched || setup.techniques.syncedBounce.fullyAutomaticStanding;
 
     // Bhop
     // standing bounce
@@ -1415,21 +1541,6 @@ function decodeSetup(view, offset) {
         setup.techniques.jumpbug.possible = true;
     }
 
-    // synced bounce
-    setup.techniques.syncedBounce = {
-        possible: false,
-        automatic: false,
-        fullyAutomatic: false
-    }
-    if (setup.SBOUNCE >= 128) {
-        setup.techniques.syncedBounce.possible = true;
-        if (setup.ASBOUNCE >= 128) {
-            setup.techniques.syncedBounce.automatic = true;
-            if (setup.FASBOUNCE >= 128) {
-                setup.techniques.syncedBounce.fullyAutomatic = true;
-            }
-        }
-    }
     
     // power bounce
     setup.techniques.pb = {
@@ -1465,36 +1576,25 @@ function decodeSetup(view, offset) {
 
 
     // standing bounce
+    
+    
+    flag = setup.standing_bounce_flag;
     setup.techniques.standingBounce = {
-        possible: false,
-        automatic: false,
-        fullyAutomatic: false
+        possible: !!(flag & 1),
+        automatic: !!(flag & 2),
+        fullyAutomaticCrouched: !!(flag & 4),
+        fullyAutomaticStanding: !!(flag & 8)
     }
-    if (setup.STANDBOUNCE >= 128) {
-        setup.techniques.standingBounce.possible = true;
-        if (setup.ASTANDBOUNCE >= 128) {
-            setup.techniques.standingBounce.automatic = true;
-            if (setup.FASTANDBOUNCE >= 128) {
-                setup.techniques.standingBounce.fullyAutomatic = true;
-            }
-        }
-    }
+    setup.techniques.standingBounce.fullyAutomatic = setup.techniques.standingBounce.fullyAutomaticCrouched || setup.techniques.standingBounce.fullyAutomaticStanding;
     
     // synced standing bounce
     setup.techniques.syncedStandingBounce = {
-        possible: false,
-        automatic: false,
-        fullyAutomatic: false
+        possible: !!(flag & 16),
+        automatic: !!(flag & 32),
+        fullyAutomaticCrouched: !!(flag & 64),
+        fullyAutomaticStanding: !!(flag & 128)
     }
-    if (setup.SSTANDBOUNCE >= 128) {
-        setup.techniques.syncedStandingBounce.possible = true;
-        if (setup.ASSTANDBOUNCE >= 128) {
-            setup.techniques.syncedStandingBounce.automatic = true;
-            if (setup.FASSTANDBOUNCE >= 128) {
-                setup.techniques.syncedStandingBounce.fullyAutomatic = true;
-            }
-        }
-    }
+    setup.techniques.syncedStandingBounce.fullyAutomatic = setup.techniques.syncedStandingBounce.fullyAutomaticCrouched || setup.techniques.syncedStandingBounce.fullyAutomaticStanding;
 
     // name
     // description

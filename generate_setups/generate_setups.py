@@ -669,80 +669,124 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             best_prefire_vspeed_synced_bounce = -1000000
             best_prefire_vspeed_auto_bounce = -1000000
             best_prefire_vspeed_bounce = -1000000
+            
+            # Is the prefire crouched (0) or standing (1)
+            for prefire in 0,1:
 
-            for tmp in range(last_tick_exploded_rocket_fired + 54, tick):
-                old_player_pos = list(player_pos[tmp + 1])
-                old_player_pos[2] += 45.0 - 23.5
-                old_player_vspeed = player_vel[tmp+1][2]
-                
-                max_dist = sqrt(sum((x - y)**2 for x,y in zip(pos, old_player_pos)))
-                min_dist = old_player_pos[2] - floors[-1].z
-                
-                # Auto sync
-                if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
-                    print('??????',min_dist/(1100 * 0.015), tick-tmp)
-                    print('??????',max_dist/(1100 * 0.015), tick-tmp)
-                if min_dist/(1100.0*0.015) <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
-                    if tick - tmp >= 54 - 5:
-                        synced_bounce = True
-                        if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
-                            auto_synced_bounce = True
+                # Don't allow to uncrouch into crouched bounce if too tight (5 ticks)
+                for tmp in range(last_tick_exploded_rocket_fired + 54, tick - 5 * prefire):
+                    old_player_pos = list(player_pos[tmp + 1])
+                    old_player_pos[2] += 45.0 - 23.5 + (3.0 if prefire else 0.0)
+                    old_player_vspeed = player_vel[tmp+1][2]
+                    
+                    max_dist = sqrt(sum((x - y)**2 for x,y in zip(pos, old_player_pos)))
+                    min_dist = old_player_pos[2] - floors[-1].z
+                    
+                    # Auto sync
+                    if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
+                        print('??????',min_dist/(1100 * 0.015), tick-tmp)
+                        print('??????',max_dist/(1100 * 0.015), tick-tmp)
+                    if min_dist/(1100.0*0.015) <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
+                        if tick - tmp >= 54 - 5:
+                            synced_bounce |= 1 << prefire
+                            if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
+                                auto_synced_bounce |= 1 << prefire
+                                    
+                                delay = (tick - tmp) + int(-min_dist//(1100.0 * 0.015))
+                                if delay == 0:
+                                    fully_auto_synced_bounce |= 1 << prefire
                                 
+                                if setup.tick_delay_auto_synced_bounce == -1 or setup.tick_delay_auto_synced_bounce > delay:
+                                    setup.tick_delay_auto_synced_bounce = delay
+                                
+                                best_prefire_vspeed_auto_synced_bounce = min(best_prefire_vspeed_auto_synced_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                            else:
+                                best_prefire_vspeed_synced_bounce = min(best_prefire_vspeed_synced_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                        
+                        bounce |= 1 << prefire
+                        if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
+                            auto_bounce |= 1 << prefire
+                            
                             delay = (tick - tmp) + int(-min_dist//(1100.0 * 0.015))
                             if delay == 0:
-                                fully_auto_synced_bounce = True
+                                fully_auto_bounce |= 1 << prefire
                             
-                            if setup.tick_delay_auto_synced_bounce == -1 or setup.tick_delay_auto_synced_bounce > delay:
-                                setup.tick_delay_auto_synced_bounce = delay
-                            
-                            best_prefire_vspeed_auto_synced_bounce = min(best_prefire_vspeed_auto_synced_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                            if setup.tick_delay_auto_bounce == -1 or setup.tick_delay_auto_bounce > delay:
+                                setup.tick_delay_auto_bounce = delay
+
+
+                            best_prefire_vspeed_auto_bounce = min(best_prefire_vspeed_auto_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
                         else:
-                            best_prefire_vspeed_synced_bounce = min(best_prefire_vspeed_synced_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
-                    
-                    bounce = True
-                    if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
-                        auto_bounce = True
-                        
-                        delay = (tick - tmp) + int(-min_dist//(1100.0 * 0.015))
-                        if delay == 0:
-                            fully_auto_bounce = True
-                        
-                        if setup.tick_delay_auto_bounce == -1 or setup.tick_delay_auto_bounce > delay:
-                            setup.tick_delay_auto_bounce = delay
-
-
-                        best_prefire_vspeed_auto_bounce = min(best_prefire_vspeed_auto_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
-                    else:
-                        best_prefire_vspeed_bounce = min(best_prefire_vspeed_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                            best_prefire_vspeed_bounce = min(best_prefire_vspeed_bounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
             
             if fully_auto_synced_bounce:
-                print('Fully auto synced bounce potential')
+                match fully_auto_synced_bounce:
+                    case 3:
+                        print('Fully auto synced bounce potential')
+                    case 2:
+                        print('Fully auto synced (with standing prefire) bounce potential')
+                    case 1:
+                        print('Fully auto synced (with crouched prefire) bounce potential')
                 setup.FASBOUNCE = 128
                 
             if auto_synced_bounce:
-                print('Auto synced bounce potential')
+                match auto_synced_bounce:
+                    case 3:
+                        print('Auto synced bounce potential')
+                    case 2:
+                        print('Auto synced (with standing prefire) bounce potential')
+                    case 1:
+                        print('Auto synced (with crouched prefire) bounce potential')
                 print('Best vspeed:', -best_prefire_vspeed_auto_synced_bounce)
                 setup.ASBOUNCE = 128
             
             if synced_bounce:
-                print('Synced bounce potential')
+                match synced_bounce:
+                    case 3:
+                        print('Synced bounce potential')
+                    case 2:
+                        print('Synced bounce (with standing prefire) potential')
+                    case 1:
+                        print('Synced bounce (with crouched prefire) potential')
                 print('Best vspeed:', -best_prefire_vspeed_synced_bounce)
                 setup.SBOUNCE = 128
             
             if fully_auto_bounce:
-                print('Fully uto bounce potential')
+                match fully_auto_bounce:
+                    case 3:
+                        print('Fully auto bounce potential')
+                    case 2:
+                        print('Fully auto bounce (with standing prefire) potential')
+                    case 1:
+                        print('Fully auto bounce (with crouched prefire) potential')
                 setup.FABOUNCE = 128
 
             if auto_bounce:
-                print('Auto bounce potential')
+                match auto_bounce:
+                    case 3:
+                        print('Auto bounce potential')
+                    case 2:
+                        print('Auto bounce (with standing prefire) potential')
+                    case 1:
+                        print('Auto bounce (with crouched prefire) potential')
                 print('Best vspeed:', -best_prefire_vspeed_auto_bounce)
                 setup.ABOUNCE = 128
 
             if bounce:
-                print('Bounce potential')
+                match bounce:
+                    case 3:
+                        print('Bounce potential')
+                    case 2:
+                        print('Bounce (with standing prefire) potential')
+                    case 1:
+                        print('Bounce (with crouched prefire) potential')
+
                 print('Best vspeed:', -best_prefire_vspeed_bounce)
                 setup.BOUNCE = 128
-            
+
+            flag = [+bool(bounce), +bool(auto_bounce), fully_auto_bounce, +bool(synced_bounce), +bool(auto_synced_bounce), fully_auto_synced_bounce]
+            setup.bounce_flag = flag[0] + (flag[1] << 1) + (flag[2] << 2) + (flag[3] << 4) + (flag[4] << 5) + (flag[5] << 6)
+
             # If no prefire exists to hit the bounce, then ignore say it is not possible (even though it is in theory)
             if not (bounce or auto_bounce or auto_synced_bounce or synced_bounce):
                 possible_bounces = []
@@ -782,8 +826,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
                 max_dist = sqrt(sum((x - y)**2 for x,y in zip(pos, old_player_pos)))
                 min_dist = old_player_pos[2] - floors[-1].z
                 
-                # The +1 is to avoid rocket exploding the same tick the player intendeds to bhop/jb
-                if min_dist/(1100.0*0.015) + 1 <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
+                if min_dist/(1100.0*0.015) <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
                     if tick - tmp >= 54 - 5:
                         synced_jb_pb = True
             
@@ -822,79 +865,123 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             
             if bhopable:
                 # Code handling standing bounces / synced standing bounces
-                for tmp in range(last_tick_exploded_rocket_fired + 54, tick):
-                    old_player_pos = list(player_pos[tmp + 1])
-                    old_player_pos[2] += 45.0 - 23.5
-                    old_player_vspeed = player_vel[tmp+1][2]
-                    
-                    max_dist = sqrt(sum((x - y)**2 for x,y in zip(pos, old_player_pos)))
-                    min_dist = old_player_pos[2] - floors[-1].z
-                    
-                    # Auto sync
-                    if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
-                        print('??????',min_dist/(1100 * 0.015), tick-tmp)
-                        print('??????',max_dist/(1100 * 0.015), tick-tmp)
-                    if min_dist/(1100.0*0.015) <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
-                        if tick - tmp >= 54 - 5:
-                            synced_sbounce = True
+                
+
+                # Is the prefire crouched (0) or standing (1)
+                for prefire in 0,1:
+
+                    for tmp in range(last_tick_exploded_rocket_fired + 54, tick):
+                        old_player_pos = list(player_pos[tmp + 1])
+                        old_player_pos[2] += 45.0 - 23.5 + (3.0 if prefire else 0.0)
+                        old_player_vspeed = player_vel[tmp+1][2]
+                        
+                        max_dist = sqrt(sum((x - y)**2 for x,y in zip(pos, old_player_pos)))
+                        min_dist = old_player_pos[2] - floors[-1].z
+                        
+                        # Auto sync
+                        if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
+                            print('??????',min_dist/(1100 * 0.015), tick-tmp)
+                            print('??????',max_dist/(1100 * 0.015), tick-tmp)
+                        if min_dist/(1100.0*0.015) <= tick - tmp <= max_dist/(1100.0*0.015) + 1:
+                            if tick - tmp >= 54 - 5:
+                                synced_sbounce |= 1 << prefire
+                                if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
+                                    auto_synced_sbounce |= 1 << prefire
+                                    
+                                    delay = (tick - tmp) + int(-min_dist//(1100.0 * 0.015))
+                                    if delay == 0:
+                                        fully_auto_synced_sbounce |= 1 << prefire
+                                    
+                                    if setup.tick_delay_auto_synced_standing_bounce == -1 or setup.tick_delay_auto_synced_standing_bounce > delay:
+                                        setup.tick_delay_auto_synced_standing_bounce = delay
+
+
+                                    best_prefire_vspeed_auto_synced_sbounce = min(best_prefire_vspeed_auto_synced_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                                else:
+                                    best_prefire_vspeed_synced_sbounce = min(best_prefire_vspeed_synced_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                            
+                            sbounce |= 1 << prefire
                             if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
-                                auto_synced_sbounce = True
-                                
+                                auto_sbounce |= 1 << prefire
+
                                 delay = (tick - tmp) + int(-min_dist//(1100.0 * 0.015))
                                 if delay == 0:
-                                    fully_auto_synced_sbounce = True
+                                    fully_auto_sbounce |= 1 << prefire
                                 
-                                if setup.tick_delay_auto_synced_standing_bounce == -1 or setup.tick_delay_auto_synced_standing_bounce > delay:
-                                    setup.tick_delay_auto_synced_standing_bounce = delay
+                                if setup.tick_delay_auto_standing_bounce == -1 or setup.tick_delay_auto_standing_bounce > delay:
+                                    setup.tick_delay_auto_standing_bounce = delay
 
-
-                                best_prefire_vspeed_auto_synced_sbounce = min(best_prefire_vspeed_auto_synced_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                                best_prefire_vspeed_auto_sbounce = min(best_prefire_vspeed_auto_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
                             else:
-                                best_prefire_vspeed_synced_sbounce = min(best_prefire_vspeed_synced_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
-                        
-                        sbounce = True
-                        if (last_tick_exploded_rocket_fired - tmp) % 54 == 0:
-                            auto_sbounce = True
-
-                            delay = (tick - tmp) + int(-min_dist//(1100.0 * 0.015))
-                            if delay == 0:
-                                fully_auto_sbounce = True
-                            
-                            if setup.tick_delay_auto_standing_bounce == -1 or setup.tick_delay_auto_standing_bounce > delay:
-                                setup.tick_delay_auto_standing_bounce = delay
-
-                            best_prefire_vspeed_auto_sbounce = min(best_prefire_vspeed_auto_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
-                        else:
-                            best_prefire_vspeed_sbounce = min(best_prefire_vspeed_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
+                                best_prefire_vspeed_sbounce = min(best_prefire_vspeed_sbounce, old_player_vspeed, key = lambda x:abs(x - -1100.0))
                 
                 if fully_auto_synced_sbounce:
-                    print('Fully auto standing synced bounce potential')
+                    match fully_auto_synced_sbounce:
+                        case 3:
+                            print('Fully auto synced standing bounce potential')
+                        case 2:
+                            print('Fully auto synced standing bounce (with standing prefire) potential')
+                        case 1:
+                            print('Fully auto synced standing bounce (with crouched prefire) potential')
                     setup.FASSTANDBOUNCE = 128
                 
                 if auto_synced_sbounce:
-                    print('Auto standing synced bounce potential')
+                    match auto_synced_sbounce:
+                        case 3:
+                            print('Auto synced standing bounce potential')
+                        case 2:
+                            print('Auto synced standing bounce (with standing prefire) potential')
+                        case 1:
+                            print('Auto synced standing bounce (with crouched prefire) potential')
                     print('Best vspeed:', -best_prefire_vspeed_auto_synced_sbounce)
                     setup.ASSTANDBOUNCE = 128
                 
                 if synced_sbounce:
                     #interesting = True
-                    print('Synced powerbounce potential')
+                    match synced_sbounce:
+                        case 3:
+                            print('Synced standing bounce potential')
+                        case 2:
+                            print('Synced standing bounce (with standing prefire) potential')
+                        case 1:
+                            print('Synced standing bounce (with crouched prefire) potential')
                     print('Best vspeed:', -best_prefire_vspeed_synced_sbounce)
                     setup.SSTANDBOUNCE = 128
                 
                 if fully_auto_sbounce:
-                    print('Fully auto standing bounce potential')
+                    match fully_auto_sbounce:
+                        case 3:
+                            print('Fully auto standing bounce potential')
+                        case 2:
+                            print('Fully auto standing bounce (with standing prefire) potential')
+                        case 1:
+                            print('Fully auto standing bounce (with crouched prefire) potential')
                     setup.FASTANDBOUNCE = 128
                 
                 if auto_sbounce:
-                    print('Auto standing bounce potential')
+                    match auto_sbounce:
+                        case 3:
+                            print('Auto standing bounce potential')
+                        case 2:
+                            print('Auto standing bounce (with standing prefire) potential')
+                        case 1:
+                            print('Auto standing bounce (with crouched prefire) potential')
                     print('Best vspeed:', -best_prefire_vspeed_auto_sbounce)
                     setup.ASTANDBOUNCE = 128
                 
                 if sbounce:
-                    print('Standing bounce potential')
+                    match sbounce:
+                        case 3:
+                            print('Standing bounce potential')
+                        case 2:
+                            print('Standing bounce (with standing prefire) potential')
+                        case 1:
+                            print('Standing bounce (with crouched prefire) potential')
                     print('Best vspeed:', -best_prefire_vspeed_sbounce)
                     setup.STANDBOUNCE = 128
+                
+                flag = [+bool(sbounce), +bool(auto_sbounce), fully_auto_sbounce, +bool(synced_sbounce), +bool(auto_synced_sbounce), fully_auto_synced_sbounce]
+                setup.standing_bounce_flag = flag[0] + (flag[1] << 1) + (flag[2] << 2) + (flag[3] << 4) + (flag[4] << 5) + (flag[5] << 6)
             
 
    
@@ -1025,7 +1112,21 @@ H = [
 128.0 ,
 ]
 
-heights = [928.0, 256.0, 384.0, 128.0, 1408.0, 1792.0, 320.0, 960.0, 1952.0, 2944.0, 3936.0, 4960.0, 2112.0]
+#from explore_code_paths import explore_all_paths, explore_specifc_paths
+#from setups import Setup, export_setups
+##height = 320.0
+##path_id = 190059
+#height = 960.0
+#path_id = 49589
+#f = lambda make_choice, path_id: try_bounce_setup([0.0, height], make_choice, path_id)
+#
+#found_setups = []
+#for setup in explore_specifc_paths(f, [path_id]):
+#    if type(setup) == Setup:
+#        if setup.my_hash not in found_setups:
+#            found_setups.append(setup)
+
+#heights = H#[928.0, 256.0, 384.0, 128.0, 1408.0, 1792.0, 320.0, 960.0, 1952.0, 2944.0, 3936.0, 4960.0, 2112.0]
 
 #find_bounce_setups_for_height(928)
 
@@ -1034,8 +1135,8 @@ from concurrent.futures import ProcessPoolExecutor
 
 # It is important to wrap like this, otherwise children will recursively try to create more threads
 if __name__ == '__main__':
-#    heights = range(1, 7000)
+    heights = range(1, 7000)
     
     # This launches 10 completely separate Python processes
-    with ProcessPoolExecutor(max_workers=12) as executor:
+    with ProcessPoolExecutor(max_workers=16) as executor:
         executor.map(find_bounce_setups_for_height, heights)

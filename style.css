@@ -12,6 +12,8 @@ body {
     
     padding: 20px;      /* 4. Adds breathing room so text doesn't touch phone edges */
     box-sizing: border-box; /* Keeps padding from breaking the width calculations */
+
+    text-align: center;
 }
 
 .search-area {

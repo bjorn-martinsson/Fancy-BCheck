@@ -401,19 +401,6 @@ a:hover {
 
 }
 
-#searchForm {
-
-    display: inline-flex;
-
-    gap: 10px;
-
-    align-items: center;
-
-}
-
-#targetInput {
-    width: 17ch; /* Adjust this number up or down to get the exact length you want! */
-}
 
 .banner {
 
@@ -648,4 +635,63 @@ a:hover {
 .settings-button:hover {
 
     color: #2563eb;
+}
+
+.search-form {
+
+    display: flex;
+
+    align-items: stretch;
+
+}
+
+.search-form input {
+    height: 44px;
+
+    padding: 0 16px;
+
+    border: 1px solid #cbd5e1;
+
+    border-right: none;
+
+    border-radius: 12px 0 0 12px;
+
+    box-sizing: border-box;
+
+    font-size: 16px;
+
+}
+
+.search-form input:focus {
+
+    border-color: #3b82f6;
+
+}
+
+.search-form button {
+    height: 44px;
+
+    padding: 0 18px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 0 12px 12px 0;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+
+}
+
+.search-form button:hover {
+
+    background: grey;
+}
+
+.search-form input,
+.search-form button {
+
+    box-sizing: border-box;
+    height: 32px;
+
 }

@@ -1153,13 +1153,13 @@ H = [
 #find_bounce_setups_for_height(1091)
 #find_bounce_setups_for_height(528)
 
-find_bounce_setups_for_height(604.0)
+find_bounce_setups_for_height(0.0)
 
-from concurrent.futures import ProcessPoolExecutor
-
+#from concurrent.futures import ProcessPoolExecutor
+#
 ## It is important to wrap like this, otherwise children will recursively try to create more threads
 #if __name__ == '__main__':
-#    heights =  [100]#range(1, 7000)
+#    heights = range(0, 7000)
 #    
 #    # This launches 10 completely separate Python processes
 #    with ProcessPoolExecutor(max_workers=16) as executor:

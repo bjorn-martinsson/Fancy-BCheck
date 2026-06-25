@@ -81,6 +81,7 @@ body {
 }
 
 .tooltip {
+    font-size: 14px;
     visibility: hidden;
     position: absolute;
 
@@ -193,6 +194,14 @@ button {
 
 }
 
+.copy-button.copied {
+
+    background: #22c55e;
+
+    color: white;
+
+}
+
 .setup h4 {
 
     margin-bottom: 5px;
@@ -261,6 +270,43 @@ button {
 
     margin-bottom: 8px;
 
+    font-weight: 400;
+}
+
+.speed-badge-crouched {
+
+    display: inline-block;
+
+    background: #fef3c7;
+    border-color: #fbbf24;
+
+    border-radius: 999px;
+
+    padding: 6px 10px;
+
+    margin-right: 8px;
+
+    margin-bottom: 8px;
+    
+    font-weight: 400;
+}
+
+.speed-badge-uncrouched {
+
+    display: inline-block;
+
+    background: #eff6ff;
+    border-color: #93c5fd;
+
+    border-radius: 999px;
+
+    padding: 6px 10px;
+
+    margin-right: 8px;
+
+    margin-bottom: 8px;
+    
+    font-weight: 400;
 }
 
 
@@ -394,7 +440,7 @@ a:hover {
 
     background-size: 200% 200%;
 
-    animation: gradientMove 300s ease infinite;
+    animation: gradientMove 50s ease infinite;
 
 
     box-shadow:
@@ -434,4 +480,172 @@ a:hover {
 
     100% { background-position: 0% 50%; }
 
+}
+
+.toast {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    right: 20px;
+
+    background: #22c55e;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.2);
+
+    z-index: 10000;
+
+    white-space: pre-wrap;
+
+    /* 1. Start hidden and set up the transition */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* 2. Class to fade it IN */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 3. Class to fade it OUT */
+.toast.hide {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.warningToast {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    right: 20px;
+
+    background: #f2545b;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.2);
+
+    z-index: 10000;
+
+    white-space: pre-wrap;
+
+    /* 1. Start hidden and set up the transition */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* 2. Class to fade it IN */
+.warningToast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 3. Class to fade it OUT */
+.warningToast.hide {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.posture-emoji {
+    font-size: 1.35em;
+    vertical-align: -0.1em;
+}
+
+
+.speed-display {
+    font-weight: 700;
+
+    /*font-size: 1.2em;*/
+    /*vertical-align: -0.2em;*/
+
+    font-variant-numeric: lining-nums;
+}
+
+.tag-sub {
+
+    font-size: 0.7em;
+
+    position: relative;
+
+    bottom: -0.25em;
+
+}
+
+.toolbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+.toolbar-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+/*.toolbar-left button {
+
+    margin-left: 10px;
+
+}
+
+#searchForm {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}*/
+
+.settings-button {
+
+    background: transparent;
+    border: none;
+
+    font-size: 26px;
+
+    color: #666;
+
+    cursor: pointer;
+
+    padding: 0;
+
+    width: auto;
+    height: auto;
+
+}
+
+.settings-button:hover {
+
+    color: #2563eb;
 }

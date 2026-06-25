@@ -902,8 +902,6 @@ class Soldier(Player):
             center_pos[2] += 41.0
             bbox = self.standing_bounding_box
 
-            bbox = self.ducked_bounding_box
-
         bbox_min = [center_pos[i] - bbox[i]/2 for i in range(3)]
         bbox_max = [center_pos[i] + bbox[i]/2 for i in range(3)]
 

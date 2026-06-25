@@ -28,90 +28,40 @@
     </div>
 
     <div class="container">
-        <div class="search-area">
+        <!--    <div class="search-area"> -->
+        <div class="toolbar"> 
+            <div class="toolbar-left">
+                <form
+                    id="searchForm">
 
-            <form
-                id="searchForm">
+                    <input
+                        id="targetInput"
+                        type="number"
+                        placeholder="Enter floor height">
 
-                <input
-                    id="targetInput"
-                    type="number"
-                    placeholder="Enter floor height">
+                    <button
+                        type="submit">
 
-                <button
-                    type="submit">
+                        Search
 
-                    Search
+                    </button>
 
+                </form>
+     
+                <button onclick="window.location.href='faq.html'">
+                    FAQ
                 </button>
+            </div>
 
-            </form>
+            <button
+                class="settings-button"
+                onclick="togglePreferences()"
+                title="Ranking Preferences">
 
-            <button onclick="togglePreferences()">
-                Preferences
-                <span
-                    class="tooltip-container is-right">
+                ⚙
 
-                    ⓘ
-
-                    <span
-                        class="tooltip">
-                        <h4>
-                            Ranking Preferences
-                        </h4>
-
-                        <p>
-                            Each setup is scored based on your preferences.
-                            Setups with higher scores are shown first.
-                        </p>
-
-                        <ul>
-
-                            <li>
-                                <b>Positive</b> values favor setups with that property.
-                            </li>
-
-                            <li>
-                                <b>Negative</b> values penalize setups with that property.
-                            </li>
-
-                            <li>
-                                <b>Zero</b> ignores the property entirely.
-                            </li>
-
-                        </ul>
-
-                        <p>
-
-                            <b>Example:</b>
-
-                            <br>
-
-                            <code>
-                                Stock = +100
-                            </code>
-
-                            strongly prefers setups for the stock launcher.
-
-                        </p>
-
-                        <p>
-
-                            <b>Note:</b>
-
-                            Preferences affect
-                            <b>ranking</b>,
-                            not filtering.
-
-                        </p>
-                    </span>
-
-                </span>
             </button>
- 
-            <button onclick="window.location.href='faq.html'">
-                FAQ
-            </button>
+
 
         </div>
 
@@ -127,6 +77,64 @@
 
                 <h2>
                     Ranking Preferences
+                    <span
+                        class="tooltip-container is-right">
+
+                        ⓘ
+
+                        <span
+                            class="tooltip">
+                            <h4>
+                                Ranking Preferences
+                            </h4>
+
+                            <p>
+                                Each setup is scored based on your preferences.
+                                Setups with higher scores are shown first.
+                            </p>
+
+                            <ul>
+
+                                <li>
+                                    <b>Positive</b> values favor setups with that property.
+                                </li>
+
+                                <li>
+                                    <b>Negative</b> values penalize setups with that property.
+                                </li>
+
+                                <li>
+                                    <b>Zero</b> ignores the property entirely.
+                                </li>
+
+                            </ul>
+
+                            <p>
+
+                                <b>Example:</b>
+
+                                <br>
+
+                                <code>
+                                    Stock = +100
+                                </code>
+
+                                strongly prefers setups for the stock launcher.
+
+                            </p>
+
+                            <p>
+
+                                <b>Note:</b>
+
+                                Preferences affect
+                                <b>ranking</b>,
+                                not filtering.
+
+                            </p>
+                        </span>
+
+                    </span>
                 </h2>
 
                 <button onclick="resetPreferences()">

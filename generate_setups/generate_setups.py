@@ -18,6 +18,12 @@ class Setup_data:
     tick_delay_auto_standing_bounce = -1 # DONE
     tick_delay_auto_synced_standing_bounce = -1 # DONE
     speeds = [] # Done
+    
+    bounce_flag = 0
+    standing_bounce_flag = 0
+    
+    rocket_fired_crouched_flag = 0
+    rocket_hit_crouched_flag = 0
 
     STOCK = 0 # Done
     ORIG = 0 # Done
@@ -27,7 +33,6 @@ class Setup_data:
     JB = 0 # DONE
     SIMPLE = 0
     CONIST = 0
-    NOBIND = 0 # DONE
     ABOUNCE = 0 # DONE
     ASBOUNCE = 0 # DONE
     ASTANDBOUNCE = 0 # DONE
@@ -57,6 +62,7 @@ class Setup_data:
     SHOTGUN = 0 # DONE
     ZEROROCKET = 0 # DONE
     ONEROCKET = 0 # DONE
+    TWOTHREEROCKETS = 0 # DONE
     JS = 0 # DONE
     JDS = 0 # DONE
     CTAP_JDS = 0 # DONE
@@ -102,6 +108,10 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             rocket_positions[rocket.rocket_id].append(list(rocket.pos))
             rocket_creation_time[rocket.rocket_id] = tick
             last_rocket_shot[0] = rocket.rocket_id
+
+            if p.b_ducked:
+                setup.rocket_fired_crouched_flag |= 1 << (rockets_shot.index(rocket.rocket_id) + 1)
+            
         def rocket_after_tick_update(self, rocket):
             rocket_positions[rocket.rocket_id].append(list(rocket.pos))
         def rocket_exploded(self, rocket, explosion_pos):
@@ -127,6 +137,9 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             print('Moving to floor', p.floor.z)
     
             last_rocket_hit_by[0] = rocket.rocket_id
+
+            if p.b_ducked:
+                setup.rocket_hit_crouched_flag |= 1 << (rockets_shot.index(rocket.rocket_id) + 1) 
         
         def player_air_to_ground(self, p):
             print('Update at tick', tick, end = ':\n')
@@ -232,6 +245,8 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
         setup.ZEROROCKET = 128
     elif number_of_rockets_to_be_fired == 1:
         setup.ONEROCKET = 128
+    elif 2 <= number_of_rockets_to_be_fired <= 3:
+        setup.TWOTHREEROCKETS = 128
 
     print('number_of_rockets_to_be_fired', number_of_rockets_to_be_fired)
     print('Using starting walk', starting_walk)
@@ -545,6 +560,10 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
         
         if tick == 20:
             setup.speeds[0] = sqrt(sum(p.vel[i]**2 for i in range(2)))
+
+            if p.b_ducked:
+                setup.rocket_hit_crouched_flag |= 1
+                setup.rocket_fired_crouched_flag |= 1
         
         match starting_shot:
             case 0:
@@ -669,7 +688,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
             best_prefire_vspeed_synced_bounce = -1000000
             best_prefire_vspeed_auto_bounce = -1000000
             best_prefire_vspeed_bounce = -1000000
-            
+
             # Is the prefire crouched (0) or standing (1)
             for prefire in 0,1:
 
@@ -990,7 +1009,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
     setup.HEIGHT = round(min(1, diff / 700.0) * 255)
 
     # Set nobind weight to average
-    setup.NOBIND = (setup.NOMOVEMENTBIND + setup.NOACTIONBIND) // 2
+    NOBIND = (setup.NOMOVEMENTBIND + setup.NOACTIONBIND) // 2
 
     # Compute general properties of the setup
     
@@ -1015,7 +1034,7 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
     
     # Compute simple and consitency from previous scores
 
-    complications = [255 - setup.NOACTIONBIND, 255 - setup.NOBIND]
+    complications = [255 - setup.NOACTIONBIND, 255 - NOBIND]
     complications+= [255 - round(255 * 2**-max(0, (number_of_rockets_to_be_fired - 1)/3))] * 10
     complications+= [setup.ONETICK, setup.TWOTICK]
     setup.SIMPLE = max(0, round(255 - sum(complications) / len(complications)))
@@ -1031,7 +1050,10 @@ def try_bounce_setup(floor_heights, make_choice, path_id):
         #global interesting_count
         #interesting_count[tuple(sorted(z for x,y,z in player_pos))] = 1
         visualizer.visualize(player_pos, rocket_positions, rocket_explosions)
-    
+     
+#    if path_id == 163431:
+#        exit()
+
     if (possible_bounces or possible_jumpbugs):
 
         setup.my_hash = tuple(sorted(z for x,y,z in player_pos))
@@ -1119,7 +1141,7 @@ H = [
 #height = 960.0
 #path_id = 49589
 #f = lambda make_choice, path_id: try_bounce_setup([0.0, height], make_choice, path_id)
-#
+
 #found_setups = []
 #for setup in explore_specifc_paths(f, [path_id]):
 #    if type(setup) == Setup:
@@ -1128,15 +1150,17 @@ H = [
 
 #heights = H#[928.0, 256.0, 384.0, 128.0, 1408.0, 1792.0, 320.0, 960.0, 1952.0, 2944.0, 3936.0, 4960.0, 2112.0]
 
-#find_bounce_setups_for_height(928)
+#find_bounce_setups_for_height(1091)
+#find_bounce_setups_for_height(528)
 
+find_bounce_setups_for_height(604.0)
 
 from concurrent.futures import ProcessPoolExecutor
 
-# It is important to wrap like this, otherwise children will recursively try to create more threads
-if __name__ == '__main__':
-    heights = range(1, 7000)
-    
-    # This launches 10 completely separate Python processes
-    with ProcessPoolExecutor(max_workers=16) as executor:
-        executor.map(find_bounce_setups_for_height, heights)
+## It is important to wrap like this, otherwise children will recursively try to create more threads
+#if __name__ == '__main__':
+#    heights =  [100]#range(1, 7000)
+#    
+#    # This launches 10 completely separate Python processes
+#    with ProcessPoolExecutor(max_workers=16) as executor:
+#        executor.map(find_bounce_setups_for_height, heights)

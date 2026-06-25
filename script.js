@@ -298,11 +298,12 @@ function initializePreferenceLogic() {
             slider.addEventListener(
                 "change",
                 () => {
+                showToast("Preferences have been updated. Reranking search results...", 1000) 
                 rerankResults();
             });
 
             number.addEventListener(
-                "input",
+                "change",
                 () => {
 
                 const value =
@@ -320,6 +321,7 @@ function initializePreferenceLogic() {
                     value
                 );
 
+                showToast("Preferences have been updated. Reranking search results...", 1000) 
                 rerankResults();
 
             });
@@ -361,6 +363,7 @@ function resetPreferences() {
 
     });
 
+    showToast("Preferences have been reset to default. Reranking search results...", 2000) 
     rerankResults();
 
 }
@@ -421,6 +424,10 @@ async function findSetups() {
 
     // 1. Get the input and convert it to an integer
     const inputVal = parseInt(document.getElementById("targetInput").value, 10);
+    
+    if (isNaN(inputVal) || inputVal < 0) {
+        showWarningToast("This website currently only supports non-negative integer heights.");
+    }
 
     // 2. Perform the efficient modulo reduction
     const finalNumber = inputVal > 8000 
@@ -651,7 +658,7 @@ function displayResults() {
                         <span
                             class="tooltip">
 
-                            The initial walking speed and the speed you have after getting hit by rockets, ordered by when they were shot. Note that you might need to manually duck/unduck in mid-air to reach the correct speeds. You'll know you're doing it right if you reach the correct speeds.
+                            The initial walking speed and the speed you have after getting hit by rockets, ordered by when they were shot. Yellow color indicates that you should be crouched. Blue color indicates that you should be uncrouched.
 
                         </span>
                     </span>
@@ -665,22 +672,57 @@ function displayResults() {
 
             `;
 
-
             div
             .querySelector(
                 ".copy-button"
             )
             .addEventListener(
                 "click",
-                () => {
+                async (event) => {
 
-                    copyText(
+                    await copyText(
                         allCode
+                    );
+
+                    const button =
+                        event.target;
+
+                    const oldText =
+                        button.textContent;
+
+                    button.textContent =
+                        "Copied ✓";
+                    
+                    button.classList.add(
+                        "copied"
+                    );
+
+                    showToast(
+                        "Copied bind ✓:\n\n" + allCode
+                    );
+                    
+                    button.disabled =
+                        true;
+
+                    setTimeout(
+                        () => {
+
+                            button.textContent =
+                                oldText;
+                            
+                            button.classList.remove(
+                                "copied"
+                            );
+                            
+                            button.disabled =
+                                false;
+
+                        },
+                        2000
                     );
 
                 }
             );
-
 
             container.appendChild(
                 div
@@ -689,6 +731,57 @@ function displayResults() {
         }
     );
 
+}
+
+function showToast(text, duration = 5000) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = text;
+    document.body.appendChild(toast);
+
+    // 1. Force a reflow/repaint so the browser registers the starting state,
+    // then add the 'show' class to fade it in.
+    requestAnimationFrame(() => {
+        toast.classList.add("show");
+    });
+
+    // 2. Schedule the fade out
+    setTimeout(() => {
+        toast.classList.remove("show");
+        toast.classList.add("hide");
+
+        // 3. Wait for the CSS transition (400ms / 0.4s) to finish before removing from DOM
+        setTimeout(() => {
+            toast.remove();
+        }, 400); 
+
+    }, duration);
+}
+
+// Show red toast
+function showWarningToast(text, duration = 5000) {
+    const toast = document.createElement("div");
+    toast.className = "warningToast";
+    toast.textContent = text;
+    document.body.appendChild(toast);
+
+    // 1. Force a reflow/repaint so the browser registers the starting state,
+    // then add the 'show' class to fade it in.
+    requestAnimationFrame(() => {
+        toast.classList.add("show");
+    });
+
+    // 2. Schedule the fade out
+    setTimeout(() => {
+        toast.classList.remove("show");
+        toast.classList.add("hide");
+
+        // 3. Wait for the CSS transition (400ms / 0.4s) to finish before removing from DOM
+        setTimeout(() => {
+            toast.remove();
+        }, 400); 
+
+    }, duration);
 }
 
 function launcherDescription(type) {
@@ -1289,36 +1382,131 @@ function createTag(
 function buildRocketSpeedSection(
     setup
 ) {
+return "<div class=\"tag-row\">"
+    +
+    setup.rocketSpeeds
+	.map((speed, index) => {
 
-    return setup.rocketSpeeds
-        .map(
-            (speed, index) =>
-            
-            index == 0 ?
-            `<span
-                class="speed-badge">
+		const firedCrouched =
+			(setup.rocket_fired_crouched_flag & (1 << index)) !== 0;
 
-                Initial:
-                ${speed.toFixed(2)}
-                u/s
+		const hitCrouched =
+			(setup.rocket_hit_crouched_flag & (1 << index)) !== 0;
+		
+		let text;
+		let description;
+		let type;
+		if (index == 0) {
+			if (firedCrouched) {
+				text =
+					`
+                    <span class=speed-display>${speed.toFixed(2)}</span>
+					`;
+				description =
+					`
+						Crouch-walk at ${speed.toFixed(2)} u/s speed.
+					`;
+				type = "speed-badge-crouched";
+			} else {
+				text =
+					`
+                    <span class=speed-display>${speed.toFixed(2)}</span>
+					`;
+				description =
+					`
+						Walk at ${speed.toFixed(2)} u/s speed.
+					`;
+				type = "speed-badge-uncrouched";
+			}
+		} else if (speed === 0 && firedCrouched) {
+		    text =
+				`
+					R<span class="tag-sub">${index}</span>: -
+				`;
+			description =
+				`
+					Rocket ${index} is purely a timing rocket. It is not supposed to hit the player.
+				`;
+			type = "speed-badge-crouched";
+		} else if (speed === 0 && !firedCrouched) {
+		    text =
+				`
+					R<span class="tag-sub">${index}</span>: -
+				`;
+			description =
+				`
+					Rocket ${index} is purely a timing rocket. It is not supposed to hit the player.
+				`;
+			type = "speed-badge-uncrouched";
 
-            </span>` 
-            :
-            `<span
-                class="speed-badge">
+		} else if (firedCrouched && hitCrouched) {
+		    text =
+				`
+                    R<span class="tag-sub">${index}</span>: 
+					<span class=speed-display>${speed.toFixed(2)}</span>
+				`;
+			description =
+				`
+					Rocket ${index} should be shot and explode while the player is crouched, resulting in ${speed.toFixed(2)} u/s speed.
+				`;
+			type = "speed-badge-crouched";
 
-                R<sub>${index}</sub>:
-                ${speed == 0 ? "-" : speed.toFixed(2) + " u/s"}
+		} else if (!firedCrouched && !hitCrouched) {
+		    text =
+				`
+                    R<span class="tag-sub">${index}</span>: 
+                    <span class=speed-display>${speed.toFixed(2)}</span>
+				`;
+			description =
+				`
+					Rocket ${index} should be shot and explode while the player is uncrouched, resulting in ${speed.toFixed(2)} u/s speed.
+				`;
+			type = "speed-badge-uncrouched";
 
-            </span>` 
-        )
-        .join("");
+		} else if (firedCrouched && !hitCrouched) {
+		    text =
+				`
+                    R<span class="tag-sub">${index}</span>: 
+					<span class=speed-display>${speed.toFixed(2)}</span>
+					(C -> S)
+				`;
+			description =
+				`
+					Rocket ${index} should be shot while the player is crouched and explode while the player is uncrouched, resulting in ${speed.toFixed(2)} u/s speed.
+				`;
+			type = "speed-badge";
+
+		} else if (!firedCrouched && hitCrouched) {
+		    text =
+				`
+                    R<span class="tag-sub">${index}</span>: 
+					<span class=speed-display>${speed.toFixed(2)}</span>
+				    (Ctap)
+                `;
+			description =
+				`
+					Rocket ${index} should be shot while the player is uncrouched and explode while the player is crouched, resulting in ${speed.toFixed(2)} u/s speed.
+				`;
+			type = "speed-badge";
+		}
+
+		return createTag(
+			text,
+			{
+                description: description,
+				type: type
+			}
+		);
+
+	})
+	.join("")
+    + "</div>";
 
 }
 
-function copyText(text) {
+async function copyText(text) {
 
-    navigator.clipboard
+    await navigator.clipboard
         .writeText(text);
 
 }
@@ -1377,7 +1565,8 @@ const FLAG_NAMES = [
     "JB",
     "SIMPLE",
     "CONIST",
-    "NOBIND",
+    "NOMOVEMENTBIND",
+    "NOACTIONBIND",
     "ABOUNCE",
     "ASBOUNCE",
     "ASTANDBOUNCE",
@@ -1403,20 +1592,18 @@ const FLAG_NAMES = [
     "DIAGONAL",
     "MOVEUP",
     "STRAFE",
-    "NOMOVEMENTBIND",
     "SHOTGUN",
     "ZEROROCKET",
     "ONEROCKET",
+    "TWOTHREEROCKETS",
     "JS",
     "JDS",
     "CTAP_JDS",
     "ONETICK",
-    "TWOTICK",
-    "NOACTIONBIND"
-
+    "TWOTICK"
 ];
 
-const RECORD_SIZE = 90;
+const RECORD_SIZE = 92;
 
 function decodeSetup(view, offset) {
 
@@ -1462,6 +1649,12 @@ function decodeSetup(view, offset) {
         view.getUint8(cursor++);
     
     setup.standing_bounce_flag = 
+        view.getUint8(cursor++);
+    
+    setup.rocket_fired_crouched_flag = 
+        view.getUint8(cursor++);
+    
+    setup.rocket_hit_crouched_flag =
         view.getUint8(cursor++);
     
     for (const flag of FLAG_NAMES) {
@@ -1899,14 +2092,17 @@ function decodeSetup(view, offset) {
 
     action_bind = {};
 
+    const oldm1 = `old m1 to shoot ${setup.num_rockets > 1 ? `a total of ${setup.num_rockets} rockets` : "1 rocket"}`;
+    const oldm1more = `old m1 to shoot ${setup.num_rockets - 1} additional ${setup.num_rockets - 1 > 1 ? "rockets" : "rocket"}`;
+
     switch (setup.start_action) {
         case 0:
             if (setup.num_rockets == 1) {
                 action_bind.name = "Shoot 1 rocket.";
                 action_bind.description = "Shoot 1 rocket (while looking straight down).";
             } else {
-                action_bind.name = "Hold m1.";
-                action_bind.description = "Hold m1 (while looking straight down).";
+                action_bind.name = `H${oldm1}.`;
+                action_bind.description = `H${oldm1} (while looking straight down).`;
             }
             action_bind.code = "alias +strike \"+attack\";\nalias -strike \"-attack -1\";";
             break;
@@ -1916,8 +2112,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Shoot 1 rocket.";
                 action_bind.description = "Shoot 1 rocket (while looking straight down).";
             } else {
-                action_bind.name = "Hold m1.";
-                action_bind.description = "Hold m1 (while looking straight down).";
+                action_bind.name = `H${oldm1}.`;
+                action_bind.description = `H${oldm1} (while looking straight down).`;
             }
             action_bind.code = "alias +strike \"+attack\";\nalias -strike \"-attack -1\";";
             break;
@@ -1929,8 +2125,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "JS.";
                 action_bind.description = "JS (Jump shot). Shoot 1 rocket + jump at same time (while looking straight down).";
             } else {
-                action_bind.name = "JS, then continue holding m1.";
-                action_bind.description = "JS (Jump shot). Shoot 1 rocket + jump at the same time (while looking straight down), then continue holding m1.";
+                action_bind.name = `JS, then h${oldm1more}.`;
+                action_bind.description = `JS (Jump shot). Shoot 1 rocket + jump at the same time (while looking straight down), then h${oldm1more}.`;
             }
             action_bind.code = "alias +strike \"+attack; +jump; -jump -1\";\nalias -strike \"-attack -1\";";
             break;
@@ -1942,8 +2138,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "JDS.";
                 action_bind.description = "JDS (Jump duck shot). Shoot 1 rocket + jump + duck at same time (while looking straight down).";
             } else {
-                action_bind.name = "JDS, then continue holding m1.";
-                action_bind.description = "JDS (Jump duck shot). Shoot 1 rocket + jump + duck at the same time (while looking straight down), then continue holding m1.";
+                action_bind.name = `JDS, then h${oldm1more}.`;
+                action_bind.description = `JDS (Jump duck shot). Shoot 1 rocket + jump + duck at the same time (while looking straight down), then h${oldm1more}.`;
             }
             action_bind.code = "alias +strike \"+attack; +jump; -jump -1; +duck\";\nalias -strike \"-attack -1; -duck -1\";";
             break;
@@ -1955,8 +2151,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Ctap JDS.";
                 action_bind.description = "Ctap JDS (Ctap Jump duck shot). Shoot 1 rocket + Ctap at same time (while looking straight down).";
             } else {
-                action_bind.name = "Ctap JDS, then continue holding m1.";
-                action_bind.description = "Ctap JDS (Ctap Jump duck shot). Shoot 1 rocket + Ctap at the same time (while looking straight down), then continue holding m1.";
+                action_bind.name = `Ctap JDS, then h${oldm1more}.`;
+                action_bind.description = `Ctap JDS (Ctap Jump duck shot). Shoot 1 rocket + Ctap at the same time (while looking straight down), then h${oldm1more}.`;
             }
             action_bind.code = "alias +strike \"+attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";";
             break;
@@ -1966,8 +2162,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Jump + quick-switch.";
                 action_bind.description = "A normal jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
             } else {
-                action_bind.name = "Jump + quick-switch.";
-                action_bind.description = "A normal jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Jump + quick-switch at same time (while looking straight down), then press and hold m1 to shoot the delayed rocket/rockets.";
+                action_bind.name = `Jump + quick-switch, then h${oldm1}.`;
+                action_bind.description = `A normal jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Jump + quick-switch at same time (while looking straight down), then h${oldm1}.`;
             } 
             action_bind.code = "alias +strike \"slot1; +attack; +jump; -jump -1\";\nalias -strike \"-attack -1\";";
             break;
@@ -1977,8 +2173,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Crouched jump + quick-switch.";
                 action_bind.description = "Crouched jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
             } else {
-                action_bind.name = "Crouched jump + quick-switch.";
-                action_bind.description = "Crouched jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Crouched jump + quick-switch at same time (while looking straight down), then press and hold m1 to fire the delayed rocket/rockets.";
+                action_bind.name = `Crouched jump + quick-switch, then h${oldm1}.`;
+                action_bind.description = `Crouched jump combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Crouched jump + quick-switch at same time (while looking straight down), then h${oldm1}.`;
             } 
             action_bind.code = "alias +strike \"slot1; +attack; +jump; -jump -1; +duck\";\nalias -strike \"-attack -1; -duck -1\";";
             break;
@@ -1988,8 +2184,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Ctap + quick-switch.";
                 action_bind.description = "Ctap combined with a quick-switch to rocket launcher (delays firing by 34 ticks).";
             } else {
-                action_bind.name = "Ctap + quick-switch.";
-                action_bind.description = "Ctap combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Ctap + quick-switch at same time (while looking straight down), then press and hold m1 to fire the delayed rocket/rockets.";
+                action_bind.name = `Ctap + quick-switch, then h${oldm1}.`;
+                action_bind.description = `Ctap combined with a quick-switch to rocket launcher (delays firing by 34 ticks). Ctap + quick-switch at same time (while looking straight down), then h${oldm1}.`;
             } 
             action_bind.code = "alias +strike \"slot1; +attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";";
             break;
@@ -1999,8 +2195,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Ctap JDS (but press m1 1-tick early).";
                 action_bind.description = "Ctap JDS (Ctap jump duck shot) with a 1-tick early rocket. This is requires manually timing the shot, but gives more height than a normal Ctap JDS.";
             } else {
-                action_bind.name = "Ctap JDS (but press m1 1-tick early), then continue holding m1.";
-                action_bind.description = "Ctap JDS (Ctap jump duck shot) with a 1-tick early rocket, then continue holding m1. This is requires manually timing the shot, but gives more height than a normal Ctap JDS.";
+                action_bind.name = `Ctap JDS (but press m1 1-tick early), then h${oldm1more}.`;
+                action_bind.description = `Ctap JDS (Ctap jump duck shot) with a 1-tick early rocket, then h${oldm1more}. This is requires manually timing the shot, but gives more height than a normal Ctap JDS.`;
             }
             action_bind.code = "alias +strike \"+attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";";
             break;
@@ -2010,8 +2206,8 @@ function decodeSetup(view, offset) {
                 action_bind.name = "Ctap JDS (but press m1 2-tick early).";
                 action_bind.description = "Ctap JDS (Ctap jump duck shot) with a 2-tick early rocket. This is requires manually timing the shot, but gives more height than a normal Ctap JDS. Useful on jumps such as jump_diabahra last.";
             } else {
-                action_bind.name = "Ctap JDS (but press m1 2-tick early), then continue holding m1.";
-                action_bind.description = "Ctap JDS (Ctap jump duck shot) with a 2-tick early rocket, then continue holding m1. This is requires manually timing the shot, but gives more height than a normal Ctap JDS. Useful on jumps such as jump_diabahra last.";
+                action_bind.name = `Ctap JDS (but press m1 2-tick early), then h${oldm1more}.`;
+                action_bind.description = `Ctap JDS (Ctap jump duck shot) with a 2-tick early rocket, then h${oldm1more}. This is requires manually timing the shot, but gives more height than a normal Ctap JDS. Useful on jumps such as jump_diabahra last.`;
             }
             action_bind.code = "alias +strike \"+attack; +jump; -jump -1; +duck; -duck -1\";\nalias -strike \"-attack -1\";";
             break;
@@ -2036,7 +2232,6 @@ async function loadHeight(
     if (
         !response.ok
     ) {
-
         return [];
 
     }
@@ -2051,7 +2246,6 @@ async function loadHeight(
         await decompressedResponse
             .arrayBuffer();
 
-    
     // Assert that file has correct format
     if (
         buffer.byteLength

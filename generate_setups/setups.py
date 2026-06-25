@@ -16,7 +16,8 @@ DATA = {
     "Complexity" : [ 
         "Simple",             65, "SIMPLE",    "Setups that are simple. Requiring few/no binds, few inputs, and few rockets.",
         "Consistency",        0,  "CONIST",    "Setups avoiding diagonal movement, which can be inconsistent without a bind. Also prefer bounce setups where the timing window for hitting the bounce is large.",
-        "No bind required",   0, "NOBIND",    "Setups that use no binds.",
+        "No movement bind required",    0, "NOMOVEMENTBIND",   "Setups that can be performed using just WASD. Note that a bind might still be preferable for consistency in the case of diagonal movement.",
+        "No action bind required",    0, "NOACTIONBIND",   "Setups that only involve jumping or firing a rocket.",
     ],
 
     "Automatic bounce" : [
@@ -57,19 +58,18 @@ DATA = {
         "Diagonal movement",   0, "DIAGONAL",         "Setups with diagonal movement, which, unless a bind is used, may be inconsistent.",
         "+moveup",             0,  "MOVEUP",           "Setups involving the +moveup command. This allows the player to accelerate/walk slower.",
         "+strafe",             0,  "STRAFE",           "Setups involving +strafe together with +left or +right. This allows the player to walk in directions/speeds that are otherwise impossible.",
-        "No bind required",    0,  "NOMOVEMENTBIND",   "Setups that can be performed using just WASD. Note that a bind might still be preferable for consistency in the case of diagonal movement.",
     ],
 
     "Action" : [
         "Quickswap",            0,   "SHOTGUN",        "Setups that start by quickswapping to delay the first rocket. The player needs to be holding a different weapon than their rocket launcher for this to work.",
-        "Rocketless setup",     0,   "ZEROROCKET",     "Setups that involve no rockets in the initial action. Note that setups may still require rockets to hit for example a bounce.",
-        "1 Rocket setup",       0,   "ONEROCKET",      "Setups that use exactly 1 rocket. (Excluding any rocket used to hit a bounce).",
+        "0 rocket setup",     0,   "ZEROROCKET",     "Setups that involve no rockets in the initial action. Note that setups may still require rockets to hit for example a bounce.",
+        "1 rocket setup",       0,   "ONEROCKET",      "Setups that use exactly 1 rocket. (Excluding any rocket used to hit a bounce).",
+        "2-3 rocket setup",     0,   "TWOTHREEROCKETS","Setups that use 2 or 3 rockets. (Excluding any rocket used to hit a bounce).",
         "Jump shoot",           0,   "JS",             "Setups that start with a \"Jump shot\", shooting and jumping at the same time.",
         "Jump duck shoot",      0,   "JDS",            "Setups that start with a \"Jump duck shot\", shooting and crouched jumping at the same time.",
         "Ctap jump duck shoot", 0,   "CTAP_JDS",       "Setups that start with a \"CTAP jump duck shot\", shooting and ctap jumping at the same time. This is preferable to maximize height.",
         "Shoot 1 tick early",   -1000, "ONETICK",        "CTAP JDS setups that require manually shooting a rocket 1 tick before performing the CTAP, resulting in more height and speed.",
         "Shoot 2 ticks early",  -1000, "TWOTICK",        "CTAP JDS setups that require manually shooting a rocket 2 ticks before performing the CTAP, resulting in the most powerful CTAP possible. Useful for jumps like jump_diabarha last.",
-        "No bind required",     0,   "NOACTIONBIND",   "Setups that only involve jumping or firing a rocket.",
     ],
 }
 
@@ -83,7 +83,8 @@ DATA = {
 #    "JB",
 #    "SIMPLE",
 #    "CONIST",
-#    "NOBIND",
+#    "NOMOVEMENTBIND",
+#    "NOACTIONBIND"
 #    "ABOUNCE",
 #    "ASBOUNCE",
 #    "ASTANDBOUNCE",
@@ -109,16 +110,15 @@ DATA = {
 #    "DIAGONAL",
 #    "MOVEUP",
 #    "STRAFE",
-#    "NOMOVEMENTBIND",
 #    "SHOTGUN",
 #    "ZEROROCKET",
 #    "ONEROCKET",
+#    "TWOTHREEROCKETS",
 #    "JS",
 #    "JDS",
 #    "CTAP_JDS",
 #    "ONETICK",
 #    "TWOTICK",
-#    "NOACTIONBIND"
 #
 #];
 #
@@ -163,6 +163,9 @@ class Setup:
     bounce_flag = 0
     standing_bounce_flag = 0
 
+    rocket_fired_crouched_flag = 0
+    rocket_hit_crouched_flag = 0
+
     def __init__(self):
         self.speeds = []
         for item_id in item_ids:
@@ -188,6 +191,8 @@ class Setup:
         data += [self.tick_delay_auto_bounce & mask8, self.tick_delay_auto_synced_bounce & mask8, self.tick_delay_auto_standing_bounce & mask8, self.tick_delay_auto_synced_standing_bounce & mask8]
 
         data += [self.bounce_flag & mask8, self.standing_bounce_flag & mask8]
+        
+        data += [self.rocket_fired_crouched_flag & mask8, self.rocket_hit_crouched_flag & mask8]
 
         for item_id in item_ids:
             data.append(self.__dict__[item_id] & mask8)
@@ -196,7 +201,7 @@ class Setup:
         data += [round(100 * v) & mask32 if not math.isnan(v) else 0 for v in self.speeds]
 
         record = struct.pack(
-            f"<Q{10 + len(item_ids)}B7I",
+            f"<Q{12 + len(item_ids)}B7I",
             *data
         )
 

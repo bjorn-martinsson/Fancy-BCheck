@@ -701,6 +701,13 @@ a:hover {
 
 }
 
+
+.search-form button:active {
+
+    background: #cccccc;
+
+}
+
 .browser-btn {
     /* 2. Strip away default link styling */
     color: #000000; /* Standard black text */

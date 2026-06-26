@@ -298,7 +298,7 @@ function initializePreferenceLogic() {
             slider.addEventListener(
                 "change",
                 () => {
-                showToast("Preferences have been updated. Reranking search results...", 1000) 
+                showToast("Preferences updated. Reranking search results...", 2000) 
                 rerankResults();
             });
 
@@ -321,7 +321,7 @@ function initializePreferenceLogic() {
                     value
                 );
 
-                showToast("Preferences have been updated. Reranking search results...", 1000) 
+                showToast("Preferences updated. Reranking search results...", 2000) 
                 rerankResults();
 
             });
@@ -363,7 +363,7 @@ function resetPreferences() {
 
     });
 
-    showToast("Preferences have been reset to default. Reranking search results...", 2000) 
+    showToast("Preferences reset to default. Reranking search results...", 2000) 
     rerankResults();
 
 }
